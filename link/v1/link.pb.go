@@ -11,7 +11,6 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
-	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -23,13 +22,13 @@ const (
 )
 
 type Link struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The cluster name.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
-	AgentVersion  *string `protobuf:"bytes,2,opt,name=agent_version,json=agentVersion" json:"agent_version,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_AgentVersion *string                `protobuf:"bytes,2,opt,name=agent_version,json=agentVersion"`
+	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
+	XXX_presence            [1]uint32
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *Link) Reset() {
@@ -57,28 +56,87 @@ func (x *Link) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Link.ProtoReflect.Descriptor instead.
-func (*Link) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{0}
-}
-
 func (x *Link) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *Link) GetAgentVersion() string {
-	if x != nil && x.AgentVersion != nil {
-		return *x.AgentVersion
+	if x != nil {
+		if x.xxx_hidden_AgentVersion != nil {
+			return *x.xxx_hidden_AgentVersion
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *Link) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *Link) SetAgentVersion(v string) {
+	x.xxx_hidden_AgentVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *Link) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Link) HasAgentVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Link) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *Link) ClearAgentVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_AgentVersion = nil
+}
+
+type Link_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The cluster name.
+	Cluster *string
+	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
+	AgentVersion *string
+}
+
+func (b0 Link_builder) Build() *Link {
+	m0 := &Link{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.AgentVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_AgentVersion = b.AgentVersion
+	}
+	return m0
+}
+
 // ListLinksRequest is an empty request message for listing links.
 type ListLinksRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
+	state         protoimpl.MessageState `protogen:"opaque.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -108,18 +166,24 @@ func (x *ListLinksRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListLinksRequest.ProtoReflect.Descriptor instead.
-func (*ListLinksRequest) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{1}
+type ListLinksRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+}
+
+func (b0 ListLinksRequest_builder) Build() *ListLinksRequest {
+	m0 := &ListLinksRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	return m0
 }
 
 // ListLinksResponse contains the list of links the agent is registered to.
 type ListLinksResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The list of links.
-	Links         []*Link `protobuf:"bytes,1,rep,name=links" json:"links,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Links *[]*Link               `protobuf:"bytes,1,rep,name=links"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *ListLinksResponse) Reset() {
@@ -147,33 +211,46 @@ func (x *ListLinksResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListLinksResponse.ProtoReflect.Descriptor instead.
-func (*ListLinksResponse) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{2}
-}
-
 func (x *ListLinksResponse) GetLinks() []*Link {
 	if x != nil {
-		return x.Links
+		if x.xxx_hidden_Links != nil {
+			return *x.xxx_hidden_Links
+		}
 	}
 	return nil
+}
+
+func (x *ListLinksResponse) SetLinks(v []*Link) {
+	x.xxx_hidden_Links = &v
+}
+
+type ListLinksResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The list of links.
+	Links []*Link
+}
+
+func (b0 ListLinksResponse_builder) Build() *ListLinksResponse {
+	m0 := &ListLinksResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Links = &b.Links
+	return m0
 }
 
 // RegisterRequest contains the agent's cluster identity and a CSR for
 // mTLS certificate issuance.
 type RegisterRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The cluster identifier this agent belongs to.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// PEM-encoded PKCS#10 certificate signing request. The server signs
-	// this with its internal CA and returns the issued certificate.
-	Csr []byte `protobuf:"bytes,2,opt,name=csr" json:"csr,omitempty"`
-	// The agent identifier this agent uses to register with the server.
-	AgentId *string `protobuf:"bytes,3,opt,name=agent_id,json=agentId" json:"agent_id,omitempty"`
-	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
-	AgentVersion  *string `protobuf:"bytes,4,opt,name=agent_version,json=agentVersion" json:"agent_version,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Csr          []byte                 `protobuf:"bytes,2,opt,name=csr"`
+	xxx_hidden_AgentId      *string                `protobuf:"bytes,3,opt,name=agent_id,json=agentId"`
+	xxx_hidden_AgentVersion *string                `protobuf:"bytes,4,opt,name=agent_version,json=agentVersion"`
+	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
+	XXX_presence            [1]uint32
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *RegisterRequest) Reset() {
@@ -201,47 +278,160 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
-func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{3}
-}
-
 func (x *RegisterRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RegisterRequest) GetCsr() []byte {
 	if x != nil {
-		return x.Csr
+		return x.xxx_hidden_Csr
 	}
 	return nil
 }
 
 func (x *RegisterRequest) GetAgentId() string {
-	if x != nil && x.AgentId != nil {
-		return *x.AgentId
+	if x != nil {
+		if x.xxx_hidden_AgentId != nil {
+			return *x.xxx_hidden_AgentId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RegisterRequest) GetAgentVersion() string {
-	if x != nil && x.AgentVersion != nil {
-		return *x.AgentVersion
+	if x != nil {
+		if x.xxx_hidden_AgentVersion != nil {
+			return *x.xxx_hidden_AgentVersion
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *RegisterRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+}
+
+func (x *RegisterRequest) SetCsr(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Csr = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *RegisterRequest) SetAgentId(v string) {
+	x.xxx_hidden_AgentId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *RegisterRequest) SetAgentVersion(v string) {
+	x.xxx_hidden_AgentVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *RegisterRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *RegisterRequest) HasCsr() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *RegisterRequest) HasAgentId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *RegisterRequest) HasAgentVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *RegisterRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *RegisterRequest) ClearCsr() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Csr = nil
+}
+
+func (x *RegisterRequest) ClearAgentId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_AgentId = nil
+}
+
+func (x *RegisterRequest) ClearAgentVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_AgentVersion = nil
+}
+
+type RegisterRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The cluster identifier this agent belongs to.
+	Cluster *string
+	// PEM-encoded PKCS#10 certificate signing request. The server signs
+	// this with its internal CA and returns the issued certificate.
+	Csr []byte
+	// The agent identifier this agent uses to register with the server.
+	AgentId *string
+	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
+	AgentVersion *string
+}
+
+func (b0 RegisterRequest_builder) Build() *RegisterRequest {
+	m0 := &RegisterRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Csr != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_Csr = b.Csr
+	}
+	if b.AgentId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_AgentId = b.AgentId
+	}
+	if b.AgentVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_AgentVersion = b.AgentVersion
+	}
+	return m0
 }
 
 // GetAgentManifestRequest identifies the target cluster for which
 // the agent installation manifest should be generated.
 type GetAgentManifestRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The cluster name the agent will register under.
-	Cluster       *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *GetAgentManifestRequest) Reset() {
@@ -269,30 +459,61 @@ func (x *GetAgentManifestRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAgentManifestRequest.ProtoReflect.Descriptor instead.
-func (*GetAgentManifestRequest) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{4}
-}
-
 func (x *GetAgentManifestRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *GetAgentManifestRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+}
+
+func (x *GetAgentManifestRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *GetAgentManifestRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+type GetAgentManifestRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The cluster name the agent will register under.
+	Cluster *string
+}
+
+func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
+	m0 := &GetAgentManifestRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	return m0
 }
 
 // GetAgentManifestResponse contains the multi-document YAML manifest
 // that can be applied via kubectl to install the agent.
 type GetAgentManifestResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Multi-document YAML containing Namespace, ServiceAccount,
-	// ClusterRoleBinding, and Deployment resources.
-	Manifest *string `protobuf:"bytes,1,opt,name=manifest" json:"manifest,omitempty"`
-	// URL with an embedded HMAC token that serves the manifest as raw
-	// YAML. Users can run `kubectl apply -f <url>` directly.
-	Url           *string `protobuf:"bytes,2,opt,name=url" json:"url,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Manifest    *string                `protobuf:"bytes,1,opt,name=manifest"`
+	xxx_hidden_Url         *string                `protobuf:"bytes,2,opt,name=url"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *GetAgentManifestResponse) Reset() {
@@ -320,41 +541,98 @@ func (x *GetAgentManifestResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAgentManifestResponse.ProtoReflect.Descriptor instead.
-func (*GetAgentManifestResponse) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{5}
-}
-
 func (x *GetAgentManifestResponse) GetManifest() string {
-	if x != nil && x.Manifest != nil {
-		return *x.Manifest
+	if x != nil {
+		if x.xxx_hidden_Manifest != nil {
+			return *x.xxx_hidden_Manifest
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetAgentManifestResponse) GetUrl() string {
-	if x != nil && x.Url != nil {
-		return *x.Url
+	if x != nil {
+		if x.xxx_hidden_Url != nil {
+			return *x.xxx_hidden_Url
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *GetAgentManifestResponse) SetManifest(v string) {
+	x.xxx_hidden_Manifest = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *GetAgentManifestResponse) SetUrl(v string) {
+	x.xxx_hidden_Url = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *GetAgentManifestResponse) HasManifest() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *GetAgentManifestResponse) HasUrl() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *GetAgentManifestResponse) ClearManifest() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Manifest = nil
+}
+
+func (x *GetAgentManifestResponse) ClearUrl() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Url = nil
+}
+
+type GetAgentManifestResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Multi-document YAML containing Namespace, ServiceAccount,
+	// ClusterRoleBinding, and Deployment resources.
+	Manifest *string
+	// URL with an embedded HMAC token that serves the manifest as raw
+	// YAML. Users can run `kubectl apply -f <url>` directly.
+	Url *string
+}
+
+func (b0 GetAgentManifestResponse_builder) Build() *GetAgentManifestResponse {
+	m0 := &GetAgentManifestResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Manifest != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Manifest = b.Manifest
+	}
+	if b.Url != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Url = b.Url
+	}
+	return m0
 }
 
 // RegisterResponse contains a CA-signed certificate and the CA
 // certificate so the agent can establish an mTLS tunnel connection.
 type RegisterResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The loopback endpoint reserved for this cluster tunnel.
-	Endpoint *string `protobuf:"bytes,1,opt,name=endpoint" json:"endpoint,omitempty"`
-	// PEM-encoded X.509 certificate signed by the server's CA.
-	Certificate []byte `protobuf:"bytes,2,opt,name=certificate" json:"certificate,omitempty"`
-	// PEM-encoded CA certificate for verifying the tunnel server.
-	CaCertificate []byte `protobuf:"bytes,3,opt,name=ca_certificate,json=caCertificate" json:"ca_certificate,omitempty"`
-	// The version of the server binary (e.g. "v1.2.3"), set at build time.
-	// Agents compare this against their own version to decide whether a
-	// self-update is needed.
-	ServerVersion *string `protobuf:"bytes,4,opt,name=server_version,json=serverVersion" json:"server_version,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                    protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Endpoint      *string                `protobuf:"bytes,1,opt,name=endpoint"`
+	xxx_hidden_Certificate   []byte                 `protobuf:"bytes,2,opt,name=certificate"`
+	xxx_hidden_CaCertificate []byte                 `protobuf:"bytes,3,opt,name=ca_certificate,json=caCertificate"`
+	xxx_hidden_ServerVersion *string                `protobuf:"bytes,4,opt,name=server_version,json=serverVersion"`
+	XXX_raceDetectHookData   protoimpl.RaceDetectHookData
+	XXX_presence             [1]uint32
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
 }
 
 func (x *RegisterResponse) Reset() {
@@ -382,37 +660,150 @@ func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
-func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return file_link_v1_link_proto_rawDescGZIP(), []int{6}
-}
-
 func (x *RegisterResponse) GetEndpoint() string {
-	if x != nil && x.Endpoint != nil {
-		return *x.Endpoint
+	if x != nil {
+		if x.xxx_hidden_Endpoint != nil {
+			return *x.xxx_hidden_Endpoint
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RegisterResponse) GetCertificate() []byte {
 	if x != nil {
-		return x.Certificate
+		return x.xxx_hidden_Certificate
 	}
 	return nil
 }
 
 func (x *RegisterResponse) GetCaCertificate() []byte {
 	if x != nil {
-		return x.CaCertificate
+		return x.xxx_hidden_CaCertificate
 	}
 	return nil
 }
 
 func (x *RegisterResponse) GetServerVersion() string {
-	if x != nil && x.ServerVersion != nil {
-		return *x.ServerVersion
+	if x != nil {
+		if x.xxx_hidden_ServerVersion != nil {
+			return *x.xxx_hidden_ServerVersion
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *RegisterResponse) SetEndpoint(v string) {
+	x.xxx_hidden_Endpoint = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+}
+
+func (x *RegisterResponse) SetCertificate(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Certificate = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *RegisterResponse) SetCaCertificate(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_CaCertificate = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *RegisterResponse) SetServerVersion(v string) {
+	x.xxx_hidden_ServerVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *RegisterResponse) HasEndpoint() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *RegisterResponse) HasCertificate() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *RegisterResponse) HasCaCertificate() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *RegisterResponse) HasServerVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *RegisterResponse) ClearEndpoint() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Endpoint = nil
+}
+
+func (x *RegisterResponse) ClearCertificate() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Certificate = nil
+}
+
+func (x *RegisterResponse) ClearCaCertificate() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_CaCertificate = nil
+}
+
+func (x *RegisterResponse) ClearServerVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_ServerVersion = nil
+}
+
+type RegisterResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The loopback endpoint reserved for this cluster tunnel.
+	Endpoint *string
+	// PEM-encoded X.509 certificate signed by the server's CA.
+	Certificate []byte
+	// PEM-encoded CA certificate for verifying the tunnel server.
+	CaCertificate []byte
+	// The version of the server binary (e.g. "v1.2.3"), set at build time.
+	// Agents compare this against their own version to decide whether a
+	// self-update is needed.
+	ServerVersion *string
+}
+
+func (b0 RegisterResponse_builder) Build() *RegisterResponse {
+	m0 := &RegisterResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Endpoint != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_Endpoint = b.Endpoint
+	}
+	if b.Certificate != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_Certificate = b.Certificate
+	}
+	if b.CaCertificate != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_CaCertificate = b.CaCertificate
+	}
+	if b.ServerVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_ServerVersion = b.ServerVersion
+	}
+	return m0
 }
 
 var File_link_v1_link_proto protoreflect.FileDescriptor
@@ -448,18 +839,6 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\flink-enabled\x12\x85\x01\n" +
 	"\x10GetAgentManifest\x12+.otterscale.link.v1.GetAgentManifestRequest\x1a,.otterscale.link.v1.GetAgentManifestResponse\"\x16\x8a\xdf\xd5\x1d\x0e\n" +
 	"\flink-enabled\x90\x02\x01B&Z$github.com/otterscale/api/link/v1;pbb\beditionsp\xe8\a"
-
-var (
-	file_link_v1_link_proto_rawDescOnce sync.Once
-	file_link_v1_link_proto_rawDescData []byte
-)
-
-func file_link_v1_link_proto_rawDescGZIP() []byte {
-	file_link_v1_link_proto_rawDescOnce.Do(func() {
-		file_link_v1_link_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_link_v1_link_proto_rawDesc), len(file_link_v1_link_proto_rawDesc)))
-	})
-	return file_link_v1_link_proto_rawDescData
-}
 
 var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_link_v1_link_proto_goTypes = []any{

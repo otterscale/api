@@ -13,7 +13,6 @@ import (
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	structpb "google.golang.org/protobuf/types/known/structpb"
 	reflect "reflect"
-	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -84,30 +83,20 @@ func (x WatchEvent_Type) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use WatchEvent_Type.Descriptor instead.
-func (WatchEvent_Type) EnumDescriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{14, 0}
-}
-
 // APIResource represents a Kubernetes API resource with its metadata.
 type APIResource struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources).
-	Group *string `protobuf:"bytes,1,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,2,opt,name=version" json:"version,omitempty"`
-	// Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,3,opt,name=resource" json:"resource,omitempty"`
-	// The kind of the resource (e.g., "Pod", "Deployment").
-	Kind *string `protobuf:"bytes,4,opt,name=kind" json:"kind,omitempty"`
-	// Whether this resource is namespace-scoped.
-	Namespaced *bool `protobuf:"varint,5,opt,name=namespaced" json:"namespaced,omitempty"`
-	// The list of supported verbs (e.g., "get", "list", "create", "delete").
-	Verbs []string `protobuf:"bytes,6,rep,name=verbs" json:"verbs,omitempty"`
-	// Abbreviated aliases for the resource (e.g., "deploy" for deployments).
-	ShortNames    []string `protobuf:"bytes,7,rep,name=short_names,json=shortNames" json:"short_names,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,1,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,2,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,3,opt,name=resource"`
+	xxx_hidden_Kind        *string                `protobuf:"bytes,4,opt,name=kind"`
+	xxx_hidden_Namespaced  bool                   `protobuf:"varint,5,opt,name=namespaced"`
+	xxx_hidden_Verbs       []string               `protobuf:"bytes,6,rep,name=verbs"`
+	xxx_hidden_ShortNames  []string               `protobuf:"bytes,7,rep,name=short_names,json=shortNames"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *APIResource) Reset() {
@@ -135,67 +124,216 @@ func (x *APIResource) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use APIResource.ProtoReflect.Descriptor instead.
-func (*APIResource) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{0}
-}
-
 func (x *APIResource) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *APIResource) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *APIResource) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *APIResource) GetKind() string {
-	if x != nil && x.Kind != nil {
-		return *x.Kind
+	if x != nil {
+		if x.xxx_hidden_Kind != nil {
+			return *x.xxx_hidden_Kind
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *APIResource) GetNamespaced() bool {
-	if x != nil && x.Namespaced != nil {
-		return *x.Namespaced
+	if x != nil {
+		return x.xxx_hidden_Namespaced
 	}
 	return false
 }
 
 func (x *APIResource) GetVerbs() []string {
 	if x != nil {
-		return x.Verbs
+		return x.xxx_hidden_Verbs
 	}
 	return nil
 }
 
 func (x *APIResource) GetShortNames() []string {
 	if x != nil {
-		return x.ShortNames
+		return x.xxx_hidden_ShortNames
 	}
 	return nil
 }
 
+func (x *APIResource) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 7)
+}
+
+func (x *APIResource) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 7)
+}
+
+func (x *APIResource) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 7)
+}
+
+func (x *APIResource) SetKind(v string) {
+	x.xxx_hidden_Kind = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 7)
+}
+
+func (x *APIResource) SetNamespaced(v bool) {
+	x.xxx_hidden_Namespaced = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 7)
+}
+
+func (x *APIResource) SetVerbs(v []string) {
+	x.xxx_hidden_Verbs = v
+}
+
+func (x *APIResource) SetShortNames(v []string) {
+	x.xxx_hidden_ShortNames = v
+}
+
+func (x *APIResource) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *APIResource) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *APIResource) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *APIResource) HasKind() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *APIResource) HasNamespaced() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *APIResource) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *APIResource) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *APIResource) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *APIResource) ClearKind() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Kind = nil
+}
+
+func (x *APIResource) ClearNamespaced() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespaced = false
+}
+
+type APIResource_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The kind of the resource (e.g., "Pod", "Deployment").
+	Kind *string
+	// Whether this resource is namespace-scoped.
+	Namespaced *bool
+	// The list of supported verbs (e.g., "get", "list", "create", "delete").
+	Verbs []string
+	// Abbreviated aliases for the resource (e.g., "deploy" for deployments).
+	ShortNames []string
+}
+
+func (b0 APIResource_builder) Build() *APIResource {
+	m0 := &APIResource{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 7)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 7)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 7)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Kind != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 7)
+		x.xxx_hidden_Kind = b.Kind
+	}
+	if b.Namespaced != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 7)
+		x.xxx_hidden_Namespaced = *b.Namespaced
+	}
+	x.xxx_hidden_Verbs = b.Verbs
+	x.xxx_hidden_ShortNames = b.ShortNames
+	return m0
+}
+
 // DiscoveryRequest defines the parameters for discovering API resources.
 type DiscoveryRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster       *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *DiscoveryRequest) Reset() {
@@ -223,25 +361,57 @@ func (x *DiscoveryRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DiscoveryRequest.ProtoReflect.Descriptor instead.
-func (*DiscoveryRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{1}
-}
-
 func (x *DiscoveryRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *DiscoveryRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+}
+
+func (x *DiscoveryRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *DiscoveryRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+type DiscoveryRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+}
+
+func (b0 DiscoveryRequest_builder) Build() *DiscoveryRequest {
+	m0 := &DiscoveryRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	return m0
+}
+
 // DiscoveryResponse contains the list of available API resources in the cluster.
 type DiscoveryResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The list of available API resources in the cluster.
-	ApiResources  []*APIResource `protobuf:"bytes,1,rep,name=api_resources,json=apiResources" json:"api_resources,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_ApiResources *[]*APIResource        `protobuf:"bytes,1,rep,name=api_resources,json=apiResources"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *DiscoveryResponse) Reset() {
@@ -269,31 +439,45 @@ func (x *DiscoveryResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DiscoveryResponse.ProtoReflect.Descriptor instead.
-func (*DiscoveryResponse) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{2}
-}
-
 func (x *DiscoveryResponse) GetApiResources() []*APIResource {
 	if x != nil {
-		return x.ApiResources
+		if x.xxx_hidden_ApiResources != nil {
+			return *x.xxx_hidden_ApiResources
+		}
 	}
 	return nil
 }
 
+func (x *DiscoveryResponse) SetApiResources(v []*APIResource) {
+	x.xxx_hidden_ApiResources = &v
+}
+
+type DiscoveryResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The list of available API resources in the cluster.
+	ApiResources []*APIResource
+}
+
+func (b0 DiscoveryResponse_builder) Build() *DiscoveryResponse {
+	m0 := &DiscoveryResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_ApiResources = &b.ApiResources
+	return m0
+}
+
 // SchemaRequest defines the parameters to retrieve the schema of a specific GVK.
 type SchemaRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Kind (e.g., "Pod").
-	Kind          *string `protobuf:"bytes,4,opt,name=kind" json:"kind,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Kind        *string                `protobuf:"bytes,4,opt,name=kind"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *SchemaRequest) Reset() {
@@ -321,47 +505,156 @@ func (x *SchemaRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SchemaRequest.ProtoReflect.Descriptor instead.
-func (*SchemaRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{3}
-}
-
 func (x *SchemaRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *SchemaRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *SchemaRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *SchemaRequest) GetKind() string {
-	if x != nil && x.Kind != nil {
-		return *x.Kind
+	if x != nil {
+		if x.xxx_hidden_Kind != nil {
+			return *x.xxx_hidden_Kind
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *SchemaRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+}
+
+func (x *SchemaRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *SchemaRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *SchemaRequest) SetKind(v string) {
+	x.xxx_hidden_Kind = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *SchemaRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *SchemaRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *SchemaRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *SchemaRequest) HasKind() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *SchemaRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *SchemaRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *SchemaRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *SchemaRequest) ClearKind() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Kind = nil
+}
+
+type SchemaRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Kind (e.g., "Pod").
+	Kind *string
+}
+
+func (b0 SchemaRequest_builder) Build() *SchemaRequest {
+	m0 := &SchemaRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Kind != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_Kind = b.Kind
+	}
+	return m0
+}
+
 // Resource represents a single Kubernetes object serialized as a JSON string.
 type Resource struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The full JSON representation of the Kubernetes object.
-	// Note: Backend may strip managedFields to reduce payload size.
-	Object        *structpb.Struct `protobuf:"bytes,1,opt,name=object" json:"object,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Object *structpb.Struct       `protobuf:"bytes,1,opt,name=object"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *Resource) Reset() {
@@ -389,41 +682,60 @@ func (x *Resource) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Resource.ProtoReflect.Descriptor instead.
-func (*Resource) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{4}
-}
-
 func (x *Resource) GetObject() *structpb.Struct {
 	if x != nil {
-		return x.Object
+		return x.xxx_hidden_Object
 	}
 	return nil
 }
 
+func (x *Resource) SetObject(v *structpb.Struct) {
+	x.xxx_hidden_Object = v
+}
+
+func (x *Resource) HasObject() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Object != nil
+}
+
+func (x *Resource) ClearObject() {
+	x.xxx_hidden_Object = nil
+}
+
+type Resource_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The full JSON representation of the Kubernetes object.
+	// Note: Backend may strip managedFields to reduce payload size.
+	Object *structpb.Struct
+}
+
+func (b0 Resource_builder) Build() *Resource {
+	m0 := &Resource{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Object = b.Object
+	return m0
+}
+
 // ListRequest defines the parameters for querying multiple resources.
 type ListRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace to query. If empty, the request may target all namespaces depending on cluster permissions.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// A selector to restrict the list of returned objects by their labels.
-	LabelSelector *string `protobuf:"bytes,6,opt,name=label_selector,json=labelSelector" json:"label_selector,omitempty"`
-	// A selector to restrict the list of returned objects by their fields (e.g., "status.phase=Running").
-	FieldSelector *string `protobuf:"bytes,7,opt,name=field_selector,json=fieldSelector" json:"field_selector,omitempty"`
-	// The maximum number of items to return in a single page.
-	Limit *int64 `protobuf:"varint,8,opt,name=limit" json:"limit,omitempty"`
-	// The continue token for pagination, retrieved from a previous ListResponse.
-	Continue      *string `protobuf:"bytes,9,opt,name=continue" json:"continue,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                    protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster       *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group         *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version       *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource      *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace     *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_LabelSelector *string                `protobuf:"bytes,6,opt,name=label_selector,json=labelSelector"`
+	xxx_hidden_FieldSelector *string                `protobuf:"bytes,7,opt,name=field_selector,json=fieldSelector"`
+	xxx_hidden_Limit         int64                  `protobuf:"varint,8,opt,name=limit"`
+	xxx_hidden_Continue      *string                `protobuf:"bytes,9,opt,name=continue"`
+	XXX_raceDetectHookData   protoimpl.RaceDetectHookData
+	XXX_presence             [1]uint32
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
 }
 
 func (x *ListRequest) Reset() {
@@ -451,87 +763,323 @@ func (x *ListRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListRequest.ProtoReflect.Descriptor instead.
-func (*ListRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{5}
-}
-
 func (x *ListRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetLabelSelector() string {
-	if x != nil && x.LabelSelector != nil {
-		return *x.LabelSelector
+	if x != nil {
+		if x.xxx_hidden_LabelSelector != nil {
+			return *x.xxx_hidden_LabelSelector
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetFieldSelector() string {
-	if x != nil && x.FieldSelector != nil {
-		return *x.FieldSelector
+	if x != nil {
+		if x.xxx_hidden_FieldSelector != nil {
+			return *x.xxx_hidden_FieldSelector
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListRequest) GetLimit() int64 {
-	if x != nil && x.Limit != nil {
-		return *x.Limit
+	if x != nil {
+		return x.xxx_hidden_Limit
 	}
 	return 0
 }
 
 func (x *ListRequest) GetContinue() string {
-	if x != nil && x.Continue != nil {
-		return *x.Continue
+	if x != nil {
+		if x.xxx_hidden_Continue != nil {
+			return *x.xxx_hidden_Continue
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *ListRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+}
+
+func (x *ListRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
+}
+
+func (x *ListRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
+}
+
+func (x *ListRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
+}
+
+func (x *ListRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
+}
+
+func (x *ListRequest) SetLabelSelector(v string) {
+	x.xxx_hidden_LabelSelector = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
+}
+
+func (x *ListRequest) SetFieldSelector(v string) {
+	x.xxx_hidden_FieldSelector = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
+}
+
+func (x *ListRequest) SetLimit(v int64) {
+	x.xxx_hidden_Limit = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 9)
+}
+
+func (x *ListRequest) SetContinue(v string) {
+	x.xxx_hidden_Continue = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 9)
+}
+
+func (x *ListRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ListRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ListRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ListRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ListRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *ListRequest) HasLabelSelector() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *ListRequest) HasFieldSelector() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *ListRequest) HasLimit() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *ListRequest) HasContinue() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
+}
+
+func (x *ListRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *ListRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *ListRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *ListRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *ListRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *ListRequest) ClearLabelSelector() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_LabelSelector = nil
+}
+
+func (x *ListRequest) ClearFieldSelector() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_FieldSelector = nil
+}
+
+func (x *ListRequest) ClearLimit() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_Limit = 0
+}
+
+func (x *ListRequest) ClearContinue() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	x.xxx_hidden_Continue = nil
+}
+
+type ListRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace to query. If empty, the request may target all namespaces depending on cluster permissions.
+	Namespace *string
+	// A selector to restrict the list of returned objects by their labels.
+	LabelSelector *string
+	// A selector to restrict the list of returned objects by their fields (e.g., "status.phase=Running").
+	FieldSelector *string
+	// The maximum number of items to return in a single page.
+	Limit *int64
+	// The continue token for pagination, retrieved from a previous ListResponse.
+	Continue *string
+}
+
+func (b0 ListRequest_builder) Build() *ListRequest {
+	m0 := &ListRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 9)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 9)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 9)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 9)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.LabelSelector != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 9)
+		x.xxx_hidden_LabelSelector = b.LabelSelector
+	}
+	if b.FieldSelector != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 9)
+		x.xxx_hidden_FieldSelector = b.FieldSelector
+	}
+	if b.Limit != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 9)
+		x.xxx_hidden_Limit = *b.Limit
+	}
+	if b.Continue != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 9)
+		x.xxx_hidden_Continue = b.Continue
+	}
+	return m0
+}
+
 // ListResponse contains the requested list of resources and pagination metadata.
 type ListResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The resourceVersion of the list, used to initiate a Watch from a specific point in time.
-	ResourceVersion *string `protobuf:"bytes,1,opt,name=resource_version,json=resourceVersion" json:"resource_version,omitempty"`
-	// A token used to retrieve the next page of results. Empty if no more pages exist.
-	Continue *string `protobuf:"bytes,2,opt,name=continue" json:"continue,omitempty"`
-	// The estimated number of items remaining if pagination is used.
-	RemainingItemCount *int64 `protobuf:"varint,3,opt,name=remaining_item_count,json=remainingItemCount" json:"remaining_item_count,omitempty"`
-	// The list of resources found.
-	Items         []*Resource `protobuf:"bytes,4,rep,name=items" json:"items,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                         protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_ResourceVersion    *string                `protobuf:"bytes,1,opt,name=resource_version,json=resourceVersion"`
+	xxx_hidden_Continue           *string                `protobuf:"bytes,2,opt,name=continue"`
+	xxx_hidden_RemainingItemCount int64                  `protobuf:"varint,3,opt,name=remaining_item_count,json=remainingItemCount"`
+	xxx_hidden_Items              *[]*Resource           `protobuf:"bytes,4,rep,name=items"`
+	XXX_raceDetectHookData        protoimpl.RaceDetectHookData
+	XXX_presence                  [1]uint32
+	unknownFields                 protoimpl.UnknownFields
+	sizeCache                     protoimpl.SizeCache
 }
 
 func (x *ListResponse) Reset() {
@@ -559,56 +1107,143 @@ func (x *ListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListResponse.ProtoReflect.Descriptor instead.
-func (*ListResponse) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{6}
-}
-
 func (x *ListResponse) GetResourceVersion() string {
-	if x != nil && x.ResourceVersion != nil {
-		return *x.ResourceVersion
+	if x != nil {
+		if x.xxx_hidden_ResourceVersion != nil {
+			return *x.xxx_hidden_ResourceVersion
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListResponse) GetContinue() string {
-	if x != nil && x.Continue != nil {
-		return *x.Continue
+	if x != nil {
+		if x.xxx_hidden_Continue != nil {
+			return *x.xxx_hidden_Continue
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ListResponse) GetRemainingItemCount() int64 {
-	if x != nil && x.RemainingItemCount != nil {
-		return *x.RemainingItemCount
+	if x != nil {
+		return x.xxx_hidden_RemainingItemCount
 	}
 	return 0
 }
 
 func (x *ListResponse) GetItems() []*Resource {
 	if x != nil {
-		return x.Items
+		if x.xxx_hidden_Items != nil {
+			return *x.xxx_hidden_Items
+		}
 	}
 	return nil
 }
 
+func (x *ListResponse) SetResourceVersion(v string) {
+	x.xxx_hidden_ResourceVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+}
+
+func (x *ListResponse) SetContinue(v string) {
+	x.xxx_hidden_Continue = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *ListResponse) SetRemainingItemCount(v int64) {
+	x.xxx_hidden_RemainingItemCount = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *ListResponse) SetItems(v []*Resource) {
+	x.xxx_hidden_Items = &v
+}
+
+func (x *ListResponse) HasResourceVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ListResponse) HasContinue() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ListResponse) HasRemainingItemCount() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ListResponse) ClearResourceVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_ResourceVersion = nil
+}
+
+func (x *ListResponse) ClearContinue() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Continue = nil
+}
+
+func (x *ListResponse) ClearRemainingItemCount() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_RemainingItemCount = 0
+}
+
+type ListResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The resourceVersion of the list, used to initiate a Watch from a specific point in time.
+	ResourceVersion *string
+	// A token used to retrieve the next page of results. Empty if no more pages exist.
+	Continue *string
+	// The estimated number of items remaining if pagination is used.
+	RemainingItemCount *int64
+	// The list of resources found.
+	Items []*Resource
+}
+
+func (b0 ListResponse_builder) Build() *ListResponse {
+	m0 := &ListResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.ResourceVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_ResourceVersion = b.ResourceVersion
+	}
+	if b.Continue != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_Continue = b.Continue
+	}
+	if b.RemainingItemCount != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_RemainingItemCount = *b.RemainingItemCount
+	}
+	x.xxx_hidden_Items = &b.Items
+	return m0
+}
+
 // GetRequest defines the parameters to fetch a single object.
 type GetRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the resource.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the resource.
-	Name          *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,6,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *GetRequest) Reset() {
@@ -636,71 +1271,230 @@ func (x *GetRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
-func (*GetRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{7}
-}
-
 func (x *GetRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *GetRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *GetRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 6)
+}
+
+func (x *GetRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 6)
+}
+
+func (x *GetRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 6)
+}
+
+func (x *GetRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 6)
+}
+
+func (x *GetRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 6)
+}
+
+func (x *GetRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 6)
+}
+
+func (x *GetRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *GetRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *GetRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *GetRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *GetRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *GetRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *GetRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *GetRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *GetRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *GetRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *GetRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *GetRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+type GetRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The name of the resource.
+	Name *string
+}
+
+func (b0 GetRequest_builder) Build() *GetRequest {
+	m0 := &GetRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 6)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 6)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 6)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 6)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 6)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 6)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
 }
 
 // DescribeRequest defines the parameters to describe a resource, retrieving
 // it along with its related Kubernetes events. Equivalent to `kubectl describe`.
 type DescribeRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the resource.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the resource.
-	Name          *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,6,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *DescribeRequest) Reset() {
@@ -728,62 +1522,223 @@ func (x *DescribeRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DescribeRequest.ProtoReflect.Descriptor instead.
-func (*DescribeRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{8}
-}
-
 func (x *DescribeRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DescribeRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DescribeRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DescribeRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DescribeRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DescribeRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *DescribeRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 6)
+}
+
+func (x *DescribeRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 6)
+}
+
+func (x *DescribeRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 6)
+}
+
+func (x *DescribeRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 6)
+}
+
+func (x *DescribeRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 6)
+}
+
+func (x *DescribeRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 6)
+}
+
+func (x *DescribeRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *DescribeRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *DescribeRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *DescribeRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *DescribeRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *DescribeRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *DescribeRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *DescribeRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *DescribeRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *DescribeRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *DescribeRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *DescribeRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+type DescribeRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The name of the resource.
+	Name *string
+}
+
+func (b0 DescribeRequest_builder) Build() *DescribeRequest {
+	m0 := &DescribeRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 6)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 6)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 6)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 6)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 6)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 6)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
+}
+
 // DescribeResponse contains the resource and its related Kubernetes events.
 type DescribeResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The full resource object.
-	Resource *Resource `protobuf:"bytes,1,opt,name=resource" json:"resource,omitempty"`
-	// Kubernetes events related to this resource, filtered by involvedObject.uid.
-	Events        []*Resource `protobuf:"bytes,2,rep,name=events" json:"events,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state               protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Resource *Resource              `protobuf:"bytes,1,opt,name=resource"`
+	xxx_hidden_Events   *[]*Resource           `protobuf:"bytes,2,rep,name=events"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
 }
 
 func (x *DescribeResponse) Reset() {
@@ -811,42 +1766,72 @@ func (x *DescribeResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DescribeResponse.ProtoReflect.Descriptor instead.
-func (*DescribeResponse) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{9}
-}
-
 func (x *DescribeResponse) GetResource() *Resource {
 	if x != nil {
-		return x.Resource
+		return x.xxx_hidden_Resource
 	}
 	return nil
 }
 
 func (x *DescribeResponse) GetEvents() []*Resource {
 	if x != nil {
-		return x.Events
+		if x.xxx_hidden_Events != nil {
+			return *x.xxx_hidden_Events
+		}
 	}
 	return nil
 }
 
+func (x *DescribeResponse) SetResource(v *Resource) {
+	x.xxx_hidden_Resource = v
+}
+
+func (x *DescribeResponse) SetEvents(v []*Resource) {
+	x.xxx_hidden_Events = &v
+}
+
+func (x *DescribeResponse) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Resource != nil
+}
+
+func (x *DescribeResponse) ClearResource() {
+	x.xxx_hidden_Resource = nil
+}
+
+type DescribeResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The full resource object.
+	Resource *Resource
+	// Kubernetes events related to this resource, filtered by involvedObject.uid.
+	Events []*Resource
+}
+
+func (b0 DescribeResponse_builder) Build() *DescribeResponse {
+	m0 := &DescribeResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Resource = b.Resource
+	x.xxx_hidden_Events = &b.Events
+	return m0
+}
+
 // CreateRequest defines the parameters for creating a new object.
 type CreateRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the resource.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The full manifest of the object to be created in YAML format.
-	Manifest      []byte `protobuf:"bytes,6,opt,name=manifest" json:"manifest,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Manifest    []byte                 `protobuf:"bytes,6,opt,name=manifest"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *CreateRequest) Reset() {
@@ -874,76 +1859,232 @@ func (x *CreateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateRequest.ProtoReflect.Descriptor instead.
-func (*CreateRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{10}
-}
-
 func (x *CreateRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *CreateRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *CreateRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *CreateRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *CreateRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *CreateRequest) GetManifest() []byte {
 	if x != nil {
-		return x.Manifest
+		return x.xxx_hidden_Manifest
 	}
 	return nil
 }
 
+func (x *CreateRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 6)
+}
+
+func (x *CreateRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 6)
+}
+
+func (x *CreateRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 6)
+}
+
+func (x *CreateRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 6)
+}
+
+func (x *CreateRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 6)
+}
+
+func (x *CreateRequest) SetManifest(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Manifest = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 6)
+}
+
+func (x *CreateRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *CreateRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *CreateRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *CreateRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *CreateRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *CreateRequest) HasManifest() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *CreateRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *CreateRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *CreateRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *CreateRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *CreateRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *CreateRequest) ClearManifest() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Manifest = nil
+}
+
+type CreateRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The full manifest of the object to be created in YAML format.
+	Manifest []byte
+}
+
+func (b0 CreateRequest_builder) Build() *CreateRequest {
+	m0 := &CreateRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 6)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 6)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 6)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 6)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 6)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Manifest != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 6)
+		x.xxx_hidden_Manifest = b.Manifest
+	}
+	return m0
+}
+
 // ApplyRequest defines the parameters for Server-Side Apply (SSA).
 type ApplyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the resource.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the resource.
-	Name *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	// A partial or YAML manifest in JSON format to be merged by the API server.
-	Manifest []byte `protobuf:"bytes,7,opt,name=manifest" json:"manifest,omitempty"`
-	// If true, conflicts are resolved in favour of the caller's field manager.
-	Force *bool `protobuf:"varint,8,opt,name=force" json:"force,omitempty"`
-	// Identifies the entity managing the fields (e.g., "otterscale-web-ui"). Required for SSA.
-	FieldManager  *string `protobuf:"bytes,9,opt,name=field_manager,json=fieldManager" json:"field_manager,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group        *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version      *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource     *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace    *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name         *string                `protobuf:"bytes,6,opt,name=name"`
+	xxx_hidden_Manifest     []byte                 `protobuf:"bytes,7,opt,name=manifest"`
+	xxx_hidden_Force        bool                   `protobuf:"varint,8,opt,name=force"`
+	xxx_hidden_FieldManager *string                `protobuf:"bytes,9,opt,name=field_manager,json=fieldManager"`
+	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
+	XXX_presence            [1]uint32
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *ApplyRequest) Reset() {
@@ -971,93 +2112,326 @@ func (x *ApplyRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ApplyRequest.ProtoReflect.Descriptor instead.
-func (*ApplyRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{11}
-}
-
 func (x *ApplyRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ApplyRequest) GetManifest() []byte {
 	if x != nil {
-		return x.Manifest
+		return x.xxx_hidden_Manifest
 	}
 	return nil
 }
 
 func (x *ApplyRequest) GetForce() bool {
-	if x != nil && x.Force != nil {
-		return *x.Force
+	if x != nil {
+		return x.xxx_hidden_Force
 	}
 	return false
 }
 
 func (x *ApplyRequest) GetFieldManager() string {
-	if x != nil && x.FieldManager != nil {
-		return *x.FieldManager
+	if x != nil {
+		if x.xxx_hidden_FieldManager != nil {
+			return *x.xxx_hidden_FieldManager
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *ApplyRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+}
+
+func (x *ApplyRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
+}
+
+func (x *ApplyRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
+}
+
+func (x *ApplyRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
+}
+
+func (x *ApplyRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
+}
+
+func (x *ApplyRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
+}
+
+func (x *ApplyRequest) SetManifest(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Manifest = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
+}
+
+func (x *ApplyRequest) SetForce(v bool) {
+	x.xxx_hidden_Force = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 9)
+}
+
+func (x *ApplyRequest) SetFieldManager(v string) {
+	x.xxx_hidden_FieldManager = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 9)
+}
+
+func (x *ApplyRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ApplyRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ApplyRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ApplyRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ApplyRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *ApplyRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *ApplyRequest) HasManifest() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *ApplyRequest) HasForce() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *ApplyRequest) HasFieldManager() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
+}
+
+func (x *ApplyRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *ApplyRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *ApplyRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *ApplyRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *ApplyRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *ApplyRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *ApplyRequest) ClearManifest() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_Manifest = nil
+}
+
+func (x *ApplyRequest) ClearForce() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_Force = false
+}
+
+func (x *ApplyRequest) ClearFieldManager() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	x.xxx_hidden_FieldManager = nil
+}
+
+type ApplyRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The name of the resource.
+	Name *string
+	// A partial or YAML manifest in JSON format to be merged by the API server.
+	Manifest []byte
+	// If true, conflicts are resolved in favour of the caller's field manager.
+	Force *bool
+	// Identifies the entity managing the fields (e.g., "otterscale-web-ui"). Required for SSA.
+	FieldManager *string
+}
+
+func (b0 ApplyRequest_builder) Build() *ApplyRequest {
+	m0 := &ApplyRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 9)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 9)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 9)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 9)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 9)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Manifest != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 9)
+		x.xxx_hidden_Manifest = b.Manifest
+	}
+	if b.Force != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 9)
+		x.xxx_hidden_Force = *b.Force
+	}
+	if b.FieldManager != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 9)
+		x.xxx_hidden_FieldManager = b.FieldManager
+	}
+	return m0
+}
+
 // DeleteRequest defines the parameters to remove an object.
 type DeleteRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the resource.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the resource.
-	Name *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	// The duration in seconds before the object should be deleted. Overrides the default grace period.
-	GracePeriodSeconds *int64 `protobuf:"varint,7,opt,name=grace_period_seconds,json=gracePeriodSeconds" json:"grace_period_seconds,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state                         protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster            *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group              *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version            *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource           *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace          *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name               *string                `protobuf:"bytes,6,opt,name=name"`
+	xxx_hidden_GracePeriodSeconds int64                  `protobuf:"varint,7,opt,name=grace_period_seconds,json=gracePeriodSeconds"`
+	XXX_raceDetectHookData        protoimpl.RaceDetectHookData
+	XXX_presence                  [1]uint32
+	unknownFields                 protoimpl.UnknownFields
+	sizeCache                     protoimpl.SizeCache
 }
 
 func (x *DeleteRequest) Reset() {
@@ -1085,81 +2459,261 @@ func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
-func (*DeleteRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{12}
-}
-
 func (x *DeleteRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *DeleteRequest) GetGracePeriodSeconds() int64 {
-	if x != nil && x.GracePeriodSeconds != nil {
-		return *x.GracePeriodSeconds
+	if x != nil {
+		return x.xxx_hidden_GracePeriodSeconds
 	}
 	return 0
 }
 
+func (x *DeleteRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 7)
+}
+
+func (x *DeleteRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 7)
+}
+
+func (x *DeleteRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 7)
+}
+
+func (x *DeleteRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 7)
+}
+
+func (x *DeleteRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 7)
+}
+
+func (x *DeleteRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 7)
+}
+
+func (x *DeleteRequest) SetGracePeriodSeconds(v int64) {
+	x.xxx_hidden_GracePeriodSeconds = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 7)
+}
+
+func (x *DeleteRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *DeleteRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *DeleteRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *DeleteRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *DeleteRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *DeleteRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *DeleteRequest) HasGracePeriodSeconds() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *DeleteRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *DeleteRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *DeleteRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *DeleteRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *DeleteRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *DeleteRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *DeleteRequest) ClearGracePeriodSeconds() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_GracePeriodSeconds = 0
+}
+
+type DeleteRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The name of the resource.
+	Name *string
+	// The duration in seconds before the object should be deleted. Overrides the default grace period.
+	GracePeriodSeconds *int64
+}
+
+func (b0 DeleteRequest_builder) Build() *DeleteRequest {
+	m0 := &DeleteRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 7)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 7)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 7)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 7)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 7)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 7)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.GracePeriodSeconds != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 7)
+		x.xxx_hidden_GracePeriodSeconds = *b.GracePeriodSeconds
+	}
+	return m0
+}
+
 // WatchRequest defines the parameters to start a streaming watch.
 type WatchRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace to watch.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// A selector to restrict watched objects by their labels.
-	LabelSelector *string `protobuf:"bytes,6,opt,name=label_selector,json=labelSelector" json:"label_selector,omitempty"`
-	// A selector to restrict watched objects by their fields.
-	FieldSelector *string `protobuf:"bytes,7,opt,name=field_selector,json=fieldSelector" json:"field_selector,omitempty"`
-	// Start the watch from this specific resource version.
-	ResourceVersion *string `protobuf:"bytes,8,opt,name=resource_version,json=resourceVersion" json:"resource_version,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state                      protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster         *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group           *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version         *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource        *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace       *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_LabelSelector   *string                `protobuf:"bytes,6,opt,name=label_selector,json=labelSelector"`
+	xxx_hidden_FieldSelector   *string                `protobuf:"bytes,7,opt,name=field_selector,json=fieldSelector"`
+	xxx_hidden_ResourceVersion *string                `protobuf:"bytes,8,opt,name=resource_version,json=resourceVersion"`
+	XXX_raceDetectHookData     protoimpl.RaceDetectHookData
+	XXX_presence               [1]uint32
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *WatchRequest) Reset() {
@@ -1187,78 +2741,292 @@ func (x *WatchRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WatchRequest.ProtoReflect.Descriptor instead.
-func (*WatchRequest) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{13}
-}
-
 func (x *WatchRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetLabelSelector() string {
-	if x != nil && x.LabelSelector != nil {
-		return *x.LabelSelector
+	if x != nil {
+		if x.xxx_hidden_LabelSelector != nil {
+			return *x.xxx_hidden_LabelSelector
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetFieldSelector() string {
-	if x != nil && x.FieldSelector != nil {
-		return *x.FieldSelector
+	if x != nil {
+		if x.xxx_hidden_FieldSelector != nil {
+			return *x.xxx_hidden_FieldSelector
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WatchRequest) GetResourceVersion() string {
-	if x != nil && x.ResourceVersion != nil {
-		return *x.ResourceVersion
+	if x != nil {
+		if x.xxx_hidden_ResourceVersion != nil {
+			return *x.xxx_hidden_ResourceVersion
+		}
+		return ""
 	}
 	return ""
 }
 
+func (x *WatchRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 8)
+}
+
+func (x *WatchRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 8)
+}
+
+func (x *WatchRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 8)
+}
+
+func (x *WatchRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 8)
+}
+
+func (x *WatchRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 8)
+}
+
+func (x *WatchRequest) SetLabelSelector(v string) {
+	x.xxx_hidden_LabelSelector = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 8)
+}
+
+func (x *WatchRequest) SetFieldSelector(v string) {
+	x.xxx_hidden_FieldSelector = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 8)
+}
+
+func (x *WatchRequest) SetResourceVersion(v string) {
+	x.xxx_hidden_ResourceVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 8)
+}
+
+func (x *WatchRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *WatchRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *WatchRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *WatchRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *WatchRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *WatchRequest) HasLabelSelector() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *WatchRequest) HasFieldSelector() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *WatchRequest) HasResourceVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *WatchRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *WatchRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *WatchRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *WatchRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *WatchRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *WatchRequest) ClearLabelSelector() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_LabelSelector = nil
+}
+
+func (x *WatchRequest) ClearFieldSelector() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_FieldSelector = nil
+}
+
+func (x *WatchRequest) ClearResourceVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_ResourceVersion = nil
+}
+
+type WatchRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace to watch.
+	Namespace *string
+	// A selector to restrict watched objects by their labels.
+	LabelSelector *string
+	// A selector to restrict watched objects by their fields.
+	FieldSelector *string
+	// Start the watch from this specific resource version.
+	ResourceVersion *string
+}
+
+func (b0 WatchRequest_builder) Build() *WatchRequest {
+	m0 := &WatchRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 8)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 8)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 8)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 8)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 8)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.LabelSelector != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 8)
+		x.xxx_hidden_LabelSelector = b.LabelSelector
+	}
+	if b.FieldSelector != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 8)
+		x.xxx_hidden_FieldSelector = b.FieldSelector
+	}
+	if b.ResourceVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 8)
+		x.xxx_hidden_ResourceVersion = b.ResourceVersion
+	}
+	return m0
+}
+
 // WatchEvent represents a single change notification from the Kubernetes API.
 type WatchEvent struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The type of the watch event.
-	Type *WatchEvent_Type `protobuf:"varint,1,opt,name=type,enum=otterscale.resource.v1.WatchEvent_Type" json:"type,omitempty"`
-	// The state of the resource associated with the event.
-	Resource *Resource `protobuf:"bytes,2,opt,name=resource" json:"resource,omitempty"`
-	// The resourceVersion of the watch event, used to initiate a Watch from a specific point in time.
-	ResourceVersion *string `protobuf:"bytes,3,opt,name=resource_version,json=resourceVersion" json:"resource_version,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state                      protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Type            WatchEvent_Type        `protobuf:"varint,1,opt,name=type,enum=otterscale.resource.v1.WatchEvent_Type"`
+	xxx_hidden_Resource        *Resource              `protobuf:"bytes,2,opt,name=resource"`
+	xxx_hidden_ResourceVersion *string                `protobuf:"bytes,3,opt,name=resource_version,json=resourceVersion"`
+	XXX_raceDetectHookData     protoimpl.RaceDetectHookData
+	XXX_presence               [1]uint32
+	unknownFields              protoimpl.UnknownFields
+	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *WatchEvent) Reset() {
@@ -1286,30 +3054,106 @@ func (x *WatchEvent) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WatchEvent.ProtoReflect.Descriptor instead.
-func (*WatchEvent) Descriptor() ([]byte, []int) {
-	return file_resource_v1_resource_proto_rawDescGZIP(), []int{14}
-}
-
 func (x *WatchEvent) GetType() WatchEvent_Type {
-	if x != nil && x.Type != nil {
-		return *x.Type
+	if x != nil {
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 0) {
+			return x.xxx_hidden_Type
+		}
 	}
 	return WatchEvent_TYPE_UNSPECIFIED
 }
 
 func (x *WatchEvent) GetResource() *Resource {
 	if x != nil {
-		return x.Resource
+		return x.xxx_hidden_Resource
 	}
 	return nil
 }
 
 func (x *WatchEvent) GetResourceVersion() string {
-	if x != nil && x.ResourceVersion != nil {
-		return *x.ResourceVersion
+	if x != nil {
+		if x.xxx_hidden_ResourceVersion != nil {
+			return *x.xxx_hidden_ResourceVersion
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *WatchEvent) SetType(v WatchEvent_Type) {
+	x.xxx_hidden_Type = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *WatchEvent) SetResource(v *Resource) {
+	x.xxx_hidden_Resource = v
+}
+
+func (x *WatchEvent) SetResourceVersion(v string) {
+	x.xxx_hidden_ResourceVersion = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *WatchEvent) HasType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *WatchEvent) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Resource != nil
+}
+
+func (x *WatchEvent) HasResourceVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *WatchEvent) ClearType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Type = WatchEvent_TYPE_UNSPECIFIED
+}
+
+func (x *WatchEvent) ClearResource() {
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *WatchEvent) ClearResourceVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_ResourceVersion = nil
+}
+
+type WatchEvent_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The type of the watch event.
+	Type *WatchEvent_Type
+	// The state of the resource associated with the event.
+	Resource *Resource
+	// The resourceVersion of the watch event, used to initiate a Watch from a specific point in time.
+	ResourceVersion *string
+}
+
+func (b0 WatchEvent_builder) Build() *WatchEvent {
+	m0 := &WatchEvent{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Type != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_Type = *b.Type
+	}
+	x.xxx_hidden_Resource = b.Resource
+	if b.ResourceVersion != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_ResourceVersion = b.ResourceVersion
+	}
+	return m0
 }
 
 var File_resource_v1_resource_proto protoreflect.FileDescriptor
@@ -1439,18 +3283,6 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\x10resource-enabled\x12l\n" +
 	"\x05Watch\x12$.otterscale.resource.v1.WatchRequest\x1a\".otterscale.resource.v1.WatchEvent\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled0\x01B*Z(github.com/otterscale/api/resource/v1;pbb\beditionsp\xe8\a"
-
-var (
-	file_resource_v1_resource_proto_rawDescOnce sync.Once
-	file_resource_v1_resource_proto_rawDescData []byte
-)
-
-func file_resource_v1_resource_proto_rawDescGZIP() []byte {
-	file_resource_v1_resource_proto_rawDescOnce.Do(func() {
-		file_resource_v1_resource_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_resource_v1_resource_proto_rawDesc), len(file_resource_v1_resource_proto_rawDesc)))
-	})
-	return file_resource_v1_resource_proto_rawDescData
-}
 
 var file_resource_v1_resource_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 15)

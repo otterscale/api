@@ -13,7 +13,6 @@ import (
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
-	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -27,31 +26,22 @@ const (
 // PodLogRequest defines the parameters for streaming container logs.
 // Fields align with corev1.PodLogOptions.
 type PodLogRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// The namespace of the pod.
-	Namespace *string `protobuf:"bytes,2,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the pod.
-	Name *string `protobuf:"bytes,3,opt,name=name" json:"name,omitempty"`
-	// The container name. If omitted, the first container in the pod is used.
-	Container *string `protobuf:"bytes,4,opt,name=container" json:"container,omitempty"`
-	// If true, stream logs as they are produced (like `kubectl logs -f`).
-	Follow *bool `protobuf:"varint,5,opt,name=follow" json:"follow,omitempty"`
-	// Number of lines from the end of the logs to show. If not set, all logs are shown.
-	TailLines *int64 `protobuf:"varint,6,opt,name=tail_lines,json=tailLines" json:"tail_lines,omitempty"`
-	// A relative time in seconds before the current time from which to show logs.
-	SinceSeconds *int64 `protobuf:"varint,7,opt,name=since_seconds,json=sinceSeconds" json:"since_seconds,omitempty"`
-	// An absolute time from which to show logs. Mutually exclusive with since_seconds.
-	SinceTime *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=since_time,json=sinceTime" json:"since_time,omitempty"`
-	// If true, return the logs for the previous terminated container instance.
-	Previous *bool `protobuf:"varint,9,opt,name=previous" json:"previous,omitempty"`
-	// If true, add an RFC3339 timestamp at the beginning of every line of log output.
-	Timestamps *bool `protobuf:"varint,10,opt,name=timestamps" json:"timestamps,omitempty"`
-	// Limit the number of bytes returned from the server.
-	LimitBytes    *int64 `protobuf:"varint,11,opt,name=limit_bytes,json=limitBytes" json:"limit_bytes,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Namespace    *string                `protobuf:"bytes,2,opt,name=namespace"`
+	xxx_hidden_Name         *string                `protobuf:"bytes,3,opt,name=name"`
+	xxx_hidden_Container    *string                `protobuf:"bytes,4,opt,name=container"`
+	xxx_hidden_Follow       bool                   `protobuf:"varint,5,opt,name=follow"`
+	xxx_hidden_TailLines    int64                  `protobuf:"varint,6,opt,name=tail_lines,json=tailLines"`
+	xxx_hidden_SinceSeconds int64                  `protobuf:"varint,7,opt,name=since_seconds,json=sinceSeconds"`
+	xxx_hidden_SinceTime    *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=since_time,json=sinceTime"`
+	xxx_hidden_Previous     bool                   `protobuf:"varint,9,opt,name=previous"`
+	xxx_hidden_Timestamps   bool                   `protobuf:"varint,10,opt,name=timestamps"`
+	xxx_hidden_LimitBytes   int64                  `protobuf:"varint,11,opt,name=limit_bytes,json=limitBytes"`
+	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
+	XXX_presence            [1]uint32
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
 }
 
 func (x *PodLogRequest) Reset() {
@@ -79,95 +69,363 @@ func (x *PodLogRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PodLogRequest.ProtoReflect.Descriptor instead.
-func (*PodLogRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{0}
-}
-
 func (x *PodLogRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PodLogRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PodLogRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PodLogRequest) GetContainer() string {
-	if x != nil && x.Container != nil {
-		return *x.Container
+	if x != nil {
+		if x.xxx_hidden_Container != nil {
+			return *x.xxx_hidden_Container
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PodLogRequest) GetFollow() bool {
-	if x != nil && x.Follow != nil {
-		return *x.Follow
+	if x != nil {
+		return x.xxx_hidden_Follow
 	}
 	return false
 }
 
 func (x *PodLogRequest) GetTailLines() int64 {
-	if x != nil && x.TailLines != nil {
-		return *x.TailLines
+	if x != nil {
+		return x.xxx_hidden_TailLines
 	}
 	return 0
 }
 
 func (x *PodLogRequest) GetSinceSeconds() int64 {
-	if x != nil && x.SinceSeconds != nil {
-		return *x.SinceSeconds
+	if x != nil {
+		return x.xxx_hidden_SinceSeconds
 	}
 	return 0
 }
 
 func (x *PodLogRequest) GetSinceTime() *timestamppb.Timestamp {
 	if x != nil {
-		return x.SinceTime
+		return x.xxx_hidden_SinceTime
 	}
 	return nil
 }
 
 func (x *PodLogRequest) GetPrevious() bool {
-	if x != nil && x.Previous != nil {
-		return *x.Previous
+	if x != nil {
+		return x.xxx_hidden_Previous
 	}
 	return false
 }
 
 func (x *PodLogRequest) GetTimestamps() bool {
-	if x != nil && x.Timestamps != nil {
-		return *x.Timestamps
+	if x != nil {
+		return x.xxx_hidden_Timestamps
 	}
 	return false
 }
 
 func (x *PodLogRequest) GetLimitBytes() int64 {
-	if x != nil && x.LimitBytes != nil {
-		return *x.LimitBytes
+	if x != nil {
+		return x.xxx_hidden_LimitBytes
 	}
 	return 0
 }
 
+func (x *PodLogRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 11)
+}
+
+func (x *PodLogRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 11)
+}
+
+func (x *PodLogRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 11)
+}
+
+func (x *PodLogRequest) SetContainer(v string) {
+	x.xxx_hidden_Container = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 11)
+}
+
+func (x *PodLogRequest) SetFollow(v bool) {
+	x.xxx_hidden_Follow = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 11)
+}
+
+func (x *PodLogRequest) SetTailLines(v int64) {
+	x.xxx_hidden_TailLines = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 11)
+}
+
+func (x *PodLogRequest) SetSinceSeconds(v int64) {
+	x.xxx_hidden_SinceSeconds = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 11)
+}
+
+func (x *PodLogRequest) SetSinceTime(v *timestamppb.Timestamp) {
+	x.xxx_hidden_SinceTime = v
+}
+
+func (x *PodLogRequest) SetPrevious(v bool) {
+	x.xxx_hidden_Previous = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 11)
+}
+
+func (x *PodLogRequest) SetTimestamps(v bool) {
+	x.xxx_hidden_Timestamps = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 11)
+}
+
+func (x *PodLogRequest) SetLimitBytes(v int64) {
+	x.xxx_hidden_LimitBytes = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 11)
+}
+
+func (x *PodLogRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *PodLogRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *PodLogRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *PodLogRequest) HasContainer() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *PodLogRequest) HasFollow() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *PodLogRequest) HasTailLines() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *PodLogRequest) HasSinceSeconds() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *PodLogRequest) HasSinceTime() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_SinceTime != nil
+}
+
+func (x *PodLogRequest) HasPrevious() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
+}
+
+func (x *PodLogRequest) HasTimestamps() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 9)
+}
+
+func (x *PodLogRequest) HasLimitBytes() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 10)
+}
+
+func (x *PodLogRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *PodLogRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *PodLogRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *PodLogRequest) ClearContainer() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Container = nil
+}
+
+func (x *PodLogRequest) ClearFollow() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Follow = false
+}
+
+func (x *PodLogRequest) ClearTailLines() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_TailLines = 0
+}
+
+func (x *PodLogRequest) ClearSinceSeconds() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_SinceSeconds = 0
+}
+
+func (x *PodLogRequest) ClearSinceTime() {
+	x.xxx_hidden_SinceTime = nil
+}
+
+func (x *PodLogRequest) ClearPrevious() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	x.xxx_hidden_Previous = false
+}
+
+func (x *PodLogRequest) ClearTimestamps() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 9)
+	x.xxx_hidden_Timestamps = false
+}
+
+func (x *PodLogRequest) ClearLimitBytes() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 10)
+	x.xxx_hidden_LimitBytes = 0
+}
+
+type PodLogRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// The namespace of the pod.
+	Namespace *string
+	// The name of the pod.
+	Name *string
+	// The container name. If omitted, the first container in the pod is used.
+	Container *string
+	// If true, stream logs as they are produced (like `kubectl logs -f`).
+	Follow *bool
+	// Number of lines from the end of the logs to show. If not set, all logs are shown.
+	TailLines *int64
+	// A relative time in seconds before the current time from which to show logs.
+	SinceSeconds *int64
+	// An absolute time from which to show logs. Mutually exclusive with since_seconds.
+	SinceTime *timestamppb.Timestamp
+	// If true, return the logs for the previous terminated container instance.
+	Previous *bool
+	// If true, add an RFC3339 timestamp at the beginning of every line of log output.
+	Timestamps *bool
+	// Limit the number of bytes returned from the server.
+	LimitBytes *int64
+}
+
+func (b0 PodLogRequest_builder) Build() *PodLogRequest {
+	m0 := &PodLogRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 11)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 11)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 11)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Container != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 11)
+		x.xxx_hidden_Container = b.Container
+	}
+	if b.Follow != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 11)
+		x.xxx_hidden_Follow = *b.Follow
+	}
+	if b.TailLines != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 11)
+		x.xxx_hidden_TailLines = *b.TailLines
+	}
+	if b.SinceSeconds != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 11)
+		x.xxx_hidden_SinceSeconds = *b.SinceSeconds
+	}
+	x.xxx_hidden_SinceTime = b.SinceTime
+	if b.Previous != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 11)
+		x.xxx_hidden_Previous = *b.Previous
+	}
+	if b.Timestamps != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 11)
+		x.xxx_hidden_Timestamps = *b.Timestamps
+	}
+	if b.LimitBytes != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 11)
+		x.xxx_hidden_LimitBytes = *b.LimitBytes
+	}
+	return m0
+}
+
 // PodLogResponse contains a chunk of log data.
 type PodLogResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Raw log data bytes.
-	Data          []byte `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Data        []byte                 `protobuf:"bytes,1,opt,name=data"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *PodLogResponse) Reset() {
@@ -195,40 +453,67 @@ func (x *PodLogResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PodLogResponse.ProtoReflect.Descriptor instead.
-func (*PodLogResponse) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{1}
-}
-
 func (x *PodLogResponse) GetData() []byte {
 	if x != nil {
-		return x.Data
+		return x.xxx_hidden_Data
 	}
 	return nil
+}
+
+func (x *PodLogResponse) SetData(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Data = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+}
+
+func (x *PodLogResponse) HasData() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *PodLogResponse) ClearData() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Data = nil
+}
+
+type PodLogResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Raw log data bytes.
+	Data []byte
+}
+
+func (b0 PodLogResponse_builder) Build() *PodLogResponse {
+	m0 := &PodLogResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Data != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		x.xxx_hidden_Data = b.Data
+	}
+	return m0
 }
 
 // ExecuteTTYRequest defines the parameters for starting an interactive
 // exec session in a container. Fields align with corev1.PodExecOptions.
 type ExecuteTTYRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// The namespace of the pod.
-	Namespace *string `protobuf:"bytes,2,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the pod.
-	Name *string `protobuf:"bytes,3,opt,name=name" json:"name,omitempty"`
-	// The container to exec into. If omitted, the first container is used.
-	Container *string `protobuf:"bytes,4,opt,name=container" json:"container,omitempty"`
-	// The command to execute (e.g. ["/bin/sh"]).
-	Command []string `protobuf:"bytes,5,rep,name=command" json:"command,omitempty"`
-	// If true, allocate a TTY for the exec session.
-	Tty *bool `protobuf:"varint,6,opt,name=tty" json:"tty,omitempty"`
-	// Initial terminal height in rows.
-	Rows *uint32 `protobuf:"varint,7,opt,name=rows" json:"rows,omitempty"`
-	// Initial terminal width in columns.
-	Cols          *uint32 `protobuf:"varint,8,opt,name=cols" json:"cols,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,2,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,3,opt,name=name"`
+	xxx_hidden_Container   *string                `protobuf:"bytes,4,opt,name=container"`
+	xxx_hidden_Command     []string               `protobuf:"bytes,5,rep,name=command"`
+	xxx_hidden_Tty         bool                   `protobuf:"varint,6,opt,name=tty"`
+	xxx_hidden_Rows        uint32                 `protobuf:"varint,7,opt,name=rows"`
+	xxx_hidden_Cols        uint32                 `protobuf:"varint,8,opt,name=cols"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *ExecuteTTYRequest) Reset() {
@@ -256,79 +541,264 @@ func (x *ExecuteTTYRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExecuteTTYRequest.ProtoReflect.Descriptor instead.
-func (*ExecuteTTYRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{2}
-}
-
 func (x *ExecuteTTYRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ExecuteTTYRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ExecuteTTYRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ExecuteTTYRequest) GetContainer() string {
-	if x != nil && x.Container != nil {
-		return *x.Container
+	if x != nil {
+		if x.xxx_hidden_Container != nil {
+			return *x.xxx_hidden_Container
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ExecuteTTYRequest) GetCommand() []string {
 	if x != nil {
-		return x.Command
+		return x.xxx_hidden_Command
 	}
 	return nil
 }
 
 func (x *ExecuteTTYRequest) GetTty() bool {
-	if x != nil && x.Tty != nil {
-		return *x.Tty
+	if x != nil {
+		return x.xxx_hidden_Tty
 	}
 	return false
 }
 
 func (x *ExecuteTTYRequest) GetRows() uint32 {
-	if x != nil && x.Rows != nil {
-		return *x.Rows
+	if x != nil {
+		return x.xxx_hidden_Rows
 	}
 	return 0
 }
 
 func (x *ExecuteTTYRequest) GetCols() uint32 {
-	if x != nil && x.Cols != nil {
-		return *x.Cols
+	if x != nil {
+		return x.xxx_hidden_Cols
 	}
 	return 0
 }
 
+func (x *ExecuteTTYRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 8)
+}
+
+func (x *ExecuteTTYRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 8)
+}
+
+func (x *ExecuteTTYRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 8)
+}
+
+func (x *ExecuteTTYRequest) SetContainer(v string) {
+	x.xxx_hidden_Container = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 8)
+}
+
+func (x *ExecuteTTYRequest) SetCommand(v []string) {
+	x.xxx_hidden_Command = v
+}
+
+func (x *ExecuteTTYRequest) SetTty(v bool) {
+	x.xxx_hidden_Tty = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 8)
+}
+
+func (x *ExecuteTTYRequest) SetRows(v uint32) {
+	x.xxx_hidden_Rows = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 8)
+}
+
+func (x *ExecuteTTYRequest) SetCols(v uint32) {
+	x.xxx_hidden_Cols = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 8)
+}
+
+func (x *ExecuteTTYRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ExecuteTTYRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ExecuteTTYRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ExecuteTTYRequest) HasContainer() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ExecuteTTYRequest) HasTty() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *ExecuteTTYRequest) HasRows() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *ExecuteTTYRequest) HasCols() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *ExecuteTTYRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *ExecuteTTYRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *ExecuteTTYRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *ExecuteTTYRequest) ClearContainer() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Container = nil
+}
+
+func (x *ExecuteTTYRequest) ClearTty() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Tty = false
+}
+
+func (x *ExecuteTTYRequest) ClearRows() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_Rows = 0
+}
+
+func (x *ExecuteTTYRequest) ClearCols() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_Cols = 0
+}
+
+type ExecuteTTYRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// The namespace of the pod.
+	Namespace *string
+	// The name of the pod.
+	Name *string
+	// The container to exec into. If omitted, the first container is used.
+	Container *string
+	// The command to execute (e.g. ["/bin/sh"]).
+	Command []string
+	// If true, allocate a TTY for the exec session.
+	Tty *bool
+	// Initial terminal height in rows.
+	Rows *uint32
+	// Initial terminal width in columns.
+	Cols *uint32
+}
+
+func (b0 ExecuteTTYRequest_builder) Build() *ExecuteTTYRequest {
+	m0 := &ExecuteTTYRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 8)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 8)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 8)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Container != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 8)
+		x.xxx_hidden_Container = b.Container
+	}
+	x.xxx_hidden_Command = b.Command
+	if b.Tty != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 8)
+		x.xxx_hidden_Tty = *b.Tty
+	}
+	if b.Rows != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 8)
+		x.xxx_hidden_Rows = *b.Rows
+	}
+	if b.Cols != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 8)
+		x.xxx_hidden_Cols = *b.Cols
+	}
+	return m0
+}
+
 // ExecuteTTYResponse streams output from the exec session.
 type ExecuteTTYResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The session identifier, set only in the first response message.
-	// Subsequent WriteTTY / ResizeTTY calls must reference this ID.
-	SessionId *string `protobuf:"bytes,1,opt,name=session_id,json=sessionId" json:"session_id,omitempty"`
-	// Stdout data from the exec session.
-	Stdout []byte `protobuf:"bytes,2,opt,name=stdout" json:"stdout,omitempty"`
-	// Stderr data from the exec session (only when tty is false).
-	Stderr        []byte `protobuf:"bytes,3,opt,name=stderr" json:"stderr,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Stdout      []byte                 `protobuf:"bytes,2,opt,name=stdout"`
+	xxx_hidden_Stderr      []byte                 `protobuf:"bytes,3,opt,name=stderr"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *ExecuteTTYResponse) Reset() {
@@ -356,41 +826,127 @@ func (x *ExecuteTTYResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExecuteTTYResponse.ProtoReflect.Descriptor instead.
-func (*ExecuteTTYResponse) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{3}
-}
-
 func (x *ExecuteTTYResponse) GetSessionId() string {
-	if x != nil && x.SessionId != nil {
-		return *x.SessionId
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ExecuteTTYResponse) GetStdout() []byte {
 	if x != nil {
-		return x.Stdout
+		return x.xxx_hidden_Stdout
 	}
 	return nil
 }
 
 func (x *ExecuteTTYResponse) GetStderr() []byte {
 	if x != nil {
-		return x.Stderr
+		return x.xxx_hidden_Stderr
 	}
 	return nil
 }
 
+func (x *ExecuteTTYResponse) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *ExecuteTTYResponse) SetStdout(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Stdout = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *ExecuteTTYResponse) SetStderr(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Stderr = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *ExecuteTTYResponse) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ExecuteTTYResponse) HasStdout() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ExecuteTTYResponse) HasStderr() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ExecuteTTYResponse) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *ExecuteTTYResponse) ClearStdout() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Stdout = nil
+}
+
+func (x *ExecuteTTYResponse) ClearStderr() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Stderr = nil
+}
+
+type ExecuteTTYResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier, set only in the first response message.
+	// Subsequent WriteTTY / ResizeTTY calls must reference this ID.
+	SessionId *string
+	// Stdout data from the exec session.
+	Stdout []byte
+	// Stderr data from the exec session (only when tty is false).
+	Stderr []byte
+}
+
+func (b0 ExecuteTTYResponse_builder) Build() *ExecuteTTYResponse {
+	m0 := &ExecuteTTYResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Stdout != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_Stdout = b.Stdout
+	}
+	if b.Stderr != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_Stderr = b.Stderr
+	}
+	return m0
+}
+
 // WriteTTYRequest sends stdin data to an active exec session.
 type WriteTTYRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The session identifier returned in the first ExecuteTTYResponse.
-	SessionId *string `protobuf:"bytes,1,opt,name=session_id,json=sessionId" json:"session_id,omitempty"`
-	// Stdin data to write.
-	Stdin         []byte `protobuf:"bytes,2,opt,name=stdin" json:"stdin,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Stdin       []byte                 `protobuf:"bytes,2,opt,name=stdin"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *WriteTTYRequest) Reset() {
@@ -418,36 +974,94 @@ func (x *WriteTTYRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WriteTTYRequest.ProtoReflect.Descriptor instead.
-func (*WriteTTYRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{4}
-}
-
 func (x *WriteTTYRequest) GetSessionId() string {
-	if x != nil && x.SessionId != nil {
-		return *x.SessionId
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WriteTTYRequest) GetStdin() []byte {
 	if x != nil {
-		return x.Stdin
+		return x.xxx_hidden_Stdin
 	}
 	return nil
 }
 
+func (x *WriteTTYRequest) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *WriteTTYRequest) SetStdin(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Stdin = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *WriteTTYRequest) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *WriteTTYRequest) HasStdin() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *WriteTTYRequest) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *WriteTTYRequest) ClearStdin() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Stdin = nil
+}
+
+type WriteTTYRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier returned in the first ExecuteTTYResponse.
+	SessionId *string
+	// Stdin data to write.
+	Stdin []byte
+}
+
+func (b0 WriteTTYRequest_builder) Build() *WriteTTYRequest {
+	m0 := &WriteTTYRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Stdin != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Stdin = b.Stdin
+	}
+	return m0
+}
+
 // ResizeTTYRequest updates the terminal dimensions of an exec session.
 type ResizeTTYRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The session identifier returned in the first ExecuteTTYResponse.
-	SessionId *string `protobuf:"bytes,1,opt,name=session_id,json=sessionId" json:"session_id,omitempty"`
-	// New terminal height in rows.
-	Rows *uint32 `protobuf:"varint,2,opt,name=rows" json:"rows,omitempty"`
-	// New terminal width in columns.
-	Cols          *uint32 `protobuf:"varint,3,opt,name=cols" json:"cols,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Rows        uint32                 `protobuf:"varint,2,opt,name=rows"`
+	xxx_hidden_Cols        uint32                 `protobuf:"varint,3,opt,name=cols"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *ResizeTTYRequest) Reset() {
@@ -475,45 +1089,122 @@ func (x *ResizeTTYRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ResizeTTYRequest.ProtoReflect.Descriptor instead.
-func (*ResizeTTYRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{5}
-}
-
 func (x *ResizeTTYRequest) GetSessionId() string {
-	if x != nil && x.SessionId != nil {
-		return *x.SessionId
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ResizeTTYRequest) GetRows() uint32 {
-	if x != nil && x.Rows != nil {
-		return *x.Rows
+	if x != nil {
+		return x.xxx_hidden_Rows
 	}
 	return 0
 }
 
 func (x *ResizeTTYRequest) GetCols() uint32 {
-	if x != nil && x.Cols != nil {
-		return *x.Cols
+	if x != nil {
+		return x.xxx_hidden_Cols
 	}
 	return 0
 }
 
+func (x *ResizeTTYRequest) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *ResizeTTYRequest) SetRows(v uint32) {
+	x.xxx_hidden_Rows = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *ResizeTTYRequest) SetCols(v uint32) {
+	x.xxx_hidden_Cols = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *ResizeTTYRequest) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ResizeTTYRequest) HasRows() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ResizeTTYRequest) HasCols() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ResizeTTYRequest) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *ResizeTTYRequest) ClearRows() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Rows = 0
+}
+
+func (x *ResizeTTYRequest) ClearCols() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Cols = 0
+}
+
+type ResizeTTYRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier returned in the first ExecuteTTYResponse.
+	SessionId *string
+	// New terminal height in rows.
+	Rows *uint32
+	// New terminal width in columns.
+	Cols *uint32
+}
+
+func (b0 ResizeTTYRequest_builder) Build() *ResizeTTYRequest {
+	m0 := &ResizeTTYRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Rows != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_Rows = *b.Rows
+	}
+	if b.Cols != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_Cols = *b.Cols
+	}
+	return m0
+}
+
 // PortForwardRequest defines the parameters for starting a port-forward session.
 type PortForwardRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// The namespace of the pod.
-	Namespace *string `protobuf:"bytes,2,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the pod.
-	Name *string `protobuf:"bytes,3,opt,name=name" json:"name,omitempty"`
-	// The container port to forward to.
-	Port          *int32 `protobuf:"varint,4,opt,name=port" json:"port,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,2,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,3,opt,name=name"`
+	xxx_hidden_Port        int32                  `protobuf:"varint,4,opt,name=port"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *PortForwardRequest) Reset() {
@@ -541,49 +1232,156 @@ func (x *PortForwardRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PortForwardRequest.ProtoReflect.Descriptor instead.
-func (*PortForwardRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{6}
-}
-
 func (x *PortForwardRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PortForwardRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PortForwardRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PortForwardRequest) GetPort() int32 {
-	if x != nil && x.Port != nil {
-		return *x.Port
+	if x != nil {
+		return x.xxx_hidden_Port
 	}
 	return 0
 }
 
+func (x *PortForwardRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+}
+
+func (x *PortForwardRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *PortForwardRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *PortForwardRequest) SetPort(v int32) {
+	x.xxx_hidden_Port = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *PortForwardRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *PortForwardRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *PortForwardRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *PortForwardRequest) HasPort() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *PortForwardRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *PortForwardRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *PortForwardRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *PortForwardRequest) ClearPort() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Port = 0
+}
+
+type PortForwardRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// The namespace of the pod.
+	Namespace *string
+	// The name of the pod.
+	Name *string
+	// The container port to forward to.
+	Port *int32
+}
+
+func (b0 PortForwardRequest_builder) Build() *PortForwardRequest {
+	m0 := &PortForwardRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Port != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_Port = *b.Port
+	}
+	return m0
+}
+
 // PortForwardResponse streams data received from the forwarded port.
 type PortForwardResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The session identifier, set only in the first response message.
-	// Subsequent WritePortForward calls must reference this ID.
-	SessionId *string `protobuf:"bytes,1,opt,name=session_id,json=sessionId" json:"session_id,omitempty"`
-	// Data received from the forwarded port on the pod.
-	Data          []byte `protobuf:"bytes,2,opt,name=data" json:"data,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Data        []byte                 `protobuf:"bytes,2,opt,name=data"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *PortForwardResponse) Reset() {
@@ -611,34 +1409,94 @@ func (x *PortForwardResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PortForwardResponse.ProtoReflect.Descriptor instead.
-func (*PortForwardResponse) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{7}
-}
-
 func (x *PortForwardResponse) GetSessionId() string {
-	if x != nil && x.SessionId != nil {
-		return *x.SessionId
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *PortForwardResponse) GetData() []byte {
 	if x != nil {
-		return x.Data
+		return x.xxx_hidden_Data
 	}
 	return nil
 }
 
+func (x *PortForwardResponse) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *PortForwardResponse) SetData(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Data = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *PortForwardResponse) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *PortForwardResponse) HasData() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *PortForwardResponse) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *PortForwardResponse) ClearData() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Data = nil
+}
+
+type PortForwardResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier, set only in the first response message.
+	// Subsequent WritePortForward calls must reference this ID.
+	SessionId *string
+	// Data received from the forwarded port on the pod.
+	Data []byte
+}
+
+func (b0 PortForwardResponse_builder) Build() *PortForwardResponse {
+	m0 := &PortForwardResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Data != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Data = b.Data
+	}
+	return m0
+}
+
 // WritePortForwardRequest sends data to an active port-forward session.
 type WritePortForwardRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The session identifier returned in the first PortForwardResponse.
-	SessionId *string `protobuf:"bytes,1,opt,name=session_id,json=sessionId" json:"session_id,omitempty"`
-	// Data to send to the forwarded port on the pod.
-	Data          []byte `protobuf:"bytes,2,opt,name=data" json:"data,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Data        []byte                 `protobuf:"bytes,2,opt,name=data"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *WritePortForwardRequest) Reset() {
@@ -666,45 +1524,99 @@ func (x *WritePortForwardRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WritePortForwardRequest.ProtoReflect.Descriptor instead.
-func (*WritePortForwardRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{8}
-}
-
 func (x *WritePortForwardRequest) GetSessionId() string {
-	if x != nil && x.SessionId != nil {
-		return *x.SessionId
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *WritePortForwardRequest) GetData() []byte {
 	if x != nil {
-		return x.Data
+		return x.xxx_hidden_Data
 	}
 	return nil
+}
+
+func (x *WritePortForwardRequest) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *WritePortForwardRequest) SetData(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Data = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *WritePortForwardRequest) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *WritePortForwardRequest) HasData() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *WritePortForwardRequest) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *WritePortForwardRequest) ClearData() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Data = nil
+}
+
+type WritePortForwardRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier returned in the first PortForwardResponse.
+	SessionId *string
+	// Data to send to the forwarded port on the pod.
+	Data []byte
+}
+
+func (b0 WritePortForwardRequest_builder) Build() *WritePortForwardRequest {
+	m0 := &WritePortForwardRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Data != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Data = b.Data
+	}
+	return m0
 }
 
 // ScaleRequest defines the parameters for scaling a workload.
 // Uses the Kubernetes /scale subresource for correctness.
 type ScaleRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps").
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the workload.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the workload.
-	Name *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	// The desired number of replicas.
-	Replicas      *int32 `protobuf:"varint,7,opt,name=replicas" json:"replicas,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,6,opt,name=name"`
+	xxx_hidden_Replicas    int32                  `protobuf:"varint,7,opt,name=replicas"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *ScaleRequest) Reset() {
@@ -732,67 +1644,254 @@ func (x *ScaleRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ScaleRequest.ProtoReflect.Descriptor instead.
-func (*ScaleRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{9}
-}
-
 func (x *ScaleRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *ScaleRequest) GetReplicas() int32 {
-	if x != nil && x.Replicas != nil {
-		return *x.Replicas
+	if x != nil {
+		return x.xxx_hidden_Replicas
 	}
 	return 0
 }
 
+func (x *ScaleRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 7)
+}
+
+func (x *ScaleRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 7)
+}
+
+func (x *ScaleRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 7)
+}
+
+func (x *ScaleRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 7)
+}
+
+func (x *ScaleRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 7)
+}
+
+func (x *ScaleRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 7)
+}
+
+func (x *ScaleRequest) SetReplicas(v int32) {
+	x.xxx_hidden_Replicas = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 7)
+}
+
+func (x *ScaleRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ScaleRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ScaleRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ScaleRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ScaleRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *ScaleRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *ScaleRequest) HasReplicas() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *ScaleRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *ScaleRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *ScaleRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *ScaleRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *ScaleRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *ScaleRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *ScaleRequest) ClearReplicas() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_Replicas = 0
+}
+
+type ScaleRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps").
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "deployments").
+	Resource *string
+	// The namespace of the workload.
+	Namespace *string
+	// The name of the workload.
+	Name *string
+	// The desired number of replicas.
+	Replicas *int32
+}
+
+func (b0 ScaleRequest_builder) Build() *ScaleRequest {
+	m0 := &ScaleRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 7)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 7)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 7)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 7)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 7)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 7)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Replicas != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 7)
+		x.xxx_hidden_Replicas = *b.Replicas
+	}
+	return m0
+}
+
 // ScaleResponse contains the updated replica count after scaling.
 type ScaleResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The current number of replicas after the scale operation.
-	Replicas      *int32 `protobuf:"varint,1,opt,name=replicas" json:"replicas,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Replicas    int32                  `protobuf:"varint,1,opt,name=replicas"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *ScaleResponse) Reset() {
@@ -820,37 +1919,63 @@ func (x *ScaleResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ScaleResponse.ProtoReflect.Descriptor instead.
-func (*ScaleResponse) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{10}
-}
-
 func (x *ScaleResponse) GetReplicas() int32 {
-	if x != nil && x.Replicas != nil {
-		return *x.Replicas
+	if x != nil {
+		return x.xxx_hidden_Replicas
 	}
 	return 0
+}
+
+func (x *ScaleResponse) SetReplicas(v int32) {
+	x.xxx_hidden_Replicas = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+}
+
+func (x *ScaleResponse) HasReplicas() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ScaleResponse) ClearReplicas() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Replicas = 0
+}
+
+type ScaleResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The current number of replicas after the scale operation.
+	Replicas *int32
+}
+
+func (b0 ScaleResponse_builder) Build() *ScaleResponse {
+	m0 := &ScaleResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Replicas != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		x.xxx_hidden_Replicas = *b.Replicas
+	}
+	return m0
 }
 
 // RestartRequest defines the parameters for triggering a rolling restart.
 // This patches the pod template annotation with kubectl.kubernetes.io/restartedAt,
 // equivalent to `kubectl rollout restart`.
 type RestartRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The target Kubernetes cluster identifier.
-	Cluster *string `protobuf:"bytes,1,opt,name=cluster" json:"cluster,omitempty"`
-	// Kubernetes API Group (e.g., "apps").
-	Group *string `protobuf:"bytes,2,opt,name=group" json:"group,omitempty"`
-	// Kubernetes API Version (e.g., "v1").
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	// Kubernetes API Resource name in plural (e.g., "deployments").
-	Resource *string `protobuf:"bytes,4,opt,name=resource" json:"resource,omitempty"`
-	// The namespace of the workload.
-	Namespace *string `protobuf:"bytes,5,opt,name=namespace" json:"namespace,omitempty"`
-	// The name of the workload.
-	Name          *string `protobuf:"bytes,6,opt,name=name" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,6,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *RestartRequest) Reset() {
@@ -878,51 +2003,214 @@ func (x *RestartRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RestartRequest.ProtoReflect.Descriptor instead.
-func (*RestartRequest) Descriptor() ([]byte, []int) {
-	return file_runtime_v1_runtime_proto_rawDescGZIP(), []int{11}
-}
-
 func (x *RestartRequest) GetCluster() string {
-	if x != nil && x.Cluster != nil {
-		return *x.Cluster
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RestartRequest) GetGroup() string {
-	if x != nil && x.Group != nil {
-		return *x.Group
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RestartRequest) GetVersion() string {
-	if x != nil && x.Version != nil {
-		return *x.Version
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RestartRequest) GetResource() string {
-	if x != nil && x.Resource != nil {
-		return *x.Resource
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RestartRequest) GetNamespace() string {
-	if x != nil && x.Namespace != nil {
-		return *x.Namespace
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
 	}
 	return ""
 }
 
 func (x *RestartRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *RestartRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 6)
+}
+
+func (x *RestartRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 6)
+}
+
+func (x *RestartRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 6)
+}
+
+func (x *RestartRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 6)
+}
+
+func (x *RestartRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 6)
+}
+
+func (x *RestartRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 6)
+}
+
+func (x *RestartRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *RestartRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *RestartRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *RestartRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *RestartRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *RestartRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *RestartRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *RestartRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *RestartRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *RestartRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *RestartRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *RestartRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+type RestartRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps").
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "deployments").
+	Resource *string
+	// The namespace of the workload.
+	Namespace *string
+	// The name of the workload.
+	Name *string
+}
+
+func (b0 RestartRequest_builder) Build() *RestartRequest {
+	m0 := &RestartRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 6)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 6)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 6)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 6)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 6)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 6)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
 }
 
 var File_runtime_v1_runtime_proto protoreflect.FileDescriptor
@@ -1021,18 +2309,6 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x0fruntime-enabled\x12`\n" +
 	"\aRestart\x12%.otterscale.runtime.v1.RestartRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabledB)Z'github.com/otterscale/api/runtime/v1;pbb\beditionsp\xe8\a"
-
-var (
-	file_runtime_v1_runtime_proto_rawDescOnce sync.Once
-	file_runtime_v1_runtime_proto_rawDescData []byte
-)
-
-func file_runtime_v1_runtime_proto_rawDescGZIP() []byte {
-	file_runtime_v1_runtime_proto_rawDescOnce.Do(func() {
-		file_runtime_v1_runtime_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_runtime_v1_runtime_proto_rawDesc), len(file_runtime_v1_runtime_proto_rawDesc)))
-	})
-	return file_runtime_v1_runtime_proto_rawDescData
-}
 
 var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_runtime_v1_runtime_proto_goTypes = []any{

@@ -11,7 +11,6 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	descriptorpb "google.golang.org/protobuf/types/descriptorpb"
 	reflect "reflect"
-	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -23,10 +22,12 @@ const (
 )
 
 type Feature struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          *string                `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,1,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
 }
 
 func (x *Feature) Reset() {
@@ -54,16 +55,48 @@ func (x *Feature) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Feature.ProtoReflect.Descriptor instead.
-func (*Feature) Descriptor() ([]byte, []int) {
-	return file_feature_proto_rawDescGZIP(), []int{0}
-}
-
 func (x *Feature) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
 	}
 	return ""
+}
+
+func (x *Feature) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+}
+
+func (x *Feature) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Feature) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Name = nil
+}
+
+type Feature_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	Name *string
+}
+
+func (b0 Feature_builder) Build() *Feature {
+	m0 := &Feature{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
 }
 
 var file_feature_proto_extTypes = []protoimpl.ExtensionInfo{
@@ -91,18 +124,6 @@ const file_feature_proto_rawDesc = "" +
 	"\aFeature\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name:T\n" +
 	"\afeature\x12\x1e.google.protobuf.MethodOptions\x18\xf1\xdb\xda\x03 \x01(\v2\x17.otterscale.api.FeatureR\afeatureB\x1fZ\x1dgithub.com/otterscale/api;apib\beditionsp\xe8\a"
-
-var (
-	file_feature_proto_rawDescOnce sync.Once
-	file_feature_proto_rawDescData []byte
-)
-
-func file_feature_proto_rawDescGZIP() []byte {
-	file_feature_proto_rawDescOnce.Do(func() {
-		file_feature_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_feature_proto_rawDesc), len(file_feature_proto_rawDesc)))
-	})
-	return file_feature_proto_rawDescData
-}
 
 var file_feature_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_feature_proto_goTypes = []any{
