@@ -4,7 +4,7 @@ package otterscale.api;
 
 import "google/protobuf/descriptor.proto";
 
-option go_package = "github.com/otterscale/api;api";
+option go_package = "github.com/otterscale/api";
 
 message Feature {
   string name = 1;

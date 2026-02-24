@@ -2,7 +2,7 @@
 //
 // Source: link/v1/link.proto
 
-package pb
+package linkv1
 
 import (
 	connect "connectrpc.com/connect"

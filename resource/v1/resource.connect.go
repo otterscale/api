@@ -2,7 +2,7 @@
 //
 // Source: resource/v1/resource.proto
 
-package pb
+package resourcev1
 
 import (
 	connect "connectrpc.com/connect"
