@@ -1,6 +1,8 @@
 # OtterScale API
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/otterscale/api.svg)](https://pkg.go.dev/github.com/otterscale/api)
+[![npm](https://img.shields.io/npm/v/@otterscale/api)](https://www.npmjs.com/package/@otterscale/api)
+[![GitHub Release](https://img.shields.io/github/v/release/otterscale/api)](https://github.com/otterscale/api/releases)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Buf](https://img.shields.io/badge/buf-managed-blue)](https://buf.build)
 
