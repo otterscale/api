@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: runtime/v1/runtime.proto
 
-package pb
+package runtimev1
 
 import (
 	_ "github.com/otterscale/api"
@@ -2308,7 +2308,7 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x05Scale\x12#.otterscale.runtime.v1.ScaleRequest\x1a$.otterscale.runtime.v1.ScaleResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x12`\n" +
 	"\aRestart\x12%.otterscale.runtime.v1.RestartRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
-	"\x0fruntime-enabledB)Z'github.com/otterscale/api/runtime/v1;pbb\beditionsp\xe8\a"
+	"\x0fruntime-enabledB0Z.github.com/otterscale/api/runtime/v1;runtimev1b\beditionsp\xe8\a"
 
 var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_runtime_v1_runtime_proto_goTypes = []any{

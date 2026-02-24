@@ -4,7 +4,7 @@ VERSION=$(shell git describe --tags --always)
 # generate code
 generate:
 	buf generate
-	rm openapi.pb.go # workaround for buf exclude
+	rm openapi.pb.go ts/src/openapi_pb.ts # workaround for buf exclude
 	go mod tidy
 
 .PHONY: help

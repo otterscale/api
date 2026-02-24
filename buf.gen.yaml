@@ -1,17 +1,21 @@
 version: v2
 plugins:
-  - remote: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go:v1.36.11
     out: .
     opt: 
      - paths=source_relative
      - default_api_level=API_OPAQUE
-  - remote: buf.build/connectrpc/go
+  - remote: buf.build/connectrpc/go:v1.19.1
     out: .
     opt:
       - paths=source_relative
       - package_suffix
       - simple
-  - remote: buf.build/community/sudorandom-connect-openapi:v0.25.3
-    out: .
+  - remote: buf.build/bufbuild/es:v2.11.0
+    out: ts/src
+    opt:
+      - target=ts
+  - remote: buf.build/community/sudorandom-connect-openapi:v0.25.4
+    out: openapi
     opt:
       - path=openapi.yaml,short-operation-ids,short-service-tags

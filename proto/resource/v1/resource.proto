@@ -6,7 +6,7 @@ import "feature.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 
-option go_package = "github.com/otterscale/api/resource/v1;pb";
+option go_package = "github.com/otterscale/api/resource/v1;resourcev1";
 
 // ResourceService provides a generic interface to manage any Kubernetes resources,
 // including native objects (Pods, Deployments) and Custom Resource Definitions (CRDs).

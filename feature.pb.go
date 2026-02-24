@@ -123,7 +123,7 @@ const file_feature_proto_rawDesc = "" +
 	"\rfeature.proto\x12\x0eotterscale.api\x1a google/protobuf/descriptor.proto\"\x1d\n" +
 	"\aFeature\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name:T\n" +
-	"\afeature\x12\x1e.google.protobuf.MethodOptions\x18\xf1\xdb\xda\x03 \x01(\v2\x17.otterscale.api.FeatureR\afeatureB\x1fZ\x1dgithub.com/otterscale/api;apib\beditionsp\xe8\a"
+	"\afeature\x12\x1e.google.protobuf.MethodOptions\x18\xf1\xdb\xda\x03 \x01(\v2\x17.otterscale.api.FeatureR\afeatureB\x1bZ\x19github.com/otterscale/apib\beditionsp\xe8\a"
 
 var file_feature_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_feature_proto_goTypes = []any{

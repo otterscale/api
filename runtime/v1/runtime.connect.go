@@ -2,7 +2,7 @@
 //
 // Source: runtime/v1/runtime.proto
 
-package pb
+package runtimev1
 
 import (
 	connect "connectrpc.com/connect"

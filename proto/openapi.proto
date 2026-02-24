@@ -4,7 +4,7 @@ package otterscale.api;
 
 import "gnostic/openapi/v3/annotations.proto";
 
-option go_package = "github.com/otterscale/api;api";
+option go_package = "github.com/otterscale/api";
 option (gnostic.openapi.v3.document) = {
   info: {
     title: "OtterScale API"

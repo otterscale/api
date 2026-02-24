@@ -4,7 +4,7 @@
 // 	protoc        (unknown)
 // source: link/v1/link.proto
 
-package pb
+package linkv1
 
 import (
 	_ "github.com/otterscale/api"
@@ -838,7 +838,7 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\bRegister\x12#.otterscale.link.v1.RegisterRequest\x1a$.otterscale.link.v1.RegisterResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
 	"\flink-enabled\x12\x85\x01\n" +
 	"\x10GetAgentManifest\x12+.otterscale.link.v1.GetAgentManifestRequest\x1a,.otterscale.link.v1.GetAgentManifestResponse\"\x16\x8a\xdf\xd5\x1d\x0e\n" +
-	"\flink-enabled\x90\x02\x01B&Z$github.com/otterscale/api/link/v1;pbb\beditionsp\xe8\a"
+	"\flink-enabled\x90\x02\x01B*Z(github.com/otterscale/api/link/v1;linkv1b\beditionsp\xe8\a"
 
 var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_link_v1_link_proto_goTypes = []any{
