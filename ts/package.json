@@ -1,6 +1,6 @@
 {
   "name": "@otterscale/api",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "type": "module",
   "main": "./src/feature_pb.js",
   "types": "./src/feature_pb.d.ts",
