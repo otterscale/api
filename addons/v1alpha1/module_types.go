@@ -17,8 +17,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // ModuleSpec defines the desired state of an installed Module.
@@ -44,8 +44,11 @@ type ModuleSpec struct {
 	// Values overrides the default values for HelmRelease-based modules.
 	// Only applicable when the referenced ModuleTemplate uses a HelmRelease template.
 	// Ignored for Kustomization-based modules.
+	// Accepts arbitrary JSON; RawExtension is used instead of apiextensionsv1.JSON
+	// to avoid pulling in the k8s.io/apiextensions-apiserver dependency.
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	Values *apiextensionsv1.JSON `json:"values,omitempty"`
+	Values *runtime.RawExtension `json:"values,omitempty"`
 }
 
 // ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.

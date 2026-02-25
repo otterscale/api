@@ -21,8 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -127,7 +126,7 @@ func (in *ModuleSpec) DeepCopyInto(out *ModuleSpec) {
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
-		*out = new(v1.JSON)
+		*out = new(runtime.RawExtension)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -157,7 +156,7 @@ func (in *ModuleStatus) DeepCopyInto(out *ModuleStatus) {
 	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
-		*out = make([]metav1.Condition, len(*in))
+		*out = make([]v1.Condition, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
@@ -263,7 +262,7 @@ func (in *ModuleTemplateStatus) DeepCopyInto(out *ModuleTemplateStatus) {
 	*out = *in
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
-		*out = make([]metav1.Condition, len(*in))
+		*out = make([]v1.Condition, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}

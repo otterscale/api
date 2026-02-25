@@ -17,23 +17,26 @@ limitations under the License.
 package v1alpha1
 
 import (
-	helmv2 "github.com/fluxcd/helm-controller/api/v2"
-	kustomizev1 "github.com/fluxcd/kustomize-controller/api/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // HelmReleaseTemplateSpec wraps the FluxCD HelmReleaseSpec for use as a module template.
+// The actual schema is composed at runtime by the Schema RPC from the FluxCD HelmRelease CRD.
 type HelmReleaseTemplateSpec struct {
-	// Spec is the FluxCD HelmRelease specification to use as a template.
+	// Spec is the raw FluxCD HelmRelease specification.
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +required
-	Spec helmv2.HelmReleaseSpec `json:"spec"`
+	Spec runtime.RawExtension `json:"spec"`
 }
 
 // KustomizationTemplateSpec wraps the FluxCD KustomizationSpec for use as a module template.
+// The actual schema is composed at runtime by the Schema RPC from the FluxCD Kustomization CRD.
 type KustomizationTemplateSpec struct {
-	// Spec is the FluxCD Kustomization specification to use as a template.
+	// Spec is the raw FluxCD Kustomization specification.
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +required
-	Spec kustomizev1.KustomizationSpec `json:"spec"`
+	Spec runtime.RawExtension `json:"spec"`
 }
 
 // ModuleTemplateSpec defines the desired state of a ModuleTemplate.

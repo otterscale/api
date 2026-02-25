@@ -79,6 +79,7 @@ spec:
                   Values overrides the default values for HelmRelease-based modules.
                   Only applicable when the referenced ModuleTemplate uses a HelmRelease template.
                   Ignored for Kustomization-based modules.
+                type: object
                 x-kubernetes-preserve-unknown-fields: true
             required:
             - templateRef
