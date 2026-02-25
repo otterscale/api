@@ -53,7 +53,7 @@ spec:
             properties:
               limitRange:
                 description: |-
-                  LimitRange describes the default resource limits and requests for pods in the workspace.
+                  LimitRange defines the default resource limits and requests for pods in the workspace.
                   The actual schema is composed at runtime by the Schema RPC from the core/v1 LimitRange.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
@@ -139,7 +139,7 @@ spec:
                     == 0 || self.enabled'
               resourceQuota:
                 description: |-
-                  ResourceQuota describes the compute resource constraints (CPU, Memory, etc.) applied to the underlying namespace.
+                  ResourceQuota defines the compute resource constraints (CPU, Memory, etc.) applied to the underlying namespace.
                   The actual schema is composed at runtime by the Schema RPC from the core/v1 ResourceQuota.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
@@ -312,10 +312,8 @@ spec:
                 description: RoleBindingRefs contains references to all RBAC RoleBindings
                   created for the workspace members.
                 items:
-                  description: |-
-                    ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
-                    Unlike corev1.ObjectReference, it only contains the essential fields needed
-                    to identify the resource, avoiding stale UID/ResourceVersion issues.
+                  description: ResourceReference is a lightweight reference to a Kubernetes
+                    resource managed by the operator.
                   properties:
                     name:
                       description: Name is the name of the referenced resource.

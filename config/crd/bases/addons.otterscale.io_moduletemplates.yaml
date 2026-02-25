@@ -51,7 +51,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the module template blueprint.
+            description: Spec defines the desired behavior of the ModuleTemplate.
             properties:
               description:
                 description: Description is a human-readable description of the module
@@ -101,7 +101,8 @@ spec:
             description: Status represents the current information about the ModuleTemplate.
             properties:
               conditions:
-                description: Conditions store the status conditions of the ModuleTemplate.
+                description: Conditions store the status conditions of the ModuleTemplate
+                  (e.g., Ready).
                 items:
                   description: Condition contains details for one aspect of the current
                     state of this API Resource.
@@ -161,8 +162,9 @@ spec:
                 - type
                 x-kubernetes-list-type: map
               observedGeneration:
-                description: ObservedGeneration is the most recent generation observed
-                  by the controller.
+                description: |-
+                  ObservedGeneration is the most recent generation observed by the controller.
+                  It corresponds to the ModuleTemplate's generation, which is updated on mutation by the API Server.
                 format: int64
                 type: integer
             type: object
