@@ -61,27 +61,17 @@ spec:
               helmRelease:
                 description: |-
                   HelmRelease defines the FluxCD HelmRelease spec template.
+                  The actual schema is composed at runtime by the Schema RPC from the FluxCD HelmRelease CRD.
                   Mutually exclusive with Kustomization (enforced via CEL).
-                properties:
-                  spec:
-                    description: Spec is the raw FluxCD HelmRelease specification.
-                    type: object
-                    x-kubernetes-preserve-unknown-fields: true
-                required:
-                - spec
                 type: object
+                x-kubernetes-preserve-unknown-fields: true
               kustomization:
                 description: |-
                   Kustomization defines the FluxCD Kustomization spec template.
+                  The actual schema is composed at runtime by the Schema RPC from the FluxCD Kustomization CRD.
                   Mutually exclusive with HelmRelease (enforced via CEL).
-                properties:
-                  spec:
-                    description: Spec is the raw FluxCD Kustomization specification.
-                    type: object
-                    x-kubernetes-preserve-unknown-fields: true
-                required:
-                - spec
                 type: object
+                x-kubernetes-preserve-unknown-fields: true
               namespace:
                 description: |-
                   Namespace is the default target namespace where FluxCD resources will be created

@@ -21,24 +21,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// HelmReleaseTemplateSpec wraps the FluxCD HelmReleaseSpec for use as a module template.
-// The actual schema is composed at runtime by the Schema RPC from the FluxCD HelmRelease CRD.
-type HelmReleaseTemplateSpec struct {
-	// Spec is the raw FluxCD HelmRelease specification.
-	// +kubebuilder:pruning:PreserveUnknownFields
-	// +required
-	Spec runtime.RawExtension `json:"spec"`
-}
-
-// KustomizationTemplateSpec wraps the FluxCD KustomizationSpec for use as a module template.
-// The actual schema is composed at runtime by the Schema RPC from the FluxCD Kustomization CRD.
-type KustomizationTemplateSpec struct {
-	// Spec is the raw FluxCD Kustomization specification.
-	// +kubebuilder:pruning:PreserveUnknownFields
-	// +required
-	Spec runtime.RawExtension `json:"spec"`
-}
-
 // ModuleTemplateSpec defines the desired state of a ModuleTemplate.
 // It serves as a reusable catalog entry for platform modules, containing either
 // a FluxCD HelmRelease or Kustomization specification.
@@ -58,14 +40,18 @@ type ModuleTemplateSpec struct {
 	Namespace string `json:"namespace"`
 
 	// HelmRelease defines the FluxCD HelmRelease spec template.
+	// The actual schema is composed at runtime by the Schema RPC from the FluxCD HelmRelease CRD.
 	// Mutually exclusive with Kustomization (enforced via CEL).
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	HelmRelease *HelmReleaseTemplateSpec `json:"helmRelease,omitempty"`
+	HelmRelease *runtime.RawExtension `json:"helmRelease,omitempty"`
 
 	// Kustomization defines the FluxCD Kustomization spec template.
+	// The actual schema is composed at runtime by the Schema RPC from the FluxCD Kustomization CRD.
 	// Mutually exclusive with HelmRelease (enforced via CEL).
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	Kustomization *KustomizationTemplateSpec `json:"kustomization,omitempty"`
+	Kustomization *runtime.RawExtension `json:"kustomization,omitempty"`
 }
 
 // ModuleTemplateStatus defines the observed state of a ModuleTemplate.
