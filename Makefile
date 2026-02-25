@@ -52,8 +52,20 @@ vet: ## Run go vet against code.
 tidy: ## Run go mod tidy
 	go mod tidy
 
+.PHONY: lint
+lint: golangci-lint ## Run golangci-lint linter
+	"$(GOLANGCI_LINT)" run
+
+.PHONY: lint-fix
+lint-fix: golangci-lint ## Run golangci-lint linter and perform fixes
+	"$(GOLANGCI_LINT)" run --fix
+
+.PHONY: lint-config
+lint-config: golangci-lint ## Verify golangci-lint linter configuration
+	"$(GOLANGCI_LINT)" config verify
+
 .PHONY: all
-all: proto manifests generate fmt vet tidy ## Generate all code from proto files, manifests, and go code.
+all: proto manifests generate fmt vet tidy lint ## Generate all code from proto files, manifests, and go code.
 
 .DEFAULT_GOAL := all
 
@@ -67,10 +79,12 @@ $(LOCALBIN):
 ## Tool Binaries
 BUF ?= $(LOCALBIN)/buf
 CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
+GOLANGCI_LINT = $(LOCALBIN)/golangci-lint
 
 ## Tool Versions
 BUF_VERSION ?= v1.66.0
 CONTROLLER_TOOLS_VERSION ?= v0.20.1
+GOLANGCI_LINT_VERSION ?= v2.10.1
 
 .PHONY: buf
 buf: $(BUF) ## Download buf locally if necessary.
@@ -80,7 +94,12 @@ $(BUF): $(LOCALBIN)
 .PHONY: controller-gen
 controller-gen: $(CONTROLLER_GEN) ## Download controller-gen locally if necessary.
 $(CONTROLLER_GEN): $(LOCALBIN)
-	$(call go-install-tool,$(CONTROLLER_GEN),sigs.k8s.io/controller-tools/cmd/controller-gen,$(CONTROLLER_TOOLS_VERSION))
+	$(call go-instal-tool,$(CONTROLLER_GEN),sigs.k8s.io/controller-tools/cmd/controller-gen,$(CONTROLLER_TOOLS_VERSION))
+
+.PHONY: golangci-lint
+golangci-lint: $(GOLANGCI_LINT) ## Download golangci-lint locally if necessary.
+$(GOLANGCI_LINT): $(LOCALBIN)
+	$(call go-install-tool,$(GOLANGCI_LINT),github.com/golangci/golangci-lint/v2/cmd/golangci-lint,$(GOLANGCI_LINT_VERSION))
 
 # go-install-tool will 'go install' any package with custom target and name of binary, if it doesn't exist
 # $1 - target path with name of binary
@@ -96,8 +115,4 @@ GOBIN="$(LOCALBIN)" go install $${package} ;\
 mv "$(LOCALBIN)/$$(basename "$(1)")" "$(1)-$(3)" ;\
 } ;\
 ln -sf "$$(realpath "$(1)-$(3)")" "$(1)"
-endef
-
-define gomodver
-$(shell go list -m -f '{{if .Replace}}{{.Replace.Version}}{{else}}{{.Version}}{{end}}' $(1) 2>/dev/null)
 endef
