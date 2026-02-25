@@ -124,7 +124,3 @@ type ModuleList struct {
 	metav1.ListMeta `json:"metadata,omitzero"`
 	Items           []Module `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&Module{}, &ModuleList{})
-}

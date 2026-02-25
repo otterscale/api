@@ -203,7 +203,3 @@ type WorkspaceList struct {
 	metav1.ListMeta `json:"metadata,omitzero"`
 	Items           []Workspace `json:"items"`
 }
-
-func init() {
-	SchemeBuilder.Register(&Workspace{}, &WorkspaceList{})
-}
