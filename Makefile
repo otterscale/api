@@ -69,7 +69,7 @@ all: proto manifests generate fmt vet tidy lint ## Generate all code from proto 
 
 .DEFAULT_GOAL := all
 
-##@ 
+##@ Build
 
 .PHONY: crd-installer
 crd-installer: manifests generate kustomize ## Generate a consolidated YAML with CRDs.
