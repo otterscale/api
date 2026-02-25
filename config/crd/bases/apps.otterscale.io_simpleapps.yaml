@@ -4,23 +4,17 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: modules.addons.otterscale.io
+  name: simpleapps.apps.otterscale.io
 spec:
-  group: addons.otterscale.io
+  group: apps.otterscale.io
   names:
-    kind: Module
-    listKind: ModuleList
-    plural: modules
-    singular: module
-  scope: Cluster
+    kind: SimpleApp
+    listKind: SimpleAppList
+    plural: simpleapps
+    singular: simpleapp
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.templateRef
-      name: Template
-      type: string
-    - jsonPath: .spec.namespace
-      name: Namespace
-      type: string
     - jsonPath: .status.conditions[?(@.type=="Ready")].status
       name: Ready
       type: string
@@ -31,10 +25,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: |-
-          Module is the Schema for the modules API.
-          A Module represents an installed platform addon instantiated from a ModuleTemplate.
-          The controller creates the corresponding FluxCD HelmRelease or Kustomization
-          and reflects its status back to the Module.
+          SimpleApp is the Schema for the simpleapps API.
+          A SimpleApp provides a simplified abstraction for deploying an application
+          with an optional Service and PersistentVolumeClaim.
         properties:
           apiVersion:
             description: |-
@@ -54,44 +47,37 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the desired behavior of the Module.
+            description: Spec defines the desired behavior of the SimpleApp.
             properties:
-              namespace:
+              deploymentSpec:
                 description: |-
-                  Namespace overrides the default target namespace defined in the ModuleTemplate.
-                  If not specified, the namespace from the ModuleTemplate is used.
-                maxLength: 63
-                minLength: 1
-                pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$
-                type: string
-              templateRef:
+                  DeploymentSpec defines the deployment configuration.
+                  The actual schema is composed at runtime by the Schema RPC from the apps/v1 Deployment.
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              pvcSpec:
                 description: |-
-                  TemplateRef is the name of the ModuleTemplate to instantiate.
-                  This field is immutable after creation.
-                maxLength: 253
-                minLength: 1
-                type: string
-                x-kubernetes-validations:
-                - message: templateRef is immutable
-                  rule: self == oldSelf
-              values:
+                  PVCSpec defines the PersistentVolumeClaim configuration.
+                  If specified, a PVC will be created.
+                  The actual schema is composed at runtime by the Schema RPC from the core/v1 PersistentVolumeClaim.
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              serviceSpec:
                 description: |-
-                  Values overrides the default values for HelmRelease-based modules.
-                  Only applicable when the referenced ModuleTemplate uses a HelmRelease template.
-                  Ignored for Kustomization-based modules.
-                  Accepts arbitrary JSON; RawExtension is used instead of apiextensionsv1.JSON
-                  to avoid pulling in the k8s.io/apiextensions-apiserver dependency.
+                  ServiceSpec defines the Service configuration.
+                  If specified, a Service will be created.
+                  The actual schema is composed at runtime by the Schema RPC from the core/v1 Service.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
             required:
-            - templateRef
+            - deploymentSpec
             type: object
           status:
-            description: Status represents the current information about the Module.
+            description: Status represents the current information about the SimpleApp.
             properties:
               conditions:
-                description: Conditions store the status conditions of the Module
-                  (e.g., Ready, TemplateNotFound).
+                description: Conditions store the status conditions of the SimpleApp
+                  (e.g., Ready, Progressing, Degraded).
                 items:
                   description: Condition contains details for one aspect of the current
                     state of this API Resource.
@@ -150,22 +136,8 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              helmReleaseRef:
-                description: HelmReleaseRef is a reference to the FluxCD HelmRelease
-                  managed by this Module.
-                properties:
-                  name:
-                    description: Name is the name of the referenced resource.
-                    type: string
-                  namespace:
-                    description: Namespace is the namespace of the referenced resource.
-                    type: string
-                required:
-                - name
-                type: object
-              kustomizationRef:
-                description: KustomizationRef is a reference to the FluxCD Kustomization
-                  managed by this Module.
+              deploymentRef:
+                description: DeploymentRef references the managed Deployment resource.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
@@ -177,17 +149,34 @@ spec:
                 - name
                 type: object
               observedGeneration:
-                description: |-
-                  ObservedGeneration is the most recent generation observed by the controller.
-                  It corresponds to the Module's generation, which is updated on mutation by the API Server.
+                description: ObservedGeneration is the most recent generation observed
+                  by the controller.
                 format: int64
                 type: integer
-              templateGeneration:
-                description: |-
-                  TemplateGeneration tracks the observed generation of the referenced ModuleTemplate.
-                  This allows the controller to detect and reconcile template changes.
-                format: int64
-                type: integer
+              pvcRef:
+                description: PVCRef references the managed PersistentVolumeClaim resource.
+                properties:
+                  name:
+                    description: Name is the name of the referenced resource.
+                    type: string
+                  namespace:
+                    description: Namespace is the namespace of the referenced resource.
+                    type: string
+                required:
+                - name
+                type: object
+              serviceRef:
+                description: ServiceRef references the managed Service resource.
+                properties:
+                  name:
+                    description: Name is the name of the referenced resource.
+                    type: string
+                  namespace:
+                    description: Namespace is the namespace of the referenced resource.
+                    type: string
+                required:
+                - name
+                type: object
             type: object
         required:
         - spec
