@@ -1,6 +1,6 @@
 # OtterScale API
 
-[![CI](https://github.com/otterscale/api/actions/workflows/ci.yaml/badge.svg)](https://github.com/otterscale/api/actions/workflows/ci.yaml)
+[![Lint](https://github.com/otterscale/api/actions/workflows/lint.yml/badge.svg)](https://github.com/otterscale/api/actions/workflows/lint.yml)
 [![Release](https://img.shields.io/github/v/release/otterscale/api)](https://github.com/otterscale/api/releases/latest)
 [![npm](https://img.shields.io/npm/v/@otterscale/api)](https://www.npmjs.com/package/@otterscale/api)
 [![Go Reference](https://pkg.go.dev/badge/github.com/otterscale/api.svg)](https://pkg.go.dev/github.com/otterscale/api)
