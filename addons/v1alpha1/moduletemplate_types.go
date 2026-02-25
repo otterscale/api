@@ -68,13 +68,15 @@ type ModuleTemplateSpec struct {
 	Kustomization *KustomizationTemplateSpec `json:"kustomization,omitempty"`
 }
 
-// ModuleTemplateStatus defines the observed state of the ModuleTemplate.
+// ModuleTemplateStatus defines the observed state of a ModuleTemplate.
+// It tracks whether the template has been validated and is ready for use.
 type ModuleTemplateStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
+	// It corresponds to the ModuleTemplate's generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
-	// Conditions store the status conditions of the ModuleTemplate.
+	// Conditions store the status conditions of the ModuleTemplate (e.g., Ready).
 	// +listType=map
 	// +listMapKey=type
 	// +optional
@@ -99,7 +101,7 @@ type ModuleTemplate struct {
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitzero"`
 
-	// Spec defines the module template blueprint.
+	// Spec defines the desired behavior of the ModuleTemplate.
 	// +required
 	Spec ModuleTemplateSpec `json:"spec"`
 

@@ -97,13 +97,13 @@ type WorkspaceSpec struct {
 	// +required
 	Members []WorkspaceMember `json:"members"`
 
-	// ResourceQuota describes the compute resource constraints (CPU, Memory, etc.) applied to the underlying namespace.
+	// ResourceQuota defines the compute resource constraints (CPU, Memory, etc.) applied to the underlying namespace.
 	// The actual schema is composed at runtime by the Schema RPC from the core/v1 ResourceQuota.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
 	ResourceQuota *runtime.RawExtension `json:"resourceQuota,omitempty"`
 
-	// LimitRange describes the default resource limits and requests for pods in the workspace.
+	// LimitRange defines the default resource limits and requests for pods in the workspace.
 	// The actual schema is composed at runtime by the Schema RPC from the core/v1 LimitRange.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
@@ -115,8 +115,6 @@ type WorkspaceSpec struct {
 }
 
 // ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
-// Unlike corev1.ObjectReference, it only contains the essential fields needed
-// to identify the resource, avoiding stale UID/ResourceVersion issues.
 type ResourceReference struct {
 	// Name is the name of the referenced resource.
 	// +required
