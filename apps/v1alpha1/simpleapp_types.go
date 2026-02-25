@@ -21,27 +21,29 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// SimpleAppSpec defines the desired state of SimpleApp.
+// SimpleAppSpec defines the desired state of a SimpleApp.
+// It wraps a Deployment, optional Service, and optional PersistentVolumeClaim
+// into a single declarative resource.
 type SimpleAppSpec struct {
-	// DeploymentSpec defines the deployment configuration.
+	// Deployment defines the deployment configuration.
 	// The actual schema is composed at runtime by the Schema RPC from the apps/v1 Deployment.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +required
-	DeploymentSpec runtime.RawExtension `json:"deploymentSpec"`
+	Deployment runtime.RawExtension `json:"deployment"`
 
-	// ServiceSpec defines the Service configuration.
+	// Service defines the Service configuration.
 	// If specified, a Service will be created.
 	// The actual schema is composed at runtime by the Schema RPC from the core/v1 Service.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	ServiceSpec *runtime.RawExtension `json:"serviceSpec,omitempty"`
+	Service *runtime.RawExtension `json:"service,omitempty"`
 
-	// PVCSpec defines the PersistentVolumeClaim configuration.
-	// If specified, a PVC will be created.
+	// PersistentVolumeClaim defines the PersistentVolumeClaim configuration.
+	// If specified, a PersistentVolumeClaim will be created.
 	// The actual schema is composed at runtime by the Schema RPC from the core/v1 PersistentVolumeClaim.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	PVCSpec *runtime.RawExtension `json:"pvcSpec,omitempty"`
+	PersistentVolumeClaim *runtime.RawExtension `json:"persistentVolumeClaim,omitempty"`
 }
 
 // ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
@@ -55,23 +57,25 @@ type ResourceReference struct {
 	Namespace string `json:"namespace,omitempty"`
 }
 
-// SimpleAppStatus defines the observed state of SimpleApp.
+// SimpleAppStatus defines the observed state of a SimpleApp.
+// It contains references to the actual Kubernetes resources created by the controller.
 type SimpleAppStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
+	// It corresponds to the SimpleApp's generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
-	// DeploymentRef references the managed Deployment resource.
+	// DeploymentRef is a reference to the Deployment managed by this SimpleApp.
 	// +optional
 	DeploymentRef *ResourceReference `json:"deploymentRef,omitempty"`
 
-	// ServiceRef references the managed Service resource.
+	// ServiceRef is a reference to the Service managed by this SimpleApp.
 	// +optional
 	ServiceRef *ResourceReference `json:"serviceRef,omitempty"`
 
-	// PVCRef references the managed PersistentVolumeClaim resource.
+	// PersistentVolumeClaimRef is a reference to the PersistentVolumeClaim managed by this SimpleApp.
 	// +optional
-	PVCRef *ResourceReference `json:"pvcRef,omitempty"`
+	PersistentVolumeClaimRef *ResourceReference `json:"persistentVolumeClaimRef,omitempty"`
 
 	// Conditions store the status conditions of the SimpleApp (e.g., Ready, Progressing, Degraded).
 	// +listType=map

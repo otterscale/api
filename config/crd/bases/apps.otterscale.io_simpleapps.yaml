@@ -49,28 +49,28 @@ spec:
           spec:
             description: Spec defines the desired behavior of the SimpleApp.
             properties:
-              deploymentSpec:
+              deployment:
                 description: |-
-                  DeploymentSpec defines the deployment configuration.
+                  Deployment defines the deployment configuration.
                   The actual schema is composed at runtime by the Schema RPC from the apps/v1 Deployment.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
-              pvcSpec:
+              persistentVolumeClaim:
                 description: |-
-                  PVCSpec defines the PersistentVolumeClaim configuration.
-                  If specified, a PVC will be created.
+                  PersistentVolumeClaim defines the PersistentVolumeClaim configuration.
+                  If specified, a PersistentVolumeClaim will be created.
                   The actual schema is composed at runtime by the Schema RPC from the core/v1 PersistentVolumeClaim.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
-              serviceSpec:
+              service:
                 description: |-
-                  ServiceSpec defines the Service configuration.
+                  Service defines the Service configuration.
                   If specified, a Service will be created.
                   The actual schema is composed at runtime by the Schema RPC from the core/v1 Service.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
             required:
-            - deploymentSpec
+            - deployment
             type: object
           status:
             description: Status represents the current information about the SimpleApp.
@@ -137,7 +137,8 @@ spec:
                 - type
                 x-kubernetes-list-type: map
               deploymentRef:
-                description: DeploymentRef references the managed Deployment resource.
+                description: DeploymentRef is a reference to the Deployment managed
+                  by this SimpleApp.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
@@ -149,12 +150,14 @@ spec:
                 - name
                 type: object
               observedGeneration:
-                description: ObservedGeneration is the most recent generation observed
-                  by the controller.
+                description: |-
+                  ObservedGeneration is the most recent generation observed by the controller.
+                  It corresponds to the SimpleApp's generation, which is updated on mutation by the API Server.
                 format: int64
                 type: integer
-              pvcRef:
-                description: PVCRef references the managed PersistentVolumeClaim resource.
+              persistentVolumeClaimRef:
+                description: PersistentVolumeClaimRef is a reference to the PersistentVolumeClaim
+                  managed by this SimpleApp.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
@@ -166,7 +169,8 @@ spec:
                 - name
                 type: object
               serviceRef:
-                description: ServiceRef references the managed Service resource.
+                description: ServiceRef is a reference to the Service managed by this
+                  SimpleApp.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
