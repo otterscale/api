@@ -1,62 +1,74 @@
 # OtterScale API
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/otterscale/api.svg)](https://pkg.go.dev/github.com/otterscale/api)
+[![CI](https://github.com/otterscale/api/actions/workflows/ci.yaml/badge.svg)](https://github.com/otterscale/api/actions/workflows/ci.yaml)
+[![Release](https://img.shields.io/github/v/release/otterscale/api)](https://github.com/otterscale/api/releases/latest)
 [![npm](https://img.shields.io/npm/v/@otterscale/api)](https://www.npmjs.com/package/@otterscale/api)
-[![GitHub Release](https://img.shields.io/github/v/release/otterscale/api)](https://github.com/otterscale/api/releases)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Buf](https://img.shields.io/badge/buf-managed-blue)](https://buf.build)
+[![Go Reference](https://pkg.go.dev/badge/github.com/otterscale/api.svg)](https://pkg.go.dev/github.com/otterscale/api)
+[![License](https://img.shields.io/github/license/otterscale/api)](LICENSE)
 
-[ConnectRPC](https://connectrpc.com) service definitions and generated Go stubs for multi-cluster Kubernetes management.
+Shared type definitions — CRDs (Kubebuilder) + ConnectRPC services (Protobuf) — for the OtterScale multi-cluster Kubernetes platform.
 
-## Architecture
-
-```mermaid
-graph LR
-    Client["Console / CLI"] -->|ConnectRPC| Gateway
-
-    subgraph OtterScale Control Plane
-        Gateway --> LinkService
-        Gateway --> ResourceService
-        Gateway --> RuntimeService
-    end
-
-    LinkService -->|mTLS| Agent
-    ResourceService -->|Tunnel| Agent
-    RuntimeService -->|Tunnel| Agent
-
-    Agent -->|client-go| K8s["K8s API Server"]
-```
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# Use as dependency
+# Go
 go get github.com/otterscale/api@latest
 
-# Generate from proto (contributors only)
-make generate
+# TypeScript
+npm install @otterscale/api
+
+# Generate all (proto, CRDs, deepcopy, lint)
+make all
+
+# Individual targets
+make proto       # buf generate (Go + TypeScript + OpenAPI)
+make manifests   # controller-gen CRDs
+make generate    # controller-gen deepcopy
+make lint        # golangci-lint
 ```
 
-```go
-import (
-    linkv1 "github.com/otterscale/api/link/v1"
-    resourcev1 "github.com/otterscale/api/resource/v1"
-    runtimev1 "github.com/otterscale/api/runtime/v1"
-)
+## API Groups
+
+### CRDs (Kubebuilder)
+
+| Group                           | Kind             | Scope      | Purpose                                                       |
+| ------------------------------- | ---------------- | ---------- | ------------------------------------------------------------- |
+| `tenant.otterscale.io/v1alpha1` | `Workspace`      | Cluster    | Namespace isolation with RBAC, quotas, network policies       |
+| `apps.otterscale.io/v1alpha1`   | `SimpleApp`      | Namespaced | Unified Deployment + Service + PVC abstraction                |
+| `addons.otterscale.io/v1alpha1` | `Module`         | Cluster    | Installed platform addon from a template                      |
+| `addons.otterscale.io/v1alpha1` | `ModuleTemplate` | Cluster    | Reusable addon blueprint (FluxCD HelmRelease / Kustomization) |
+
+### ConnectRPC Services (Protobuf)
+
+| Package                  | Service           | Key RPCs                                                                   |
+| ------------------------ | ----------------- | -------------------------------------------------------------------------- |
+| `otterscale.link.v1`     | `LinkService`     | `Register`, `ListLinks`, `GetAgentManifest`                                |
+| `otterscale.resource.v1` | `ResourceService` | `Discovery`, `Schema`, `List`, `Get`, `Create`, `Apply`, `Delete`, `Watch` |
+| `otterscale.runtime.v1`  | `RuntimeService`  | `PodLog`, `ExecuteTTY`, `PortForward`, `Scale`, `Restart`                  |
+
+### Generated Outputs (`make proto`)
+
+| Plugin               | Output                 | Description                                   |
+| -------------------- | ---------------------- | --------------------------------------------- |
+| `protocolbuffers/go` | `*.pb.go`              | Go protobuf types (opaque API)                |
+| `connectrpc/go`      | `*.connect.go`         | Go ConnectRPC clients/handlers                |
+| `bufbuild/es`        | `ts/src/`              | TypeScript protobuf types (`@otterscale/api`) |
+| `connect-openapi`    | `openapi/openapi.yaml` | OpenAPI spec                                  |
+
+## Toolchain
+
+| Tool                                                                  | Version | Installed via                                       |
+| --------------------------------------------------------------------- | ------- | --------------------------------------------------- |
+| [buf](https://buf.build)                                              | v1.66.0 | `make proto` (auto-downloads)                       |
+| [controller-gen](https://github.com/kubernetes-sigs/controller-tools) | v0.20.1 | `make manifests` / `make generate` (auto-downloads) |
+| [golangci-lint](https://golangci-lint.run)                            | v2.10.1 | `make lint` (auto-downloads)                        |
+
+## Feature Gating
+
+RPCs are annotated with `otterscale.api.feature` method options for runtime feature gating:
+
+```protobuf
+rpc Register(RegisterRequest) returns (RegisterResponse) {
+  option (otterscale.api.feature) = {name: "link-enabled"};
+}
 ```
-
-## ⚙️ Services
-
-| Service | Proto Package | Methods | Transport |
-|---|---|---|---|
-| **Link** | `otterscale.link.v1` | `ListLinks` · `Register` · `GetAgentManifest` | Unary |
-| **Resource** | `otterscale.resource.v1` | `Discovery` · `Schema` · `List` · `Get` · `Describe` · `Create` · `Apply` · `Delete` · `Watch` | Unary + Server Stream |
-| **Runtime** | `otterscale.runtime.v1` | `PodLog` · `ExecuteTTY` · `WriteTTY` · `ResizeTTY` · `PortForward` · `WritePortForward` · `Scale` · `Restart` | Unary + Server Stream |
-
-## 🔑 Features
-
-- **Link** — Agent registration and mTLS certificate provisioning
-- **Resource** — Full CRUD + Watch for native resources and CRDs
-- **Runtime** — Log streaming, interactive exec, port-forward, scale, rolling restart
-- **OpenAPI** — Auto-generated `openapi.yaml` from proto definitions
-- **Feature gating** — Per-RPC feature flags via custom `MethodOptions` extension
