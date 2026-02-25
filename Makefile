@@ -69,6 +69,13 @@ all: proto manifests generate fmt vet tidy lint ## Generate all code from proto 
 
 .DEFAULT_GOAL := all
 
+##@ Build
+
+.PHONY: crd-installer
+crd-installer: manifests generate kustomize ## Generate a consolidated YAML with CRDs.
+	mkdir -p dist
+	"$(KUSTOMIZE)" build config/default > dist/crds.yaml
+
 ##@ Dependencies
 
 ## Location to install dependencies to
@@ -78,11 +85,13 @@ $(LOCALBIN):
 
 ## Tool Binaries
 BUF ?= $(LOCALBIN)/buf
+KUSTOMIZE ?= $(LOCALBIN)/kustomize
 CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
 GOLANGCI_LINT = $(LOCALBIN)/golangci-lint
 
 ## Tool Versions
 BUF_VERSION ?= v1.66.0
+KUSTOMIZE_VERSION ?= v5.8.1
 CONTROLLER_TOOLS_VERSION ?= v0.20.1
 GOLANGCI_LINT_VERSION ?= v2.10.1
 
@@ -90,6 +99,11 @@ GOLANGCI_LINT_VERSION ?= v2.10.1
 buf: $(BUF) ## Download buf locally if necessary.
 $(BUF): $(LOCALBIN)
 	$(call go-install-tool,$(BUF),github.com/bufbuild/buf/cmd/buf,$(BUF_VERSION))
+
+.PHONY: kustomize
+kustomize: $(KUSTOMIZE) ## Download kustomize locally if necessary.
+$(KUSTOMIZE): $(LOCALBIN)
+	$(call go-install-tool,$(KUSTOMIZE),sigs.k8s.io/kustomize/kustomize/v5,$(KUSTOMIZE_VERSION))
 
 .PHONY: controller-gen
 controller-gen: $(CONTROLLER_GEN) ## Download controller-gen locally if necessary.
