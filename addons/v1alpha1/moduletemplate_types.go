@@ -54,26 +54,9 @@ type ModuleTemplateSpec struct {
 	Kustomization *runtime.RawExtension `json:"kustomization,omitempty"`
 }
 
-// ModuleTemplateStatus defines the observed state of a ModuleTemplate.
-// It tracks whether the template has been validated and is ready for use.
-type ModuleTemplateStatus struct {
-	// ObservedGeneration is the most recent generation observed by the controller.
-	// It corresponds to the ModuleTemplate's generation, which is updated on mutation by the API Server.
-	// +optional
-	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
-
-	// Conditions store the status conditions of the ModuleTemplate (e.g., Ready).
-	// +listType=map
-	// +listMapKey=type
-	// +optional
-	Conditions []metav1.Condition `json:"conditions,omitempty"`
-}
-
 // +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
-// +kubebuilder:printcolumn:name="Type",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].reason`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ModuleTemplate is the Schema for the moduletemplates API.
@@ -90,10 +73,6 @@ type ModuleTemplate struct {
 	// Spec defines the desired behavior of the ModuleTemplate.
 	// +required
 	Spec ModuleTemplateSpec `json:"spec"`
-
-	// Status represents the current information about the ModuleTemplate.
-	// +optional
-	Status ModuleTemplateStatus `json:"status,omitzero"`
 }
 
 // +kubebuilder:object:root=true
