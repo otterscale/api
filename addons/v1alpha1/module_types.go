@@ -49,6 +49,16 @@ type ModuleSpec struct {
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
 	Values *runtime.RawExtension `json:"values,omitempty"`
+
+	// ApprovedTemplateGeneration is the ModuleTemplate generation that has been
+	// approved for deployment. When the referenced ModuleTemplate's generation
+	// exceeds this value, the controller will not apply changes until this field
+	// is updated to match or exceed the new generation.
+	//
+	// Leave unset (nil) to auto-approve all template changes (legacy behavior).
+	// Set explicitly to enable manual upgrade approval.
+	// +optional
+	ApprovedTemplateGeneration *int64 `json:"approvedTemplateGeneration,omitempty"`
 }
 
 // ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
@@ -71,10 +81,17 @@ type ModuleStatus struct {
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
-	// TemplateGeneration tracks the observed generation of the referenced ModuleTemplate.
-	// This allows the controller to detect and reconcile template changes.
+	// AppliedTemplateGeneration is the ModuleTemplate generation that was last
+	// successfully applied to the FluxCD resources. The controller uses this to
+	// detect whether a template upgrade is pending.
 	// +optional
-	TemplateGeneration int64 `json:"templateGeneration,omitempty"`
+	AppliedTemplateGeneration int64 `json:"appliedTemplateGeneration,omitempty"`
+
+	// AvailableTemplateGeneration is the latest generation of the referenced
+	// ModuleTemplate. When this exceeds AppliedTemplateGeneration, an upgrade
+	// is available.
+	// +optional
+	AvailableTemplateGeneration int64 `json:"availableTemplateGeneration,omitempty"`
 
 	// HelmReleaseRef is a reference to the FluxCD HelmRelease managed by this Module.
 	// +optional
@@ -97,6 +114,7 @@ type ModuleStatus struct {
 // +kubebuilder:printcolumn:name="Template",type=string,JSONPath=`.spec.templateRef`
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
+// +kubebuilder:printcolumn:name="Upgrade",type=string,JSONPath=`.status.conditions[?(@.type=="UpgradeAvailable")].status`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // Module is the Schema for the modules API.
