@@ -25,7 +25,7 @@ spec:
       name: Ready
       type: string
     - jsonPath: .status.conditions[?(@.type=="UpgradeAvailable")].status
-      name: Upgrade
+      name: Outdated
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
