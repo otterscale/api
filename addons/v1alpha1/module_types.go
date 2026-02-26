@@ -93,6 +93,11 @@ type ModuleStatus struct {
 	// +optional
 	AvailableTemplateGeneration int64 `json:"availableTemplateGeneration,omitempty"`
 
+	// Namespace is the resolved target namespace where FluxCD resources are deployed.
+	// It reflects the effective namespace (Module override or ModuleTemplate default).
+	// +optional
+	Namespace string `json:"namespace,omitempty"`
+
 	// HelmReleaseRef is a reference to the FluxCD HelmRelease managed by this Module.
 	// +optional
 	HelmReleaseRef *ResourceReference `json:"helmReleaseRef,omitempty"`
@@ -112,7 +117,7 @@ type ModuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster
 // +kubebuilder:printcolumn:name="Template",type=string,JSONPath=`.spec.templateRef`
-// +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
+// +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.status.namespace`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
 // +kubebuilder:printcolumn:name="Upgrade",type=string,JSONPath=`.status.conditions[?(@.type=="UpgradeAvailable")].status`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"

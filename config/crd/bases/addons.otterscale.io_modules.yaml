@@ -18,7 +18,7 @@ spec:
     - jsonPath: .spec.templateRef
       name: Template
       type: string
-    - jsonPath: .spec.namespace
+    - jsonPath: .status.namespace
       name: Namespace
       type: string
     - jsonPath: .status.conditions[?(@.type=="Ready")].status
@@ -204,6 +204,11 @@ spec:
                 required:
                 - name
                 type: object
+              namespace:
+                description: |-
+                  Namespace is the resolved target namespace where FluxCD resources are deployed.
+                  It reflects the effective namespace (Module override or ModuleTemplate default).
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the most recent generation observed by the controller.
