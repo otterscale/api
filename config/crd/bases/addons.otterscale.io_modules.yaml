@@ -24,6 +24,9 @@ spec:
     - jsonPath: .status.conditions[?(@.type=="Ready")].status
       name: Ready
       type: string
+    - jsonPath: .status.conditions[?(@.type=="UpgradeAvailable")].status
+      name: Upgrade
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
@@ -56,6 +59,17 @@ spec:
           spec:
             description: Spec defines the desired behavior of the Module.
             properties:
+              approvedTemplateGeneration:
+                description: |-
+                  ApprovedTemplateGeneration is the ModuleTemplate generation that has been
+                  approved for deployment. When the referenced ModuleTemplate's generation
+                  exceeds this value, the controller will not apply changes until this field
+                  is updated to match or exceed the new generation.
+
+                  Leave unset (nil) to auto-approve all template changes (legacy behavior).
+                  Set explicitly to enable manual upgrade approval.
+                format: int64
+                type: integer
               namespace:
                 description: |-
                   Namespace overrides the default target namespace defined in the ModuleTemplate.
@@ -89,6 +103,20 @@ spec:
           status:
             description: Status represents the current information about the Module.
             properties:
+              appliedTemplateGeneration:
+                description: |-
+                  AppliedTemplateGeneration is the ModuleTemplate generation that was last
+                  successfully applied to the FluxCD resources. The controller uses this to
+                  detect whether a template upgrade is pending.
+                format: int64
+                type: integer
+              availableTemplateGeneration:
+                description: |-
+                  AvailableTemplateGeneration is the latest generation of the referenced
+                  ModuleTemplate. When this exceeds AppliedTemplateGeneration, an upgrade
+                  is available.
+                format: int64
+                type: integer
               conditions:
                 description: Conditions store the status conditions of the Module
                   (e.g., Ready, TemplateNotFound).
@@ -180,12 +208,6 @@ spec:
                 description: |-
                   ObservedGeneration is the most recent generation observed by the controller.
                   It corresponds to the Module's generation, which is updated on mutation by the API Server.
-                format: int64
-                type: integer
-              templateGeneration:
-                description: |-
-                  TemplateGeneration tracks the observed generation of the referenced ModuleTemplate.
-                  This allows the controller to detect and reconcile template changes.
                 format: int64
                 type: integer
             type: object
