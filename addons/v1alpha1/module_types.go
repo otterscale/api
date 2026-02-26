@@ -119,7 +119,7 @@ type ModuleStatus struct {
 // +kubebuilder:printcolumn:name="Template",type=string,JSONPath=`.spec.templateRef`
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.status.namespace`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
-// +kubebuilder:printcolumn:name="Upgrade",type=string,JSONPath=`.status.conditions[?(@.type=="UpgradeAvailable")].status`
+// +kubebuilder:printcolumn:name="Outdated",type=string,JSONPath=`.status.conditions[?(@.type=="UpgradeAvailable")].status`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // Module is the Schema for the modules API.
