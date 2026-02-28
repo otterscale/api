@@ -40,10 +40,13 @@ type ArtifactPhase string
 const (
 	// PhasePending indicates the pipeline has not yet started.
 	PhasePending ArtifactPhase = "Pending"
+
 	// PhaseRunning indicates the import/pack/push Job is in progress.
 	PhaseRunning ArtifactPhase = "Running"
+
 	// PhaseSucceeded indicates the artifact was successfully pushed to the registry.
 	PhaseSucceeded ArtifactPhase = "Succeeded"
+
 	// PhaseFailed indicates the pipeline encountered an error.
 	PhaseFailed ArtifactPhase = "Failed"
 )
@@ -83,16 +86,16 @@ type ModelSource struct {
 
 // HuggingFaceSource configures model retrieval from HuggingFace Hub.
 //
-// SECURITY: Repository and Revision are passed to shell scripts. Only users who can
+// SECURITY: Model and Revision are passed to shell scripts. Only users who can
 // create ModelArtifacts should have access; they already have equivalent privileges.
 type HuggingFaceSource struct {
-	// Repository is the HuggingFace model repository identifier (e.g. "microsoft/phi-4").
+	// Model is the HuggingFace model identifier (e.g. "microsoft/phi-4", "facebook/opt-125m").
 	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
 	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
 	// +required
-	Repository string `json:"repository"`
+	Model string `json:"model"`
 
 	// Revision pins a specific branch, tag, or commit hash.
 	// If not specified, the default branch is used.
@@ -110,11 +113,18 @@ type HuggingFaceSource struct {
 
 // OCITarget defines the destination OCI registry for the packaged artifact.
 //
-// SECURITY: Repository and Tag are passed to shell scripts. Only users who can
+// SECURITY: Registry, Repository, and Tag are passed to shell scripts. Only users who can
 // create ModelArtifacts should have access; they already have equivalent privileges.
 type OCITarget struct {
-	// Repository is the full OCI registry path (e.g. "ghcr.io/myorg/models/phi-4").
-	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
+	// Registry is the OCI registry host, optionally with port (e.g. "ghcr.io", "registry.local:5001").
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MaxLength=253
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/:-]*$"
+	// +required
+	Registry string `json:"registry"`
+
+	// Repository is the OCI repository path within the registry (e.g. "myorg/models/phi-4", "facebook/opt-125m").
+	// Must not include the registry host. Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
 	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
@@ -228,6 +238,7 @@ type ModelArtifactStatus struct {
 // +kubebuilder:resource:scope=Namespaced
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
+// +kubebuilder:printcolumn:name="Registry",type=string,JSONPath=`.spec.target.registry`
 // +kubebuilder:printcolumn:name="Repository",type=string,JSONPath=`.spec.target.repository`
 // +kubebuilder:printcolumn:name="Digest",type=string,JSONPath=`.status.digest`,priority=1
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
