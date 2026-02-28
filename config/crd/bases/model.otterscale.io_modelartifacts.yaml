@@ -75,17 +75,21 @@ spec:
                     description: HuggingFace specifies a HuggingFace Hub repository
                       as the model source.
                     properties:
-                      repo:
-                        description: Repo is the HuggingFace model repository identifier
-                          (e.g. "microsoft/phi-4").
+                      repository:
+                        description: |-
+                          Repository is the HuggingFace model repository identifier (e.g. "microsoft/phi-4").
+                          Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                         maxLength: 253
                         minLength: 1
+                        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._/-]*$
                         type: string
                       revision:
                         description: |-
                           Revision pins a specific branch, tag, or commit hash.
                           If not specified, the default branch is used.
+                          Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                         maxLength: 253
+                        pattern: ^[a-zA-Z0-9._/-]*$
                         type: string
                       tokenSecretRef:
                         description: |-
@@ -105,7 +109,7 @@ spec:
                         - name
                         type: object
                     required:
-                    - repo
+                    - repository
                     type: object
                 type: object
                 x-kubernetes-validations:
@@ -151,20 +155,25 @@ spec:
                     required:
                     - name
                     type: object
-                  plainHTTP:
+                  insecure:
                     description: |-
-                      PlainHTTP uses HTTP instead of HTTPS for the registry connection.
+                      Insecure uses an unencrypted connection to the registry instead of TLS.
                       Only use for development or air-gapped environments.
                     type: boolean
                   repository:
-                    description: Repository is the full OCI registry path (e.g. "ghcr.io/myorg/models/phi-4").
+                    description: |-
+                      Repository is the full OCI registry path (e.g. "ghcr.io/myorg/models/phi-4").
+                      Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                     maxLength: 253
                     minLength: 1
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9._/-]*$
                     type: string
                   tag:
-                    description: Tag is the image tag to push. Defaults to "latest"
-                      if not specified.
+                    description: |-
+                      Tag is the image tag to push. Defaults to "latest" if not specified.
+                      Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                     maxLength: 128
+                    pattern: ^[a-zA-Z0-9._/-]*$
                     type: string
                 required:
                 - repository
@@ -269,9 +278,9 @@ spec:
               phase:
                 description: Phase is the high-level summary of the artifact lifecycle.
                 type: string
-              repositoryURL:
-                description: RepositoryURL is the full OCI reference of the pushed
-                  artifact including tag.
+              reference:
+                description: Reference is the full OCI reference of the pushed artifact
+                  including tag.
                 type: string
               startTime:
                 description: StartTime is the timestamp when the most recent job was
