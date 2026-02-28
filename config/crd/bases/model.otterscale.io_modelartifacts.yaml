@@ -21,6 +21,9 @@ spec:
     - jsonPath: .status.conditions[?(@.type=="Ready")].status
       name: Ready
       type: string
+    - jsonPath: .spec.target.registry
+      name: Registry
+      type: string
     - jsonPath: .spec.target.repository
       name: Repository
       type: string
@@ -75,9 +78,9 @@ spec:
                     description: HuggingFace specifies a HuggingFace Hub repository
                       as the model source.
                     properties:
-                      repository:
+                      model:
                         description: |-
-                          Repository is the HuggingFace model repository identifier (e.g. "microsoft/phi-4").
+                          Model is the HuggingFace model identifier (e.g. "microsoft/phi-4", "facebook/opt-125m").
                           Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                         maxLength: 253
                         minLength: 1
@@ -109,7 +112,7 @@ spec:
                         - name
                         type: object
                     required:
-                    - repository
+                    - model
                     type: object
                 type: object
                 x-kubernetes-validations:
@@ -160,10 +163,17 @@ spec:
                       Insecure uses an unencrypted connection to the registry instead of TLS.
                       Only use for development or air-gapped environments.
                     type: boolean
+                  registry:
+                    description: Registry is the OCI registry host, optionally with
+                      port (e.g. "ghcr.io", "registry.local:5001").
+                    maxLength: 253
+                    minLength: 1
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9._/:-]*$
+                    type: string
                   repository:
                     description: |-
-                      Repository is the full OCI registry path (e.g. "ghcr.io/myorg/models/phi-4").
-                      Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
+                      Repository is the OCI repository path within the registry (e.g. "myorg/models/phi-4", "facebook/opt-125m").
+                      Must not include the registry host. Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                     maxLength: 253
                     minLength: 1
                     pattern: ^[a-zA-Z0-9][a-zA-Z0-9._/-]*$
@@ -176,6 +186,7 @@ spec:
                     pattern: ^[a-zA-Z0-9._/-]*$
                     type: string
                 required:
+                - registry
                 - repository
                 type: object
             required:
