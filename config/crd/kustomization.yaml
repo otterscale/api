@@ -5,4 +5,5 @@ resources:
   - bases/addons.otterscale.io_modules.yaml
   - bases/addons.otterscale.io_moduletemplates.yaml
   - bases/apps.otterscale.io_simpleapps.yaml
+  - bases/model.otterscale.io_modelartifacts.yaml
   - bases/tenant.otterscale.io_workspaces.yaml
