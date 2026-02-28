@@ -82,16 +82,23 @@ type ModelSource struct {
 }
 
 // HuggingFaceSource configures model retrieval from HuggingFace Hub.
+//
+// SECURITY: Repository and Revision are passed to shell scripts. Only users who can
+// create ModelArtifacts should have access; they already have equivalent privileges.
 type HuggingFaceSource struct {
-	// Repo is the HuggingFace model repository identifier (e.g. "microsoft/phi-4").
+	// Repository is the HuggingFace model repository identifier (e.g. "microsoft/phi-4").
+	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
 	// +required
-	Repo string `json:"repo"`
+	Repository string `json:"repository"`
 
 	// Revision pins a specific branch, tag, or commit hash.
 	// If not specified, the default branch is used.
+	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MaxLength=253
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9._/-]*$"
 	// +optional
 	Revision string `json:"revision,omitempty"`
 
@@ -102,15 +109,22 @@ type HuggingFaceSource struct {
 }
 
 // OCITarget defines the destination OCI registry for the packaged artifact.
+//
+// SECURITY: Repository and Tag are passed to shell scripts. Only users who can
+// create ModelArtifacts should have access; they already have equivalent privileges.
 type OCITarget struct {
 	// Repository is the full OCI registry path (e.g. "ghcr.io/myorg/models/phi-4").
+	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
 	// +required
 	Repository string `json:"repository"`
 
 	// Tag is the image tag to push. Defaults to "latest" if not specified.
+	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
 	// +kubebuilder:validation:MaxLength=128
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9._/-]*$"
 	// +optional
 	Tag string `json:"tag,omitempty"`
 
@@ -119,10 +133,10 @@ type OCITarget struct {
 	// +optional
 	CredentialsSecretRef *SecretReference `json:"credentialsSecretRef,omitempty"`
 
-	// PlainHTTP uses HTTP instead of HTTPS for the registry connection.
+	// Insecure uses an unencrypted connection to the registry instead of TLS.
 	// Only use for development or air-gapped environments.
 	// +optional
-	PlainHTTP bool `json:"plainHTTP,omitempty"`
+	Insecure bool `json:"insecure,omitempty"`
 }
 
 // StorageSpec configures the temporary PVC for the import/pack/push pipeline.
@@ -186,9 +200,9 @@ type ModelArtifactStatus struct {
 	// +optional
 	Digest string `json:"digest,omitempty"`
 
-	// RepositoryURL is the full OCI reference of the pushed artifact including tag.
+	// Reference is the full OCI reference of the pushed artifact including tag.
 	// +optional
-	RepositoryURL string `json:"repositoryURL,omitempty"`
+	Reference string `json:"reference,omitempty"`
 
 	// JobRef references the most recently created Job for this artifact.
 	// +optional
