@@ -4,14 +4,16 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: modelartifacts.model.otterscale.io
+  name: artifacts.model.otterscale.io
 spec:
   group: model.otterscale.io
   names:
-    kind: ModelArtifact
-    listKind: ModelArtifactList
-    plural: modelartifacts
-    singular: modelartifact
+    categories:
+    - otterscale
+    kind: Artifact
+    listKind: ArtifactList
+    plural: artifacts
+    singular: artifact
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -38,8 +40,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: |-
-          ModelArtifact is the Schema for the modelartifacts API.
-          A ModelArtifact declares intent to import a model from a source (e.g. HuggingFace),
+          Artifact is the Schema for the artifacts API.
+          An Artifact declares intent to import a model from a source (e.g. HuggingFace),
           package it as an OCI artifact (ModelPack or ModelKit format), and push it to an
           OCI-compliant registry. The controller creates a Kubernetes Job to execute the
           import/pack/push pipeline and reports the resulting digest back to the status.
@@ -62,7 +64,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the desired model artifact.
+            description: Spec defines the desired artifact.
             properties:
               format:
                 default: ModelPack
@@ -105,7 +107,7 @@ spec:
                             type: string
                           name:
                             description: Name is the name of the Secret in the same
-                              namespace as the ModelArtifact.
+                              namespace as the Artifact.
                             minLength: 1
                             type: string
                         required:
@@ -152,7 +154,7 @@ spec:
                     properties:
                       name:
                         description: Name is the name of the Secret in the same namespace
-                          as the ModelArtifact.
+                          as the Artifact.
                         minLength: 1
                         type: string
                     required:
@@ -195,8 +197,7 @@ spec:
             - target
             type: object
           status:
-            description: Status represents the current state of the model artifact
-              pipeline.
+            description: Status represents the current state of the artifact pipeline.
             properties:
               completionTime:
                 description: CompletionTime is the timestamp when the most recent
@@ -204,7 +205,7 @@ spec:
                 format: date-time
                 type: string
               conditions:
-                description: Conditions store the status conditions of the ModelArtifact.
+                description: Conditions store the status conditions of the Artifact.
                 items:
                   description: Condition contains details for one aspect of the current
                     state of this API Resource.

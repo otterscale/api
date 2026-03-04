@@ -229,7 +229,7 @@ type ClusterStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories={otterscale}
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`
 // +kubebuilder:printcolumn:name="CP Ready",type=boolean,JSONPath=`.status.controlPlaneReady`
 // +kubebuilder:printcolumn:name="Workers",type=string,JSONPath=`.status.readyWorkers`,priority=1
