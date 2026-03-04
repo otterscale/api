@@ -41,6 +41,14 @@ make lint        # golangci-lint
 | `tenant.otterscale.io/v1alpha1`   | `Workspace`   | Cluster    | Namespace isolation with RBAC, quotas, network policies |
 | `workload.otterscale.io/v1alpha1` | `Application` | Namespaced | Unified Deployment + Service + PVC abstraction          |
 
+### Install CRDs
+
+```bash
+kubectl apply --server-side -f https://github.com/otterscale/api/releases/download/<version>/crds.yaml
+```
+
+> **Note:** CRDs that embed Kubernetes core types (e.g. `DeploymentSpec`) produce large schemas that exceed the `kubectl.kubernetes.io/last-applied-configuration` annotation limit. Use `--server-side` to avoid this.
+
 ### ConnectRPC Services (Protobuf)
 
 | Package                  | Service           | Key RPCs                                                                   |
