@@ -21,7 +21,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -105,12 +106,12 @@ func (in *SimpleAppSpec) DeepCopyInto(out *SimpleAppSpec) {
 	in.Deployment.DeepCopyInto(&out.Deployment)
 	if in.Service != nil {
 		in, out := &in.Service, &out.Service
-		*out = new(runtime.RawExtension)
+		*out = new(v1.ServiceSpec)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.PersistentVolumeClaim != nil {
 		in, out := &in.PersistentVolumeClaim, &out.PersistentVolumeClaim
-		*out = new(runtime.RawExtension)
+		*out = new(v1.PersistentVolumeClaimSpec)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -145,7 +146,7 @@ func (in *SimpleAppStatus) DeepCopyInto(out *SimpleAppStatus) {
 	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
-		*out = make([]v1.Condition, len(*in))
+		*out = make([]metav1.Condition, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}

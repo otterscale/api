@@ -93,8 +93,6 @@ spec:
                   Values overrides the default Helm chart values for Helm-based modules.
                   Only applicable when the referenced ModuleTemplate uses a HelmChart template.
                   Ignored for Kustomization-based modules.
-                  Accepts arbitrary JSON; RawExtension is used instead of apiextensionsv1.JSON
-                  to avoid pulling in the k8s.io/apiextensions-apiserver dependency.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
             required:
