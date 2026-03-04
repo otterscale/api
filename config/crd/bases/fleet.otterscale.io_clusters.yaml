@@ -73,22 +73,26 @@ spec:
                     description: PodSubnets is the list of CIDR ranges for pod IP
                       allocation.
                     items:
+                      maxLength: 43
                       type: string
+                    maxItems: 4
                     minItems: 1
                     type: array
                     x-kubernetes-validations:
                     - message: each entry must be a valid CIDR notation
-                      rule: self.all(cidr, cidr.isCIDR())
+                      rule: self.all(cidr, isCIDR(cidr))
                   serviceSubnets:
                     description: ServiceSubnets is the list of CIDR ranges for service
                       ClusterIP allocation.
                     items:
+                      maxLength: 43
                       type: string
+                    maxItems: 4
                     minItems: 1
                     type: array
                     x-kubernetes-validations:
                     - message: each entry must be a valid CIDR notation
-                      rule: self.all(cidr, cidr.isCIDR())
+                      rule: self.all(cidr, isCIDR(cidr))
                 type: object
               controlPlaneConfig:
                 description: |-
