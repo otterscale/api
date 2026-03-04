@@ -31,15 +31,15 @@ make lint        # golangci-lint
 
 ### CRDs (Kubebuilder)
 
-| Group                             | Kind             | Scope      | Purpose                                                  |
-| --------------------------------- | ---------------- | ---------- | -------------------------------------------------------- |
-| `tenant.otterscale.io/v1alpha1`   | `Workspace`      | Cluster    | Namespace isolation with RBAC, quotas, network policies  |
-| `workload.otterscale.io/v1alpha1` | `Application`    | Namespaced | Unified Deployment + Service + PVC abstraction           |
-| `module.otterscale.io/v1alpha1`   | `Module`         | Cluster    | Installed platform module from a class                   |
-| `module.otterscale.io/v1alpha1`   | `ModuleClass`    | Cluster    | Reusable module blueprint (Helm chart / Kustomization)   |
-| `fleet.otterscale.io/v1alpha1`    | `Cluster`        | Cluster    | Talos bare metal Kubernetes cluster                      |
-| `fleet.otterscale.io/v1alpha1`    | `Machine`        | Cluster    | Single bare metal node in a Talos cluster                |
-| `model.otterscale.io/v1alpha1`    | `Artifact`       | Namespaced | Import, package, and push model to OCI registry          |
+| Group                             | Kind          | Scope      | Purpose                                                 |
+| --------------------------------- | ------------- | ---------- | ------------------------------------------------------- |
+| `fleet.otterscale.io/v1alpha1`    | `Cluster`     | Cluster    | Talos bare metal Kubernetes cluster                     |
+| `fleet.otterscale.io/v1alpha1`    | `Machine`     | Cluster    | Single bare metal node in a Talos cluster               |
+| `model.otterscale.io/v1alpha1`    | `Artifact`    | Namespaced | Import, package, and push model to OCI registry         |
+| `module.otterscale.io/v1alpha1`   | `Module`      | Cluster    | Installed platform module from a class                  |
+| `module.otterscale.io/v1alpha1`   | `ModuleClass` | Cluster    | Reusable module blueprint (Helm chart / Kustomization)  |
+| `tenant.otterscale.io/v1alpha1`   | `Workspace`   | Cluster    | Namespace isolation with RBAC, quotas, network policies |
+| `workload.otterscale.io/v1alpha1` | `Application` | Namespaced | Unified Deployment + Service + PVC abstraction          |
 
 ### ConnectRPC Services (Protobuf)
 
