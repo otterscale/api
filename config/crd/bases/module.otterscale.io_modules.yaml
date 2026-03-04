@@ -189,6 +189,7 @@ spec:
                     type: string
                   revision:
                     description: Revision is the Helm release revision number.
+                    format: int32
                     type: integer
                   status:
                     description: Status is the Helm release status (e.g. deployed,

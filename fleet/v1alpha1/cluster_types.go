@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // ClusterPhase represents the lifecycle phase of a Cluster.
@@ -129,13 +130,8 @@ type ConfigPatch struct {
 	// Value is the value to use in the patch operation (required for add/replace/test).
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	Value *ExtJSON `json:"value,omitempty"`
+	Value *runtime.RawExtension `json:"value,omitempty"`
 }
-
-// ExtJSON is an opaque JSON value that preserves unknown fields.
-// +kubebuilder:validation:Type=object
-// +kubebuilder:pruning:PreserveUnknownFields
-type ExtJSON struct{}
 
 // ClusterSpec defines the desired state of a Cluster.
 type ClusterSpec struct {
@@ -229,6 +225,7 @@ type ClusterStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 // +kubebuilder:resource:scope=Cluster,categories={otterscale}
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`
 // +kubebuilder:printcolumn:name="CP Ready",type=boolean,JSONPath=`.status.controlPlaneReady`
