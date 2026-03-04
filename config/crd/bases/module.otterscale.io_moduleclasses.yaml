@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: moduletemplates.addons.otterscale.io
+  name: moduleclasses.module.otterscale.io
 spec:
-  group: addons.otterscale.io
+  group: module.otterscale.io
   names:
-    kind: ModuleTemplate
-    listKind: ModuleTemplateList
-    plural: moduletemplates
-    singular: moduletemplate
+    kind: ModuleClass
+    listKind: ModuleClassList
+    plural: moduleclasses
+    singular: moduleclass
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -25,10 +25,10 @@ spec:
     schema:
       openAPIV3Schema:
         description: |-
-          ModuleTemplate is the Schema for the moduletemplates API.
-          A ModuleTemplate defines a reusable platform module blueprint containing either
+          ModuleClass is the Schema for the moduleclasses API.
+          A ModuleClass defines a reusable platform module blueprint containing either
           a Helm chart or Kustomization specification. Users create Module CRs
-          to instantiate and deploy modules from these templates.
+          to instantiate and deploy modules from these classes.
         properties:
           apiVersion:
             description: |-
@@ -48,11 +48,11 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the desired behavior of the ModuleTemplate.
+            description: Spec defines the desired behavior of the ModuleClass.
             properties:
               description:
                 description: Description is a human-readable description of the module
-                  template.
+                  class.
                 maxLength: 1024
                 type: string
               helmChart:
@@ -290,7 +290,7 @@ spec:
               namespace:
                 description: |-
                   Namespace is the default target namespace where resources will be
-                  deployed when a Module is instantiated from this template.
+                  deployed when a Module is instantiated from this class.
                 maxLength: 63
                 minLength: 1
                 pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$

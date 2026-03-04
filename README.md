@@ -35,8 +35,8 @@ make lint        # golangci-lint
 | ------------------------------- | ---------------- | ---------- | ------------------------------------------------------------- |
 | `tenant.otterscale.io/v1alpha1` | `Workspace`      | Cluster    | Namespace isolation with RBAC, quotas, network policies       |
 | `apps.otterscale.io/v1alpha1`   | `SimpleApp`      | Namespaced | Unified Deployment + Service + PVC abstraction                |
-| `addons.otterscale.io/v1alpha1` | `Module`         | Cluster    | Installed platform addon from a template                      |
-| `addons.otterscale.io/v1alpha1` | `ModuleTemplate` | Cluster    | Reusable addon blueprint (FluxCD HelmRelease / Kustomization) |
+| `module.otterscale.io/v1alpha1` | `Module`         | Cluster    | Installed platform module from a class                        |
+| `module.otterscale.io/v1alpha1` | `ModuleClass`    | Cluster    | Reusable module blueprint (Helm chart / Kustomization)        |
 
 ### ConnectRPC Services (Protobuf)
 
