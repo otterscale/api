@@ -631,8 +631,10 @@ export declare type DeleteRequest = Message<"otterscale.resource.v1.DeleteReques
 
   /**
    * The duration in seconds before the object should be deleted. Overrides the default grace period.
+   * When absent, the API server uses the resource's default grace period.
+   * Set to 0 explicitly for immediate (force) deletion.
    *
-   * @generated from field: int64 grace_period_seconds = 7;
+   * @generated from field: int64 grace_period_seconds = 7 [features.field_presence = EXPLICIT];
    */
   gracePeriodSeconds: bigint;
 };

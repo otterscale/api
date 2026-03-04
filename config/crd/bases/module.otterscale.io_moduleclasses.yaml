@@ -216,6 +216,7 @@ spec:
                       - patch
                       type: object
                     type: array
+                    x-kubernetes-list-type: atomic
                   path:
                     description: |-
                       Path is the directory path within the repository where

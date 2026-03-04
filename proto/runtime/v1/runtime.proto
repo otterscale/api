@@ -82,10 +82,10 @@ message PodLogRequest {
   bool follow = 5;
 
   // Number of lines from the end of the logs to show. If not set, all logs are shown.
-  int64 tail_lines = 6;
+  int64 tail_lines = 6 [features.field_presence = EXPLICIT];
 
   // A relative time in seconds before the current time from which to show logs.
-  int64 since_seconds = 7;
+  int64 since_seconds = 7 [features.field_presence = EXPLICIT];
 
   // An absolute time from which to show logs. Mutually exclusive with since_seconds.
   google.protobuf.Timestamp since_time = 8;
@@ -97,7 +97,7 @@ message PodLogRequest {
   bool timestamps = 10;
 
   // Limit the number of bytes returned from the server.
-  int64 limit_bytes = 11;
+  int64 limit_bytes = 11 [features.field_presence = EXPLICIT];
 }
 
 // PodLogResponse contains a chunk of log data.

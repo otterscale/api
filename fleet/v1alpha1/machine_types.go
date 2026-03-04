@@ -70,7 +70,7 @@ type MachineAddress struct {
 }
 
 // MachineSpec defines the desired state of a Machine.
-// +kubebuilder:validation:XValidation:rule="!(self.role == 'worker' && has(self.bootstrap) && self.bootstrap)",message="worker nodes cannot be bootstrap nodes"
+// +kubebuilder:validation:XValidation:rule="!(self.role == 'worker' && self.bootstrap)",message="worker nodes cannot be bootstrap nodes"
 type MachineSpec struct {
 	// ClusterRef is the name of the Cluster this Machine belongs to.
 	// +kubebuilder:validation:MinLength=1

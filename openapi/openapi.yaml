@@ -1126,7 +1126,10 @@ components:
             - string
           title: grace_period_seconds
           format: int64
-          description: The duration in seconds before the object should be deleted. Overrides the default grace period.
+          description: |-
+            The duration in seconds before the object should be deleted. Overrides the default grace period.
+             When absent, the API server uses the resource's default grace period.
+             Set to 0 explicitly for immediate (force) deletion.
       title: DeleteRequest
       additionalProperties: false
       description: DeleteRequest defines the parameters to remove an object.

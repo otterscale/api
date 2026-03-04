@@ -2731,6 +2731,8 @@ type DeleteRequest_builder struct {
 	// The name of the resource.
 	Name *string
 	// The duration in seconds before the object should be deleted. Overrides the default grace period.
+	// When absent, the API server uses the resource's default grace period.
+	// Set to 0 explicitly for immediate (force) deletion.
 	GracePeriodSeconds *int64
 }
 
@@ -3304,15 +3306,15 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\x04name\x18\x06 \x01(\tR\x04name\x12\x1a\n" +
 	"\bmanifest\x18\a \x01(\fR\bmanifest\x12\x14\n" +
 	"\x05force\x18\b \x01(\bR\x05force\x12#\n" +
-	"\rfield_manager\x18\t \x01(\tR\ffieldManager\"\xd9\x01\n" +
+	"\rfield_manager\x18\t \x01(\tR\ffieldManager\"\xe0\x01\n" +
 	"\rDeleteRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
 	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
 	"\aversion\x18\x03 \x01(\tR\aversion\x12\x1a\n" +
 	"\bresource\x18\x04 \x01(\tR\bresource\x12\x1c\n" +
 	"\tnamespace\x18\x05 \x01(\tR\tnamespace\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name\x120\n" +
-	"\x14grace_period_seconds\x18\a \x01(\x03R\x12gracePeriodSeconds\"\x8b\x02\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\x127\n" +
+	"\x14grace_period_seconds\x18\a \x01(\x03B\x05\xaa\x01\x02\b\x01R\x12gracePeriodSeconds\"\x8b\x02\n" +
 	"\fWatchRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
 	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +

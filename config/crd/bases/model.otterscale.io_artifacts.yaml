@@ -119,8 +119,8 @@ spec:
                     type: object
                 type: object
                 x-kubernetes-validations:
-                - message: exactly one source must be specified (e.g. huggingFace)
-                  rule: has(self.huggingFace)
+                - message: exactly one source must be specified
+                  rule: '[has(self.huggingFace)].filter(x, x).size() == 1'
               storage:
                 description: |-
                   Storage configures the temporary PVC used during the import/pack/push pipeline.

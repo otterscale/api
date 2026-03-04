@@ -77,7 +77,7 @@ type ArtifactSpec struct {
 
 // ModelSource defines the origin of the model to be packaged.
 // Exactly one source type must be specified.
-// +kubebuilder:validation:XValidation:rule="has(self.huggingFace)",message="exactly one source must be specified (e.g. huggingFace)"
+// +kubebuilder:validation:XValidation:rule="[has(self.huggingFace)].filter(x, x).size() == 1",message="exactly one source must be specified"
 type ModelSource struct {
 	// HuggingFace specifies a HuggingFace Hub repository as the model source.
 	// +optional

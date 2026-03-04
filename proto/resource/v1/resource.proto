@@ -327,7 +327,9 @@ message DeleteRequest {
   string name = 6;
 
   // The duration in seconds before the object should be deleted. Overrides the default grace period.
-  int64 grace_period_seconds = 7;
+  // When absent, the API server uses the resource's default grace period.
+  // Set to 0 explicitly for immediate (force) deletion.
+  int64 grace_period_seconds = 7 [features.field_presence = EXPLICIT];
 }
 
 // ---------------------------------------------------------------------------

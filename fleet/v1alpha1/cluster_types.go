@@ -84,11 +84,13 @@ type ClusterNetworkSpec struct {
 
 	// PodSubnets is the list of CIDR ranges for pod IP allocation.
 	// +kubebuilder:validation:MinItems=1
+	// +kubebuilder:validation:XValidation:rule="self.all(cidr, cidr.isCIDR())",message="each entry must be a valid CIDR notation"
 	// +optional
 	PodSubnets []string `json:"podSubnets,omitempty"`
 
 	// ServiceSubnets is the list of CIDR ranges for service ClusterIP allocation.
 	// +kubebuilder:validation:MinItems=1
+	// +kubebuilder:validation:XValidation:rule="self.all(cidr, cidr.isCIDR())",message="each entry must be a valid CIDR notation"
 	// +optional
 	ServiceSubnets []string `json:"serviceSubnets,omitempty"`
 }
