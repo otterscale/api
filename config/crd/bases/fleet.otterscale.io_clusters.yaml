@@ -76,6 +76,9 @@ spec:
                       type: string
                     minItems: 1
                     type: array
+                    x-kubernetes-validations:
+                    - message: each entry must be a valid CIDR notation
+                      rule: self.all(cidr, cidr.isCIDR())
                   serviceSubnets:
                     description: ServiceSubnets is the list of CIDR ranges for service
                       ClusterIP allocation.
@@ -83,6 +86,9 @@ spec:
                       type: string
                     minItems: 1
                     type: array
+                    x-kubernetes-validations:
+                    - message: each entry must be a valid CIDR notation
+                      rule: self.all(cidr, cidr.isCIDR())
                 type: object
               controlPlaneConfig:
                 description: |-

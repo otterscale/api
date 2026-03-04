@@ -98,6 +98,7 @@ type ModuleStatus struct {
 	// Inventory tracks the Kubernetes resources managed by this Module.
 	// Used for garbage collection (pruning) of resources that are no longer
 	// part of the desired state.
+	// +listType=atomic
 	// +optional
 	Inventory []InventoryEntry `json:"inventory,omitempty"`
 

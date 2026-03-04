@@ -70,6 +70,7 @@ type KustomizationTemplate struct {
 
 	// Patches is a list of strategic merge or JSON6902 patches to apply
 	// on top of the kustomization output before sending to the cluster.
+	// +listType=atomic
 	// +optional
 	Patches []KustomizePatch `json:"patches,omitempty"`
 

@@ -167,7 +167,7 @@ spec:
             type: object
             x-kubernetes-validations:
             - message: worker nodes cannot be bootstrap nodes
-              rule: '!(self.role == ''worker'' && has(self.bootstrap) && self.bootstrap)'
+              rule: '!(self.role == ''worker'' && self.bootstrap)'
           status:
             description: Status represents the current information about the Machine.
             properties:

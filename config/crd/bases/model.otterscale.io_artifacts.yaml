@@ -94,6 +94,7 @@ spec:
                           If not specified, the default branch is used.
                           Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
                         maxLength: 253
+                        minLength: 1
                         pattern: ^[a-zA-Z0-9._/-]*$
                         type: string
                       tokenSecretRef:
@@ -118,8 +119,8 @@ spec:
                     type: object
                 type: object
                 x-kubernetes-validations:
-                - message: at least one source must be specified
-                  rule: has(self.huggingFace)
+                - message: exactly one source must be specified
+                  rule: '[has(self.huggingFace)].filter(x, x).size() == 1'
               storage:
                 description: |-
                   Storage configures the temporary PVC used during the import/pack/push pipeline.
@@ -183,9 +184,10 @@ spec:
                   tag:
                     description: |-
                       Tag is the image tag to push. Defaults to "latest" if not specified.
-                      Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
+                      Must contain only alphanumerics, dots, underscores, and hyphens.
                     maxLength: 128
-                    pattern: ^[a-zA-Z0-9._/-]*$
+                    minLength: 1
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9._-]*$
                     type: string
                 required:
                 - registry

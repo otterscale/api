@@ -116,7 +116,7 @@ type HelmReleaseStatus struct {
 
 	// Revision is the Helm release revision number.
 	// +optional
-	Revision int `json:"revision,omitempty"`
+	Revision int32 `json:"revision,omitempty"`
 
 	// Status is the Helm release status (e.g. deployed, failed, pending-upgrade).
 	// +kubebuilder:validation:Enum=unknown;deployed;uninstalled;superseded;failed;uninstalling;pending-install;pending-upgrade;pending-rollback

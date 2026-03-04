@@ -45,8 +45,7 @@ type WorkspaceMember struct {
 	// Subject is the unique identifier of the member (e.g., OIDC subject or username).
 	// This identifier maps directly to the Kubernetes RBAC Subject.
 	// +kubebuilder:validation:MinLength=1
-	// +kubebuilder:validation:MaxLength=63
-	// +kubebuilder:validation:Pattern=`^([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]$`
+	// +kubebuilder:validation:MaxLength=253
 	// +required
 	Subject string `json:"subject"`
 
@@ -170,6 +169,7 @@ type WorkspaceStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 // +kubebuilder:resource:scope=Cluster,categories={otterscale}
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.status.namespaceRef.name`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`

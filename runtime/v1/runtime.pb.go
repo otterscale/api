@@ -2217,24 +2217,24 @@ var File_runtime_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\n" +
-	"\x18runtime/v1/runtime.proto\x12\x15otterscale.runtime.v1\x1a\rfeature.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xed\x02\n" +
+	"\x18runtime/v1/runtime.proto\x12\x15otterscale.runtime.v1\x1a\rfeature.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x82\x03\n" +
 	"\rPodLogRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1c\n" +
 	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12\x1c\n" +
 	"\tcontainer\x18\x04 \x01(\tR\tcontainer\x12\x16\n" +
-	"\x06follow\x18\x05 \x01(\bR\x06follow\x12\x1d\n" +
+	"\x06follow\x18\x05 \x01(\bR\x06follow\x12$\n" +
 	"\n" +
-	"tail_lines\x18\x06 \x01(\x03R\ttailLines\x12#\n" +
-	"\rsince_seconds\x18\a \x01(\x03R\fsinceSeconds\x129\n" +
+	"tail_lines\x18\x06 \x01(\x03B\x05\xaa\x01\x02\b\x01R\ttailLines\x12*\n" +
+	"\rsince_seconds\x18\a \x01(\x03B\x05\xaa\x01\x02\b\x01R\fsinceSeconds\x129\n" +
 	"\n" +
 	"since_time\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tsinceTime\x12\x1a\n" +
 	"\bprevious\x18\t \x01(\bR\bprevious\x12\x1e\n" +
 	"\n" +
 	"timestamps\x18\n" +
 	" \x01(\bR\n" +
-	"timestamps\x12\x1f\n" +
-	"\vlimit_bytes\x18\v \x01(\x03R\n" +
+	"timestamps\x12&\n" +
+	"\vlimit_bytes\x18\v \x01(\x03B\x05\xaa\x01\x02\b\x01R\n" +
 	"limitBytes\"$\n" +
 	"\x0ePodLogResponse\x12\x12\n" +
 	"\x04data\x18\x01 \x01(\fR\x04data\"\xd1\x01\n" +

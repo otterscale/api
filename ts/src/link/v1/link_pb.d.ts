@@ -113,6 +113,50 @@ export declare type RegisterRequest = Message<"otterscale.link.v1.RegisterReques
 export declare const RegisterRequestSchema: GenMessage<RegisterRequest>;
 
 /**
+ * RegisterResponse contains a CA-signed certificate and the CA
+ * certificate so the agent can establish an mTLS tunnel connection.
+ *
+ * @generated from message otterscale.link.v1.RegisterResponse
+ */
+export declare type RegisterResponse = Message<"otterscale.link.v1.RegisterResponse"> & {
+  /**
+   * The loopback endpoint reserved for this cluster tunnel.
+   *
+   * @generated from field: string endpoint = 1;
+   */
+  endpoint: string;
+
+  /**
+   * PEM-encoded X.509 certificate signed by the server's CA.
+   *
+   * @generated from field: bytes certificate = 2;
+   */
+  certificate: Uint8Array;
+
+  /**
+   * PEM-encoded CA certificate for verifying the tunnel server.
+   *
+   * @generated from field: bytes ca_certificate = 3;
+   */
+  caCertificate: Uint8Array;
+
+  /**
+   * The version of the server binary (e.g. "v1.2.3"), set at build time.
+   * Agents compare this against their own version to decide whether a
+   * self-update is needed.
+   *
+   * @generated from field: string server_version = 4;
+   */
+  serverVersion: string;
+};
+
+/**
+ * Describes the message otterscale.link.v1.RegisterResponse.
+ * Use `create(RegisterResponseSchema)` to create a new message.
+ */
+export declare const RegisterResponseSchema: GenMessage<RegisterResponse>;
+
+/**
  * GetAgentManifestRequest identifies the target cluster for which
  * the agent installation manifest should be generated.
  *
@@ -162,50 +206,6 @@ export declare type GetAgentManifestResponse = Message<"otterscale.link.v1.GetAg
  * Use `create(GetAgentManifestResponseSchema)` to create a new message.
  */
 export declare const GetAgentManifestResponseSchema: GenMessage<GetAgentManifestResponse>;
-
-/**
- * RegisterResponse contains a CA-signed certificate and the CA
- * certificate so the agent can establish an mTLS tunnel connection.
- *
- * @generated from message otterscale.link.v1.RegisterResponse
- */
-export declare type RegisterResponse = Message<"otterscale.link.v1.RegisterResponse"> & {
-  /**
-   * The loopback endpoint reserved for this cluster tunnel.
-   *
-   * @generated from field: string endpoint = 1;
-   */
-  endpoint: string;
-
-  /**
-   * PEM-encoded X.509 certificate signed by the server's CA.
-   *
-   * @generated from field: bytes certificate = 2;
-   */
-  certificate: Uint8Array;
-
-  /**
-   * PEM-encoded CA certificate for verifying the tunnel server.
-   *
-   * @generated from field: bytes ca_certificate = 3;
-   */
-  caCertificate: Uint8Array;
-
-  /**
-   * The version of the server binary (e.g. "v1.2.3"), set at build time.
-   * Agents compare this against their own version to decide whether a
-   * self-update is needed.
-   *
-   * @generated from field: string server_version = 4;
-   */
-  serverVersion: string;
-};
-
-/**
- * Describes the message otterscale.link.v1.RegisterResponse.
- * Use `create(RegisterResponseSchema)` to create a new message.
- */
-export declare const RegisterResponseSchema: GenMessage<RegisterResponse>;
 
 /**
  * LinkService manages the lifecycle of agent-to-server tunnel connections,

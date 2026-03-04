@@ -77,7 +77,7 @@ type ArtifactSpec struct {
 
 // ModelSource defines the origin of the model to be packaged.
 // Exactly one source type must be specified.
-// +kubebuilder:validation:XValidation:rule="has(self.huggingFace)",message="at least one source must be specified"
+// +kubebuilder:validation:XValidation:rule="[has(self.huggingFace)].filter(x, x).size() == 1",message="exactly one source must be specified"
 type ModelSource struct {
 	// HuggingFace specifies a HuggingFace Hub repository as the model source.
 	// +optional
@@ -100,6 +100,7 @@ type HuggingFaceSource struct {
 	// Revision pins a specific branch, tag, or commit hash.
 	// If not specified, the default branch is used.
 	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
+	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
 	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9._/-]*$"
 	// +optional
@@ -132,9 +133,10 @@ type OCITarget struct {
 	Repository string `json:"repository"`
 
 	// Tag is the image tag to push. Defaults to "latest" if not specified.
-	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
+	// Must contain only alphanumerics, dots, underscores, and hyphens.
+	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=128
-	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9._/-]*$"
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._-]*$"
 	// +optional
 	Tag string `json:"tag,omitempty"`
 
@@ -235,6 +237,7 @@ type ArtifactStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 // +kubebuilder:resource:scope=Namespaced,categories={otterscale}
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`

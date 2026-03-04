@@ -424,7 +424,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/google.protobuf.Struct'
+                $ref: '#/components/schemas/otterscale.resource.v1.SchemaResponse'
   /otterscale.resource.v1.ResourceService/Watch: {}
   /otterscale.runtime.v1.RuntimeService/ExecuteTTY: {}
   /otterscale.runtime.v1.RuntimeService/PodLog: {}
@@ -1126,7 +1126,10 @@ components:
             - string
           title: grace_period_seconds
           format: int64
-          description: The duration in seconds before the object should be deleted. Overrides the default grace period.
+          description: |-
+            The duration in seconds before the object should be deleted. Overrides the default grace period.
+             When absent, the API server uses the resource's default grace period.
+             Set to 0 explicitly for immediate (force) deletion.
       title: DeleteRequest
       additionalProperties: false
       description: DeleteRequest defines the parameters to remove an object.
@@ -1336,6 +1339,16 @@ components:
       title: SchemaRequest
       additionalProperties: false
       description: SchemaRequest defines the parameters to retrieve the schema of a specific GVK.
+    otterscale.resource.v1.SchemaResponse:
+      type: object
+      properties:
+        schema:
+          title: schema
+          description: The raw JSON Schema describing the resource structure.
+          $ref: '#/components/schemas/google.protobuf.Struct'
+      title: SchemaResponse
+      additionalProperties: false
+      description: SchemaResponse contains the JSON Schema for a Kubernetes resource type.
     otterscale.resource.v1.WatchEvent:
       type: object
       properties:

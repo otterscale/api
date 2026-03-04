@@ -1,4 +1,8 @@
 version: v2
+inputs:
+  - directory: proto
+    exclude_paths:
+      - proto/openapi.proto
 plugins:
   - remote: buf.build/protocolbuffers/go:v1.36.11
     out: .
@@ -15,7 +19,3 @@ plugins:
     out: ts/src
     opt:
       - target=js+dts
-  - remote: buf.build/community/sudorandom-connect-openapi:v0.25.4
-    out: openapi
-    opt:
-      - path=openapi.yaml,short-operation-ids,short-service-tags

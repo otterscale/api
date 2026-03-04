@@ -56,14 +56,14 @@ export declare type PodLogRequest = Message<"otterscale.runtime.v1.PodLogRequest
   /**
    * Number of lines from the end of the logs to show. If not set, all logs are shown.
    *
-   * @generated from field: int64 tail_lines = 6;
+   * @generated from field: int64 tail_lines = 6 [features.field_presence = EXPLICIT];
    */
   tailLines: bigint;
 
   /**
    * A relative time in seconds before the current time from which to show logs.
    *
-   * @generated from field: int64 since_seconds = 7;
+   * @generated from field: int64 since_seconds = 7 [features.field_presence = EXPLICIT];
    */
   sinceSeconds: bigint;
 
@@ -91,7 +91,7 @@ export declare type PodLogRequest = Message<"otterscale.runtime.v1.PodLogRequest
   /**
    * Limit the number of bytes returned from the server.
    *
-   * @generated from field: int64 limit_bytes = 11;
+   * @generated from field: int64 limit_bytes = 11 [features.field_presence = EXPLICIT];
    */
   limitBytes: bigint;
 };

@@ -649,6 +649,76 @@ func (b0 SchemaRequest_builder) Build() *SchemaRequest {
 	return m0
 }
 
+// SchemaResponse contains the JSON Schema for a Kubernetes resource type.
+type SchemaResponse struct {
+	state             protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Schema *structpb.Struct       `protobuf:"bytes,1,opt,name=schema"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *SchemaResponse) Reset() {
+	*x = SchemaResponse{}
+	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SchemaResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SchemaResponse) ProtoMessage() {}
+
+func (x *SchemaResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *SchemaResponse) GetSchema() *structpb.Struct {
+	if x != nil {
+		return x.xxx_hidden_Schema
+	}
+	return nil
+}
+
+func (x *SchemaResponse) SetSchema(v *structpb.Struct) {
+	x.xxx_hidden_Schema = v
+}
+
+func (x *SchemaResponse) HasSchema() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Schema != nil
+}
+
+func (x *SchemaResponse) ClearSchema() {
+	x.xxx_hidden_Schema = nil
+}
+
+type SchemaResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The raw JSON Schema describing the resource structure.
+	Schema *structpb.Struct
+}
+
+func (b0 SchemaResponse_builder) Build() *SchemaResponse {
+	m0 := &SchemaResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Schema = b.Schema
+	return m0
+}
+
 // Resource represents a single Kubernetes object serialized as a JSON string.
 type Resource struct {
 	state             protoimpl.MessageState `protogen:"opaque.v1"`
@@ -659,7 +729,7 @@ type Resource struct {
 
 func (x *Resource) Reset() {
 	*x = Resource{}
-	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	mi := &file_resource_v1_resource_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -671,7 +741,7 @@ func (x *Resource) String() string {
 func (*Resource) ProtoMessage() {}
 
 func (x *Resource) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	mi := &file_resource_v1_resource_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -740,7 +810,7 @@ type ListRequest struct {
 
 func (x *ListRequest) Reset() {
 	*x = ListRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[5]
+	mi := &file_resource_v1_resource_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -752,7 +822,7 @@ func (x *ListRequest) String() string {
 func (*ListRequest) ProtoMessage() {}
 
 func (x *ListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[5]
+	mi := &file_resource_v1_resource_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1084,7 +1154,7 @@ type ListResponse struct {
 
 func (x *ListResponse) Reset() {
 	*x = ListResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	mi := &file_resource_v1_resource_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1096,7 +1166,7 @@ func (x *ListResponse) String() string {
 func (*ListResponse) ProtoMessage() {}
 
 func (x *ListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	mi := &file_resource_v1_resource_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1248,7 +1318,7 @@ type GetRequest struct {
 
 func (x *GetRequest) Reset() {
 	*x = GetRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	mi := &file_resource_v1_resource_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1260,7 +1330,7 @@ func (x *GetRequest) String() string {
 func (*GetRequest) ProtoMessage() {}
 
 func (x *GetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	mi := &file_resource_v1_resource_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1499,7 +1569,7 @@ type DescribeRequest struct {
 
 func (x *DescribeRequest) Reset() {
 	*x = DescribeRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[8]
+	mi := &file_resource_v1_resource_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1511,7 +1581,7 @@ func (x *DescribeRequest) String() string {
 func (*DescribeRequest) ProtoMessage() {}
 
 func (x *DescribeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[8]
+	mi := &file_resource_v1_resource_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1743,7 +1813,7 @@ type DescribeResponse struct {
 
 func (x *DescribeResponse) Reset() {
 	*x = DescribeResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[9]
+	mi := &file_resource_v1_resource_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1755,7 +1825,7 @@ func (x *DescribeResponse) String() string {
 func (*DescribeResponse) ProtoMessage() {}
 
 func (x *DescribeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[9]
+	mi := &file_resource_v1_resource_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1836,7 +1906,7 @@ type CreateRequest struct {
 
 func (x *CreateRequest) Reset() {
 	*x = CreateRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[10]
+	mi := &file_resource_v1_resource_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1848,7 +1918,7 @@ func (x *CreateRequest) String() string {
 func (*CreateRequest) ProtoMessage() {}
 
 func (x *CreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[10]
+	mi := &file_resource_v1_resource_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2089,7 +2159,7 @@ type ApplyRequest struct {
 
 func (x *ApplyRequest) Reset() {
 	*x = ApplyRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_resource_v1_resource_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2101,7 +2171,7 @@ func (x *ApplyRequest) String() string {
 func (*ApplyRequest) ProtoMessage() {}
 
 func (x *ApplyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_resource_v1_resource_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2436,7 +2506,7 @@ type DeleteRequest struct {
 
 func (x *DeleteRequest) Reset() {
 	*x = DeleteRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[12]
+	mi := &file_resource_v1_resource_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2448,7 +2518,7 @@ func (x *DeleteRequest) String() string {
 func (*DeleteRequest) ProtoMessage() {}
 
 func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[12]
+	mi := &file_resource_v1_resource_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2661,6 +2731,8 @@ type DeleteRequest_builder struct {
 	// The name of the resource.
 	Name *string
 	// The duration in seconds before the object should be deleted. Overrides the default grace period.
+	// When absent, the API server uses the resource's default grace period.
+	// Set to 0 explicitly for immediate (force) deletion.
 	GracePeriodSeconds *int64
 }
 
@@ -2718,7 +2790,7 @@ type WatchRequest struct {
 
 func (x *WatchRequest) Reset() {
 	*x = WatchRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[13]
+	mi := &file_resource_v1_resource_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2730,7 +2802,7 @@ func (x *WatchRequest) String() string {
 func (*WatchRequest) ProtoMessage() {}
 
 func (x *WatchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[13]
+	mi := &file_resource_v1_resource_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3031,7 +3103,7 @@ type WatchEvent struct {
 
 func (x *WatchEvent) Reset() {
 	*x = WatchEvent{}
-	mi := &file_resource_v1_resource_proto_msgTypes[14]
+	mi := &file_resource_v1_resource_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3043,7 +3115,7 @@ func (x *WatchEvent) String() string {
 func (*WatchEvent) ProtoMessage() {}
 
 func (x *WatchEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[14]
+	mi := &file_resource_v1_resource_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3180,7 +3252,9 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
 	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
 	"\aversion\x18\x03 \x01(\tR\aversion\x12\x12\n" +
-	"\x04kind\x18\x04 \x01(\tR\x04kind\";\n" +
+	"\x04kind\x18\x04 \x01(\tR\x04kind\"A\n" +
+	"\x0eSchemaResponse\x12/\n" +
+	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schema\";\n" +
 	"\bResource\x12/\n" +
 	"\x06object\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06object\"\x91\x02\n" +
 	"\vListRequest\x12\x18\n" +
@@ -3232,15 +3306,15 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\x04name\x18\x06 \x01(\tR\x04name\x12\x1a\n" +
 	"\bmanifest\x18\a \x01(\fR\bmanifest\x12\x14\n" +
 	"\x05force\x18\b \x01(\bR\x05force\x12#\n" +
-	"\rfield_manager\x18\t \x01(\tR\ffieldManager\"\xd9\x01\n" +
+	"\rfield_manager\x18\t \x01(\tR\ffieldManager\"\xe0\x01\n" +
 	"\rDeleteRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
 	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
 	"\aversion\x18\x03 \x01(\tR\aversion\x12\x1a\n" +
 	"\bresource\x18\x04 \x01(\tR\bresource\x12\x1c\n" +
 	"\tnamespace\x18\x05 \x01(\tR\tnamespace\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name\x120\n" +
-	"\x14grace_period_seconds\x18\a \x01(\x03R\x12gracePeriodSeconds\"\x8b\x02\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\x127\n" +
+	"\x14grace_period_seconds\x18\a \x01(\x03B\x05\xaa\x01\x02\b\x01R\x12gracePeriodSeconds\"\x8b\x02\n" +
 	"\fWatchRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
 	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
@@ -3263,11 +3337,11 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\fTYPE_DELETED\x10\x03\x12\x11\n" +
 	"\rTYPE_BOOKMARK\x10\x04\x12\x0e\n" +
 	"\n" +
-	"TYPE_ERROR\x10\x052\xdf\a\n" +
+	"TYPE_ERROR\x10\x052\xee\a\n" +
 	"\x0fResourceService\x12y\n" +
 	"\tDiscovery\x12(.otterscale.resource.v1.DiscoveryRequest\x1a).otterscale.resource.v1.DiscoveryResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
-	"\x10resource-enabled\x12a\n" +
-	"\x06Schema\x12%.otterscale.resource.v1.SchemaRequest\x1a\x17.google.protobuf.Struct\"\x17\x8a\xdf\xd5\x1d\x12\n" +
+	"\x10resource-enabled\x12p\n" +
+	"\x06Schema\x12%.otterscale.resource.v1.SchemaRequest\x1a&.otterscale.resource.v1.SchemaResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled\x12j\n" +
 	"\x04List\x12#.otterscale.resource.v1.ListRequest\x1a$.otterscale.resource.v1.ListResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled\x12d\n" +
@@ -3285,58 +3359,60 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\x10resource-enabled0\x01B2Z0github.com/otterscale/api/resource/v1;resourcev1b\beditionsp\xe8\a"
 
 var file_resource_v1_resource_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_resource_v1_resource_proto_goTypes = []any{
 	(WatchEvent_Type)(0),      // 0: otterscale.resource.v1.WatchEvent.Type
 	(*APIResource)(nil),       // 1: otterscale.resource.v1.APIResource
 	(*DiscoveryRequest)(nil),  // 2: otterscale.resource.v1.DiscoveryRequest
 	(*DiscoveryResponse)(nil), // 3: otterscale.resource.v1.DiscoveryResponse
 	(*SchemaRequest)(nil),     // 4: otterscale.resource.v1.SchemaRequest
-	(*Resource)(nil),          // 5: otterscale.resource.v1.Resource
-	(*ListRequest)(nil),       // 6: otterscale.resource.v1.ListRequest
-	(*ListResponse)(nil),      // 7: otterscale.resource.v1.ListResponse
-	(*GetRequest)(nil),        // 8: otterscale.resource.v1.GetRequest
-	(*DescribeRequest)(nil),   // 9: otterscale.resource.v1.DescribeRequest
-	(*DescribeResponse)(nil),  // 10: otterscale.resource.v1.DescribeResponse
-	(*CreateRequest)(nil),     // 11: otterscale.resource.v1.CreateRequest
-	(*ApplyRequest)(nil),      // 12: otterscale.resource.v1.ApplyRequest
-	(*DeleteRequest)(nil),     // 13: otterscale.resource.v1.DeleteRequest
-	(*WatchRequest)(nil),      // 14: otterscale.resource.v1.WatchRequest
-	(*WatchEvent)(nil),        // 15: otterscale.resource.v1.WatchEvent
-	(*structpb.Struct)(nil),   // 16: google.protobuf.Struct
-	(*emptypb.Empty)(nil),     // 17: google.protobuf.Empty
+	(*SchemaResponse)(nil),    // 5: otterscale.resource.v1.SchemaResponse
+	(*Resource)(nil),          // 6: otterscale.resource.v1.Resource
+	(*ListRequest)(nil),       // 7: otterscale.resource.v1.ListRequest
+	(*ListResponse)(nil),      // 8: otterscale.resource.v1.ListResponse
+	(*GetRequest)(nil),        // 9: otterscale.resource.v1.GetRequest
+	(*DescribeRequest)(nil),   // 10: otterscale.resource.v1.DescribeRequest
+	(*DescribeResponse)(nil),  // 11: otterscale.resource.v1.DescribeResponse
+	(*CreateRequest)(nil),     // 12: otterscale.resource.v1.CreateRequest
+	(*ApplyRequest)(nil),      // 13: otterscale.resource.v1.ApplyRequest
+	(*DeleteRequest)(nil),     // 14: otterscale.resource.v1.DeleteRequest
+	(*WatchRequest)(nil),      // 15: otterscale.resource.v1.WatchRequest
+	(*WatchEvent)(nil),        // 16: otterscale.resource.v1.WatchEvent
+	(*structpb.Struct)(nil),   // 17: google.protobuf.Struct
+	(*emptypb.Empty)(nil),     // 18: google.protobuf.Empty
 }
 var file_resource_v1_resource_proto_depIdxs = []int32{
 	1,  // 0: otterscale.resource.v1.DiscoveryResponse.api_resources:type_name -> otterscale.resource.v1.APIResource
-	16, // 1: otterscale.resource.v1.Resource.object:type_name -> google.protobuf.Struct
-	5,  // 2: otterscale.resource.v1.ListResponse.items:type_name -> otterscale.resource.v1.Resource
-	5,  // 3: otterscale.resource.v1.DescribeResponse.resource:type_name -> otterscale.resource.v1.Resource
-	5,  // 4: otterscale.resource.v1.DescribeResponse.events:type_name -> otterscale.resource.v1.Resource
-	0,  // 5: otterscale.resource.v1.WatchEvent.type:type_name -> otterscale.resource.v1.WatchEvent.Type
-	5,  // 6: otterscale.resource.v1.WatchEvent.resource:type_name -> otterscale.resource.v1.Resource
-	2,  // 7: otterscale.resource.v1.ResourceService.Discovery:input_type -> otterscale.resource.v1.DiscoveryRequest
-	4,  // 8: otterscale.resource.v1.ResourceService.Schema:input_type -> otterscale.resource.v1.SchemaRequest
-	6,  // 9: otterscale.resource.v1.ResourceService.List:input_type -> otterscale.resource.v1.ListRequest
-	8,  // 10: otterscale.resource.v1.ResourceService.Get:input_type -> otterscale.resource.v1.GetRequest
-	9,  // 11: otterscale.resource.v1.ResourceService.Describe:input_type -> otterscale.resource.v1.DescribeRequest
-	11, // 12: otterscale.resource.v1.ResourceService.Create:input_type -> otterscale.resource.v1.CreateRequest
-	12, // 13: otterscale.resource.v1.ResourceService.Apply:input_type -> otterscale.resource.v1.ApplyRequest
-	13, // 14: otterscale.resource.v1.ResourceService.Delete:input_type -> otterscale.resource.v1.DeleteRequest
-	14, // 15: otterscale.resource.v1.ResourceService.Watch:input_type -> otterscale.resource.v1.WatchRequest
-	3,  // 16: otterscale.resource.v1.ResourceService.Discovery:output_type -> otterscale.resource.v1.DiscoveryResponse
-	16, // 17: otterscale.resource.v1.ResourceService.Schema:output_type -> google.protobuf.Struct
-	7,  // 18: otterscale.resource.v1.ResourceService.List:output_type -> otterscale.resource.v1.ListResponse
-	5,  // 19: otterscale.resource.v1.ResourceService.Get:output_type -> otterscale.resource.v1.Resource
-	10, // 20: otterscale.resource.v1.ResourceService.Describe:output_type -> otterscale.resource.v1.DescribeResponse
-	5,  // 21: otterscale.resource.v1.ResourceService.Create:output_type -> otterscale.resource.v1.Resource
-	5,  // 22: otterscale.resource.v1.ResourceService.Apply:output_type -> otterscale.resource.v1.Resource
-	17, // 23: otterscale.resource.v1.ResourceService.Delete:output_type -> google.protobuf.Empty
-	15, // 24: otterscale.resource.v1.ResourceService.Watch:output_type -> otterscale.resource.v1.WatchEvent
-	16, // [16:25] is the sub-list for method output_type
-	7,  // [7:16] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	17, // 1: otterscale.resource.v1.SchemaResponse.schema:type_name -> google.protobuf.Struct
+	17, // 2: otterscale.resource.v1.Resource.object:type_name -> google.protobuf.Struct
+	6,  // 3: otterscale.resource.v1.ListResponse.items:type_name -> otterscale.resource.v1.Resource
+	6,  // 4: otterscale.resource.v1.DescribeResponse.resource:type_name -> otterscale.resource.v1.Resource
+	6,  // 5: otterscale.resource.v1.DescribeResponse.events:type_name -> otterscale.resource.v1.Resource
+	0,  // 6: otterscale.resource.v1.WatchEvent.type:type_name -> otterscale.resource.v1.WatchEvent.Type
+	6,  // 7: otterscale.resource.v1.WatchEvent.resource:type_name -> otterscale.resource.v1.Resource
+	2,  // 8: otterscale.resource.v1.ResourceService.Discovery:input_type -> otterscale.resource.v1.DiscoveryRequest
+	4,  // 9: otterscale.resource.v1.ResourceService.Schema:input_type -> otterscale.resource.v1.SchemaRequest
+	7,  // 10: otterscale.resource.v1.ResourceService.List:input_type -> otterscale.resource.v1.ListRequest
+	9,  // 11: otterscale.resource.v1.ResourceService.Get:input_type -> otterscale.resource.v1.GetRequest
+	10, // 12: otterscale.resource.v1.ResourceService.Describe:input_type -> otterscale.resource.v1.DescribeRequest
+	12, // 13: otterscale.resource.v1.ResourceService.Create:input_type -> otterscale.resource.v1.CreateRequest
+	13, // 14: otterscale.resource.v1.ResourceService.Apply:input_type -> otterscale.resource.v1.ApplyRequest
+	14, // 15: otterscale.resource.v1.ResourceService.Delete:input_type -> otterscale.resource.v1.DeleteRequest
+	15, // 16: otterscale.resource.v1.ResourceService.Watch:input_type -> otterscale.resource.v1.WatchRequest
+	3,  // 17: otterscale.resource.v1.ResourceService.Discovery:output_type -> otterscale.resource.v1.DiscoveryResponse
+	5,  // 18: otterscale.resource.v1.ResourceService.Schema:output_type -> otterscale.resource.v1.SchemaResponse
+	8,  // 19: otterscale.resource.v1.ResourceService.List:output_type -> otterscale.resource.v1.ListResponse
+	6,  // 20: otterscale.resource.v1.ResourceService.Get:output_type -> otterscale.resource.v1.Resource
+	11, // 21: otterscale.resource.v1.ResourceService.Describe:output_type -> otterscale.resource.v1.DescribeResponse
+	6,  // 22: otterscale.resource.v1.ResourceService.Create:output_type -> otterscale.resource.v1.Resource
+	6,  // 23: otterscale.resource.v1.ResourceService.Apply:output_type -> otterscale.resource.v1.Resource
+	18, // 24: otterscale.resource.v1.ResourceService.Delete:output_type -> google.protobuf.Empty
+	16, // 25: otterscale.resource.v1.ResourceService.Watch:output_type -> otterscale.resource.v1.WatchEvent
+	17, // [17:26] is the sub-list for method output_type
+	8,  // [8:17] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_resource_v1_resource_proto_init() }
@@ -3350,7 +3426,7 @@ func file_resource_v1_resource_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_resource_v1_resource_proto_rawDesc), len(file_resource_v1_resource_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   15,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
