@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: modules.addons.otterscale.io
+  name: modules.module.otterscale.io
 spec:
-  group: addons.otterscale.io
+  group: module.otterscale.io
   names:
     kind: Module
     listKind: ModuleList
@@ -15,8 +15,8 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.templateRef
-      name: Template
+    - jsonPath: .spec.moduleClassName
+      name: Class
       type: string
     - jsonPath: .status.namespace
       name: Namespace
@@ -35,7 +35,7 @@ spec:
       openAPIV3Schema:
         description: |-
           Module is the Schema for the modules API.
-          A Module represents an installed platform addon instantiated from a ModuleTemplate.
+          A Module represents an installed platform addon instantiated from a ModuleClass.
           The controller manages the underlying Helm release or Kustomization directly
           and reflects its status back to the Module.
         properties:
@@ -59,59 +59,59 @@ spec:
           spec:
             description: Spec defines the desired behavior of the Module.
             properties:
-              approvedTemplateGeneration:
+              approvedClassGeneration:
                 description: |-
-                  ApprovedTemplateGeneration is the ModuleTemplate generation that has been
-                  approved for deployment. When the referenced ModuleTemplate's generation
+                  ApprovedClassGeneration is the ModuleClass generation that has been
+                  approved for deployment. When the referenced ModuleClass's generation
                   exceeds this value, the controller will not apply changes until this field
                   is updated to match or exceed the new generation.
 
-                  Leave unset (nil) to auto-approve all template changes (legacy behavior).
+                  Leave unset (nil) to auto-approve all class changes (legacy behavior).
                   Set explicitly to enable manual upgrade approval.
                 format: int64
                 type: integer
-              namespace:
+              moduleClassName:
                 description: |-
-                  Namespace overrides the default target namespace defined in the ModuleTemplate.
-                  If not specified, the namespace from the ModuleTemplate is used.
-                maxLength: 63
-                minLength: 1
-                pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$
-                type: string
-              templateRef:
-                description: |-
-                  TemplateRef is the name of the ModuleTemplate to instantiate.
+                  ModuleClassName is the name of the ModuleClass to instantiate.
                   This field is immutable after creation.
                 maxLength: 253
                 minLength: 1
                 type: string
                 x-kubernetes-validations:
-                - message: templateRef is immutable
+                - message: moduleClassName is immutable
                   rule: self == oldSelf
+              namespace:
+                description: |-
+                  Namespace overrides the default target namespace defined in the ModuleClass.
+                  If not specified, the namespace from the ModuleClass is used.
+                maxLength: 63
+                minLength: 1
+                pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$
+                type: string
               values:
                 description: |-
                   Values overrides the default Helm chart values for Helm-based modules.
-                  Only applicable when the referenced ModuleTemplate uses a HelmChart template.
+                  Only applicable when the referenced ModuleClass uses a HelmChart.
                   Ignored for Kustomization-based modules.
                 type: object
                 x-kubernetes-preserve-unknown-fields: true
             required:
-            - templateRef
+            - moduleClassName
             type: object
           status:
             description: Status represents the current information about the Module.
             properties:
-              appliedTemplateGeneration:
+              appliedClassGeneration:
                 description: |-
-                  AppliedTemplateGeneration is the ModuleTemplate generation that was last
+                  AppliedClassGeneration is the ModuleClass generation that was last
                   successfully applied. The controller uses this to detect whether a
-                  template upgrade is pending.
+                  class upgrade is pending.
                 format: int64
                 type: integer
-              availableTemplateGeneration:
+              availableClassGeneration:
                 description: |-
-                  AvailableTemplateGeneration is the latest generation of the referenced
-                  ModuleTemplate. When this exceeds AppliedTemplateGeneration, an upgrade
+                  AvailableClassGeneration is the latest generation of the referenced
+                  ModuleClass. When this exceeds AppliedClassGeneration, an upgrade
                   is available.
                 format: int64
                 type: integer
@@ -179,7 +179,7 @@ spec:
               helmRelease:
                 description: |-
                   HelmRelease captures the observed state of the Helm release
-                  when the Module is backed by a HelmChart template.
+                  when the Module is backed by a HelmChart.
                 properties:
                   chartVersion:
                     description: ChartVersion is the version of the currently deployed
@@ -236,7 +236,7 @@ spec:
               kustomization:
                 description: |-
                   Kustomization captures the observed state of the Kustomize-based
-                  deployment when the Module is backed by a Kustomization template.
+                  deployment when the Module is backed by a Kustomization.
                 properties:
                   lastAppliedRevision:
                     description: |-
@@ -252,7 +252,7 @@ spec:
               namespace:
                 description: |-
                   Namespace is the resolved target namespace where resources are deployed.
-                  It reflects the effective namespace (Module override or ModuleTemplate default).
+                  It reflects the effective namespace (Module override or ModuleClass default).
                 type: string
               observedGeneration:
                 description: |-

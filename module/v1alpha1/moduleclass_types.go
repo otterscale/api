@@ -20,18 +20,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// ModuleTemplateSpec defines the desired state of a ModuleTemplate.
+// ModuleClassSpec defines the desired state of a ModuleClass.
 // It serves as a reusable catalog entry for platform modules, containing either
 // a Helm chart or Kustomization specification.
 // +kubebuilder:validation:XValidation:rule="(has(self.helmChart) && !has(self.kustomization)) || (!has(self.helmChart) && has(self.kustomization))",message="exactly one of helmChart or kustomization must be set"
-type ModuleTemplateSpec struct {
-	// Description is a human-readable description of the module template.
+type ModuleClassSpec struct {
+	// Description is a human-readable description of the module class.
 	// +kubebuilder:validation:MaxLength=1024
 	// +optional
 	Description string `json:"description,omitempty"`
 
 	// Namespace is the default target namespace where resources will be
-	// deployed when a Module is instantiated from this template.
+	// deployed when a Module is instantiated from this class.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Pattern=`^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$`
@@ -58,27 +58,27 @@ type ModuleTemplateSpec struct {
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
-// ModuleTemplate is the Schema for the moduletemplates API.
-// A ModuleTemplate defines a reusable platform module blueprint containing either
+// ModuleClass is the Schema for the moduleclasses API.
+// A ModuleClass defines a reusable platform module blueprint containing either
 // a Helm chart or Kustomization specification. Users create Module CRs
-// to instantiate and deploy modules from these templates.
-type ModuleTemplate struct {
+// to instantiate and deploy modules from these classes.
+type ModuleClass struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Standard object's metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitzero"`
 
-	// Spec defines the desired behavior of the ModuleTemplate.
+	// Spec defines the desired behavior of the ModuleClass.
 	// +required
-	Spec ModuleTemplateSpec `json:"spec"`
+	Spec ModuleClassSpec `json:"spec"`
 }
 
 // +kubebuilder:object:root=true
 
-// ModuleTemplateList contains a list of ModuleTemplate resources.
-type ModuleTemplateList struct {
+// ModuleClassList contains a list of ModuleClass resources.
+type ModuleClassList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
-	Items           []ModuleTemplate `json:"items"`
+	Items           []ModuleClass `json:"items"`
 }
