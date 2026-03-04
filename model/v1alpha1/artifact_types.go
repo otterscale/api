@@ -33,7 +33,7 @@ const (
 	PackFormatModelKit PackFormat = "ModelKit"
 )
 
-// ArtifactPhase represents the current lifecycle phase of a ModelArtifact.
+// ArtifactPhase represents the current lifecycle phase of an Artifact.
 // +enum
 type ArtifactPhase string
 
@@ -51,10 +51,10 @@ const (
 	PhaseFailed ArtifactPhase = "Failed"
 )
 
-// ModelArtifactSpec defines the desired state of a ModelArtifact.
+// ArtifactSpec defines the desired state of an Artifact.
 // It declares the model source, target OCI registry, packaging format,
 // and temporary storage for the import/pack/push pipeline.
-type ModelArtifactSpec struct {
+type ArtifactSpec struct {
 	// Source defines where to fetch the model from.
 	// +required
 	Source ModelSource `json:"source"`
@@ -87,7 +87,7 @@ type ModelSource struct {
 // HuggingFaceSource configures model retrieval from HuggingFace Hub.
 //
 // SECURITY: Model and Revision are passed to shell scripts. Only users who can
-// create ModelArtifacts should have access; they already have equivalent privileges.
+// create Artifacts should have access; they already have equivalent privileges.
 type HuggingFaceSource struct {
 	// Model is the HuggingFace model identifier (e.g. "microsoft/phi-4", "facebook/opt-125m").
 	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
@@ -114,7 +114,7 @@ type HuggingFaceSource struct {
 // OCITarget defines the destination OCI registry for the packaged artifact.
 //
 // SECURITY: Registry, Repository, and Tag are passed to shell scripts. Only users who can
-// create ModelArtifacts should have access; they already have equivalent privileges.
+// create Artifacts should have access; they already have equivalent privileges.
 type OCITarget struct {
 	// Registry is the OCI registry host, optionally with port (e.g. "ghcr.io", "registry.local:5001").
 	// +kubebuilder:validation:MinLength=1
@@ -166,7 +166,7 @@ type StorageSpec struct {
 // SecretReference references a Secret by name. Used when the Secret structure
 // is fixed by convention (e.g. "username" and "password" keys for OCI credentials).
 type SecretReference struct {
-	// Name is the name of the Secret in the same namespace as the ModelArtifact.
+	// Name is the name of the Secret in the same namespace as the Artifact.
 	// +kubebuilder:validation:MinLength=1
 	// +required
 	Name string `json:"name"`
@@ -174,7 +174,7 @@ type SecretReference struct {
 
 // SecretKeySelector references a specific key within a Secret.
 type SecretKeySelector struct {
-	// Name is the name of the Secret in the same namespace as the ModelArtifact.
+	// Name is the name of the Secret in the same namespace as the Artifact.
 	// +kubebuilder:validation:MinLength=1
 	// +required
 	Name string `json:"name"`
@@ -195,8 +195,8 @@ type ResourceReference struct {
 	Namespace string `json:"namespace,omitempty"`
 }
 
-// ModelArtifactStatus defines the observed state of a ModelArtifact.
-type ModelArtifactStatus struct {
+// ArtifactStatus defines the observed state of an Artifact.
+type ArtifactStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
@@ -226,7 +226,7 @@ type ModelArtifactStatus struct {
 	// +optional
 	CompletionTime *metav1.Time `json:"completionTime,omitempty"`
 
-	// Conditions store the status conditions of the ModelArtifact.
+	// Conditions store the status conditions of the Artifact.
 	// +listType=map
 	// +listMapKey=type
 	// +optional
@@ -235,7 +235,7 @@ type ModelArtifactStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Namespaced
+// +kubebuilder:resource:scope=Namespaced,categories={otterscale}
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
 // +kubebuilder:printcolumn:name="Registry",type=string,JSONPath=`.spec.target.registry`
@@ -243,32 +243,32 @@ type ModelArtifactStatus struct {
 // +kubebuilder:printcolumn:name="Digest",type=string,JSONPath=`.status.digest`,priority=1
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
-// ModelArtifact is the Schema for the modelartifacts API.
-// A ModelArtifact declares intent to import a model from a source (e.g. HuggingFace),
+// Artifact is the Schema for the artifacts API.
+// An Artifact declares intent to import a model from a source (e.g. HuggingFace),
 // package it as an OCI artifact (ModelPack or ModelKit format), and push it to an
 // OCI-compliant registry. The controller creates a Kubernetes Job to execute the
 // import/pack/push pipeline and reports the resulting digest back to the status.
-type ModelArtifact struct {
+type Artifact struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Standard object's metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitzero"`
 
-	// Spec defines the desired model artifact.
+	// Spec defines the desired artifact.
 	// +required
-	Spec ModelArtifactSpec `json:"spec"`
+	Spec ArtifactSpec `json:"spec"`
 
-	// Status represents the current state of the model artifact pipeline.
+	// Status represents the current state of the artifact pipeline.
 	// +optional
-	Status ModelArtifactStatus `json:"status,omitzero"`
+	Status ArtifactStatus `json:"status,omitzero"`
 }
 
 // +kubebuilder:object:root=true
 
-// ModelArtifactList contains a list of ModelArtifact resources.
-type ModelArtifactList struct {
+// ArtifactList contains a list of Artifact resources.
+type ArtifactList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
-	Items           []ModelArtifact `json:"items"`
+	Items           []Artifact `json:"items"`
 }

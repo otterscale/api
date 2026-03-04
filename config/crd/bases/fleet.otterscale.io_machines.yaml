@@ -8,6 +8,8 @@ metadata:
 spec:
   group: fleet.otterscale.io
   names:
+    categories:
+    - otterscale
     kind: Machine
     listKind: MachineList
     plural: machines

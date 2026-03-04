@@ -111,7 +111,7 @@ type ModuleStatus struct {
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories={otterscale}
 // +kubebuilder:printcolumn:name="Class",type=string,JSONPath=`.spec.moduleClassName`
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.status.namespace`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`

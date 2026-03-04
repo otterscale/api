@@ -22,10 +22,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// SimpleAppSpec defines the desired state of a SimpleApp.
+// ApplicationSpec defines the desired state of an Application.
 // It wraps a Deployment, optional Service, and optional PersistentVolumeClaim
 // into a single declarative resource.
-type SimpleAppSpec struct {
+type ApplicationSpec struct {
 	// Deployment defines the pod template, replicas, and update strategy
 	// for the application workload.
 	// +required
@@ -53,27 +53,27 @@ type ResourceReference struct {
 	Namespace string `json:"namespace,omitempty"`
 }
 
-// SimpleAppStatus defines the observed state of a SimpleApp.
+// ApplicationStatus defines the observed state of an Application.
 // It contains references to the actual Kubernetes resources created by the controller.
-type SimpleAppStatus struct {
+type ApplicationStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
-	// It corresponds to the SimpleApp's generation, which is updated on mutation by the API Server.
+	// It corresponds to the Application's generation, which is updated on mutation by the API Server.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
-	// DeploymentRef is a reference to the Deployment managed by this SimpleApp.
+	// DeploymentRef is a reference to the Deployment managed by this Application.
 	// +optional
 	DeploymentRef *ResourceReference `json:"deploymentRef,omitempty"`
 
-	// ServiceRef is a reference to the Service managed by this SimpleApp.
+	// ServiceRef is a reference to the Service managed by this Application.
 	// +optional
 	ServiceRef *ResourceReference `json:"serviceRef,omitempty"`
 
-	// PersistentVolumeClaimRef is a reference to the PersistentVolumeClaim managed by this SimpleApp.
+	// PersistentVolumeClaimRef is a reference to the PersistentVolumeClaim managed by this Application.
 	// +optional
 	PersistentVolumeClaimRef *ResourceReference `json:"persistentVolumeClaimRef,omitempty"`
 
-	// Conditions store the status conditions of the SimpleApp (e.g., Ready, Progressing, Degraded).
+	// Conditions store the status conditions of the Application (e.g., Ready, Progressing, Degraded).
 	// +listType=map
 	// +listMapKey=type
 	// +optional
@@ -82,33 +82,34 @@ type SimpleAppStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories={otterscale}
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
 // +kubebuilder:printcolumn:name="Age",type=date,JSONPath=`.metadata.creationTimestamp`
 
-// SimpleApp is the Schema for the simpleapps API.
-// A SimpleApp provides a simplified abstraction for deploying an application
+// Application is the Schema for the applications API.
+// An Application provides a unified abstraction for deploying a workload
 // with an optional Service and PersistentVolumeClaim.
-type SimpleApp struct {
+type Application struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Standard object's metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitzero"`
 
-	// Spec defines the desired behavior of the SimpleApp.
+	// Spec defines the desired behavior of the Application.
 	// +required
-	Spec SimpleAppSpec `json:"spec"`
+	Spec ApplicationSpec `json:"spec"`
 
-	// Status represents the current information about the SimpleApp.
+	// Status represents the current information about the Application.
 	// +optional
-	Status SimpleAppStatus `json:"status,omitzero"`
+	Status ApplicationStatus `json:"status,omitzero"`
 }
 
 // +kubebuilder:object:root=true
 
-// SimpleAppList contains a list of SimpleApp resources.
-type SimpleAppList struct {
+// ApplicationList contains a list of Application resources.
+type ApplicationList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
-	Items           []SimpleApp `json:"items"`
+	Items           []Application `json:"items"`
 }

@@ -8,6 +8,8 @@ metadata:
 spec:
   group: module.otterscale.io
   names:
+    categories:
+    - otterscale
     kind: Module
     listKind: ModuleList
     plural: modules

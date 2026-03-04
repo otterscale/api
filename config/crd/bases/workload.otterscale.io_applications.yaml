@@ -4,14 +4,16 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: simpleapps.apps.otterscale.io
+  name: applications.workload.otterscale.io
 spec:
-  group: apps.otterscale.io
+  group: workload.otterscale.io
   names:
-    kind: SimpleApp
-    listKind: SimpleAppList
-    plural: simpleapps
-    singular: simpleapp
+    categories:
+    - otterscale
+    kind: Application
+    listKind: ApplicationList
+    plural: applications
+    singular: application
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -25,8 +27,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: |-
-          SimpleApp is the Schema for the simpleapps API.
-          A SimpleApp provides a simplified abstraction for deploying an application
+          Application is the Schema for the applications API.
+          An Application provides a unified abstraction for deploying a workload
           with an optional Service and PersistentVolumeClaim.
         properties:
           apiVersion:
@@ -47,7 +49,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the desired behavior of the SimpleApp.
+            description: Spec defines the desired behavior of the Application.
             properties:
               deployment:
                 description: |-
@@ -9266,10 +9268,10 @@ spec:
             - deployment
             type: object
           status:
-            description: Status represents the current information about the SimpleApp.
+            description: Status represents the current information about the Application.
             properties:
               conditions:
-                description: Conditions store the status conditions of the SimpleApp
+                description: Conditions store the status conditions of the Application
                   (e.g., Ready, Progressing, Degraded).
                 items:
                   description: Condition contains details for one aspect of the current
@@ -9331,7 +9333,7 @@ spec:
                 x-kubernetes-list-type: map
               deploymentRef:
                 description: DeploymentRef is a reference to the Deployment managed
-                  by this SimpleApp.
+                  by this Application.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
@@ -9345,12 +9347,12 @@ spec:
               observedGeneration:
                 description: |-
                   ObservedGeneration is the most recent generation observed by the controller.
-                  It corresponds to the SimpleApp's generation, which is updated on mutation by the API Server.
+                  It corresponds to the Application's generation, which is updated on mutation by the API Server.
                 format: int64
                 type: integer
               persistentVolumeClaimRef:
                 description: PersistentVolumeClaimRef is a reference to the PersistentVolumeClaim
-                  managed by this SimpleApp.
+                  managed by this Application.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.
@@ -9363,7 +9365,7 @@ spec:
                 type: object
               serviceRef:
                 description: ServiceRef is a reference to the Service managed by this
-                  SimpleApp.
+                  Application.
                 properties:
                   name:
                     description: Name is the name of the referenced resource.

@@ -38,8 +38,8 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(GroupVersion,
-		&ModelArtifact{},
-		&ModelArtifactList{},
+		&Artifact{},
+		&ArtifactList{},
 	)
 	metav1.AddToGroupVersion(s, GroupVersion)
 	return nil

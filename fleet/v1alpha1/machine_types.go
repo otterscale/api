@@ -140,7 +140,7 @@ type MachineStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories={otterscale}
 // +kubebuilder:printcolumn:name="Cluster",type=string,JSONPath=`.spec.clusterRef`
 // +kubebuilder:printcolumn:name="Role",type=string,JSONPath=`.spec.role`
 // +kubebuilder:printcolumn:name="Phase",type=string,JSONPath=`.status.phase`

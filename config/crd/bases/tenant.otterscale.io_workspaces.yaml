@@ -8,6 +8,8 @@ metadata:
 spec:
   group: tenant.otterscale.io
   names:
+    categories:
+    - otterscale
     kind: Workspace
     listKind: WorkspaceList
     plural: workspaces
