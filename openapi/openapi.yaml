@@ -424,7 +424,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/google.protobuf.Struct'
+                $ref: '#/components/schemas/otterscale.resource.v1.SchemaResponse'
   /otterscale.resource.v1.ResourceService/Watch: {}
   /otterscale.runtime.v1.RuntimeService/ExecuteTTY: {}
   /otterscale.runtime.v1.RuntimeService/PodLog: {}
@@ -1336,6 +1336,16 @@ components:
       title: SchemaRequest
       additionalProperties: false
       description: SchemaRequest defines the parameters to retrieve the schema of a specific GVK.
+    otterscale.resource.v1.SchemaResponse:
+      type: object
+      properties:
+        schema:
+          title: schema
+          description: The raw JSON Schema describing the resource structure.
+          $ref: '#/components/schemas/google.protobuf.Struct'
+      title: SchemaResponse
+      additionalProperties: false
+      description: SchemaResponse contains the JSON Schema for a Kubernetes resource type.
     otterscale.resource.v1.WatchEvent:
       type: object
       properties:

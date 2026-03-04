@@ -4,7 +4,7 @@
 
 import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
 import type { JsonObject, Message } from "@bufbuild/protobuf";
-import type { EmptySchema, StructSchema } from "@bufbuild/protobuf/wkt";
+import type { EmptySchema } from "@bufbuild/protobuf/wkt";
 
 /**
  * Describes the file resource/v1/resource.proto.
@@ -153,6 +153,26 @@ export declare type SchemaRequest = Message<"otterscale.resource.v1.SchemaReques
  * Use `create(SchemaRequestSchema)` to create a new message.
  */
 export declare const SchemaRequestSchema: GenMessage<SchemaRequest>;
+
+/**
+ * SchemaResponse contains the JSON Schema for a Kubernetes resource type.
+ *
+ * @generated from message otterscale.resource.v1.SchemaResponse
+ */
+export declare type SchemaResponse = Message<"otterscale.resource.v1.SchemaResponse"> & {
+  /**
+   * The raw JSON Schema describing the resource structure.
+   *
+   * @generated from field: google.protobuf.Struct schema = 1;
+   */
+  schema?: JsonObject;
+};
+
+/**
+ * Describes the message otterscale.resource.v1.SchemaResponse.
+ * Use `create(SchemaResponseSchema)` to create a new message.
+ */
+export declare const SchemaResponseSchema: GenMessage<SchemaResponse>;
 
 /**
  * Resource represents a single Kubernetes object serialized as a JSON string.
@@ -808,7 +828,7 @@ export declare const ResourceService: GenService<{
   schema: {
     methodKind: "unary";
     input: typeof SchemaRequestSchema;
-    output: typeof StructSchema;
+    output: typeof SchemaResponseSchema;
   },
   /**
    * List retrieves a collection of resources based on the provided GVR and filters.

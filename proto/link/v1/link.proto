@@ -67,6 +67,24 @@ message RegisterRequest {
   string agent_version = 4;
 }
 
+// RegisterResponse contains a CA-signed certificate and the CA
+// certificate so the agent can establish an mTLS tunnel connection.
+message RegisterResponse {
+  // The loopback endpoint reserved for this cluster tunnel.
+  string endpoint = 1;
+
+  // PEM-encoded X.509 certificate signed by the server's CA.
+  bytes certificate = 2;
+
+  // PEM-encoded CA certificate for verifying the tunnel server.
+  bytes ca_certificate = 3;
+
+  // The version of the server binary (e.g. "v1.2.3"), set at build time.
+  // Agents compare this against their own version to decide whether a
+  // self-update is needed.
+  string server_version = 4;
+}
+
 // GetAgentManifestRequest identifies the target cluster for which
 // the agent installation manifest should be generated.
 message GetAgentManifestRequest {
@@ -84,22 +102,4 @@ message GetAgentManifestResponse {
   // URL with an embedded HMAC token that serves the manifest as raw
   // YAML. Users can run `kubectl apply -f <url>` directly.
   string url = 2;
-}
-
-// RegisterResponse contains a CA-signed certificate and the CA
-// certificate so the agent can establish an mTLS tunnel connection.
-message RegisterResponse {
-  // The loopback endpoint reserved for this cluster tunnel.
-  string endpoint = 1;
-
-  // PEM-encoded X.509 certificate signed by the server's CA.
-  bytes certificate = 2;
-
-  // PEM-encoded CA certificate for verifying the tunnel server.
-  bytes ca_certificate = 3;
-
-  // The version of the server binary (e.g. "v1.2.3"), set at build time.
-  // Agents compare this against their own version to decide whether a
-  // self-update is needed.
-  string server_version = 4;
 }

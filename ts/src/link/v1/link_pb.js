@@ -9,7 +9,7 @@ import { file_feature } from "../../feature_pb";
  * Describes the file link/v1/link.proto.
  */
 export const file_link_v1_link = /*@__PURE__*/
-  fileDesc("ChJsaW5rL3YxL2xpbmsucHJvdG8SEm90dGVyc2NhbGUubGluay52MSIuCgRMaW5rEg8KB2NsdXN0ZXIYASABKAkSFQoNYWdlbnRfdmVyc2lvbhgCIAEoCSISChBMaXN0TGlua3NSZXF1ZXN0IjwKEUxpc3RMaW5rc1Jlc3BvbnNlEicKBWxpbmtzGAEgAygLMhgub3R0ZXJzY2FsZS5saW5rLnYxLkxpbmsiWAoPUmVnaXN0ZXJSZXF1ZXN0Eg8KB2NsdXN0ZXIYASABKAkSCwoDY3NyGAIgASgMEhAKCGFnZW50X2lkGAMgASgJEhUKDWFnZW50X3ZlcnNpb24YBCABKAkiKgoXR2V0QWdlbnRNYW5pZmVzdFJlcXVlc3QSDwoHY2x1c3RlchgBIAEoCSI5ChhHZXRBZ2VudE1hbmlmZXN0UmVzcG9uc2USEAoIbWFuaWZlc3QYASABKAkSCwoDdXJsGAIgASgJImkKEFJlZ2lzdGVyUmVzcG9uc2USEAoIZW5kcG9pbnQYASABKAkSEwoLY2VydGlmaWNhdGUYAiABKAwSFgoOY2FfY2VydGlmaWNhdGUYAyABKAwSFgoOc2VydmVyX3ZlcnNpb24YBCABKAky8AIKC0xpbmtTZXJ2aWNlEm0KCUxpc3RMaW5rcxIkLm90dGVyc2NhbGUubGluay52MS5MaXN0TGlua3NSZXF1ZXN0GiUub3R0ZXJzY2FsZS5saW5rLnYxLkxpc3RMaW5rc1Jlc3BvbnNlIhOK39UdDgoMbGluay1lbmFibGVkEmoKCFJlZ2lzdGVyEiMub3R0ZXJzY2FsZS5saW5rLnYxLlJlZ2lzdGVyUmVxdWVzdBokLm90dGVyc2NhbGUubGluay52MS5SZWdpc3RlclJlc3BvbnNlIhOK39UdDgoMbGluay1lbmFibGVkEoUBChBHZXRBZ2VudE1hbmlmZXN0Eisub3R0ZXJzY2FsZS5saW5rLnYxLkdldEFnZW50TWFuaWZlc3RSZXF1ZXN0Giwub3R0ZXJzY2FsZS5saW5rLnYxLkdldEFnZW50TWFuaWZlc3RSZXNwb25zZSIWkAIBit/VHQ4KDGxpbmstZW5hYmxlZEIqWihnaXRodWIuY29tL290dGVyc2NhbGUvYXBpL2xpbmsvdjE7bGlua3YxYghlZGl0aW9uc3DoBw", [file_feature]);
+  fileDesc("ChJsaW5rL3YxL2xpbmsucHJvdG8SEm90dGVyc2NhbGUubGluay52MSIuCgRMaW5rEg8KB2NsdXN0ZXIYASABKAkSFQoNYWdlbnRfdmVyc2lvbhgCIAEoCSISChBMaXN0TGlua3NSZXF1ZXN0IjwKEUxpc3RMaW5rc1Jlc3BvbnNlEicKBWxpbmtzGAEgAygLMhgub3R0ZXJzY2FsZS5saW5rLnYxLkxpbmsiWAoPUmVnaXN0ZXJSZXF1ZXN0Eg8KB2NsdXN0ZXIYASABKAkSCwoDY3NyGAIgASgMEhAKCGFnZW50X2lkGAMgASgJEhUKDWFnZW50X3ZlcnNpb24YBCABKAkiaQoQUmVnaXN0ZXJSZXNwb25zZRIQCghlbmRwb2ludBgBIAEoCRITCgtjZXJ0aWZpY2F0ZRgCIAEoDBIWCg5jYV9jZXJ0aWZpY2F0ZRgDIAEoDBIWCg5zZXJ2ZXJfdmVyc2lvbhgEIAEoCSIqChdHZXRBZ2VudE1hbmlmZXN0UmVxdWVzdBIPCgdjbHVzdGVyGAEgASgJIjkKGEdldEFnZW50TWFuaWZlc3RSZXNwb25zZRIQCghtYW5pZmVzdBgBIAEoCRILCgN1cmwYAiABKAky8AIKC0xpbmtTZXJ2aWNlEm0KCUxpc3RMaW5rcxIkLm90dGVyc2NhbGUubGluay52MS5MaXN0TGlua3NSZXF1ZXN0GiUub3R0ZXJzY2FsZS5saW5rLnYxLkxpc3RMaW5rc1Jlc3BvbnNlIhOK39UdDgoMbGluay1lbmFibGVkEmoKCFJlZ2lzdGVyEiMub3R0ZXJzY2FsZS5saW5rLnYxLlJlZ2lzdGVyUmVxdWVzdBokLm90dGVyc2NhbGUubGluay52MS5SZWdpc3RlclJlc3BvbnNlIhOK39UdDgoMbGluay1lbmFibGVkEoUBChBHZXRBZ2VudE1hbmlmZXN0Eisub3R0ZXJzY2FsZS5saW5rLnYxLkdldEFnZW50TWFuaWZlc3RSZXF1ZXN0Giwub3R0ZXJzY2FsZS5saW5rLnYxLkdldEFnZW50TWFuaWZlc3RSZXNwb25zZSIWkAIBit/VHQ4KDGxpbmstZW5hYmxlZEIqWihnaXRodWIuY29tL290dGVyc2NhbGUvYXBpL2xpbmsvdjE7bGlua3YxYghlZGl0aW9uc3DoBw", [file_feature]);
 
 /**
  * Describes the message otterscale.link.v1.Link.
@@ -40,24 +40,24 @@ export const RegisterRequestSchema = /*@__PURE__*/
   messageDesc(file_link_v1_link, 3);
 
 /**
+ * Describes the message otterscale.link.v1.RegisterResponse.
+ * Use `create(RegisterResponseSchema)` to create a new message.
+ */
+export const RegisterResponseSchema = /*@__PURE__*/
+  messageDesc(file_link_v1_link, 4);
+
+/**
  * Describes the message otterscale.link.v1.GetAgentManifestRequest.
  * Use `create(GetAgentManifestRequestSchema)` to create a new message.
  */
 export const GetAgentManifestRequestSchema = /*@__PURE__*/
-  messageDesc(file_link_v1_link, 4);
+  messageDesc(file_link_v1_link, 5);
 
 /**
  * Describes the message otterscale.link.v1.GetAgentManifestResponse.
  * Use `create(GetAgentManifestResponseSchema)` to create a new message.
  */
 export const GetAgentManifestResponseSchema = /*@__PURE__*/
-  messageDesc(file_link_v1_link, 5);
-
-/**
- * Describes the message otterscale.link.v1.RegisterResponse.
- * Use `create(RegisterResponseSchema)` to create a new message.
- */
-export const RegisterResponseSchema = /*@__PURE__*/
   messageDesc(file_link_v1_link, 6);
 
 /**

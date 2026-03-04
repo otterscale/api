@@ -30,7 +30,7 @@ help: ## Display this help.
 .PHONY: proto
 proto: buf ## Generate code from proto files
 	"$(BUF)" generate
-	rm openapi.pb.go ts/src/openapi_pb.* # workaround for buf exclude
+	"$(BUF)" generate --template buf.gen.openapi.yaml
 
 .PHONY: manifests
 manifests: controller-gen ## Generate WebhookConfiguration, ClusterRole and CustomResourceDefinition objects.
