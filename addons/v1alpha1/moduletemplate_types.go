@@ -18,50 +18,49 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // ModuleTemplateSpec defines the desired state of a ModuleTemplate.
 // It serves as a reusable catalog entry for platform modules, containing either
-// a FluxCD HelmRelease or Kustomization specification.
-// +kubebuilder:validation:XValidation:rule="(has(self.helmRelease) && !has(self.kustomization)) || (!has(self.helmRelease) && has(self.kustomization))",message="exactly one of helmRelease or kustomization must be set"
+// a Helm chart or Kustomization specification.
+// +kubebuilder:validation:XValidation:rule="(has(self.helmChart) && !has(self.kustomization)) || (!has(self.helmChart) && has(self.kustomization))",message="exactly one of helmChart or kustomization must be set"
 type ModuleTemplateSpec struct {
 	// Description is a human-readable description of the module template.
 	// +kubebuilder:validation:MaxLength=1024
 	// +optional
 	Description string `json:"description,omitempty"`
 
-	// Namespace is the default target namespace where FluxCD resources will be created
-	// when a Module is instantiated from this template.
+	// Namespace is the default target namespace where resources will be
+	// deployed when a Module is instantiated from this template.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Pattern=`^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$`
 	// +required
 	Namespace string `json:"namespace"`
 
-	// HelmRelease defines the FluxCD HelmRelease spec template.
-	// The actual schema is composed at runtime by the Schema RPC from the FluxCD HelmRelease CRD.
+	// HelmChart defines a Helm chart-based module.
+	// The operator downloads the chart and manages the Helm release directly.
 	// Mutually exclusive with Kustomization (enforced via CEL).
-	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	HelmRelease *runtime.RawExtension `json:"helmRelease,omitempty"`
+	HelmChart *HelmChartTemplate `json:"helmChart,omitempty"`
 
-	// Kustomization defines the FluxCD Kustomization spec template.
-	// The actual schema is composed at runtime by the Schema RPC from the FluxCD Kustomization CRD.
-	// Mutually exclusive with HelmRelease (enforced via CEL).
-	// +kubebuilder:pruning:PreserveUnknownFields
+	// Kustomization defines a Kustomize-based module.
+	// The operator clones the source, builds the kustomization, and applies
+	// the manifests using server-side apply.
+	// Mutually exclusive with HelmChart (enforced via CEL).
 	// +optional
-	Kustomization *runtime.RawExtension `json:"kustomization,omitempty"`
+	Kustomization *KustomizationTemplate `json:"kustomization,omitempty"`
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:storageversion
 // +kubebuilder:resource:scope=Cluster
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ModuleTemplate is the Schema for the moduletemplates API.
 // A ModuleTemplate defines a reusable platform module blueprint containing either
-// a FluxCD HelmRelease or Kustomization specification. Users create Module CRs
+// a Helm chart or Kustomization specification. Users create Module CRs
 // to instantiate and deploy modules from these templates.
 type ModuleTemplate struct {
 	metav1.TypeMeta `json:",inline"`
