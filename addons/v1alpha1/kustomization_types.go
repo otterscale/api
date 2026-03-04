@@ -82,7 +82,7 @@ type KustomizationTemplate struct {
 
 // GitReference specifies a Git reference for source checkout.
 // At most one field should be set; if none are set the default branch is used.
-// +kubebuilder:validation:XValidation:rule="[has(self.branch) && self.branch != '', has(self.tag) && self.tag != '', has(self.commit) && self.commit != '', has(self.semver) && self.semver != ''].filter(x, x).size() <= 1",message="at most one of branch, tag, commit, or semver may be set"
+// +kubebuilder:validation:XValidation:rule="[has(self.branch), has(self.tag), has(self.commit), has(self.semver)].filter(x, x).size() <= 1",message="at most one of branch, tag, commit, or semver may be set"
 type GitReference struct {
 	// Branch is the Git branch to check out.
 	// +optional

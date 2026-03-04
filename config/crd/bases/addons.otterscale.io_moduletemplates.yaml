@@ -78,6 +78,7 @@ spec:
                     description: |-
                       MaxHistory limits the number of Helm release revisions saved.
                       Defaults to 10 if not specified.
+                    format: int32
                     minimum: 0
                     type: integer
                   releaseName:
@@ -85,12 +86,14 @@ spec:
                       ReleaseName overrides the Helm release name.
                       Defaults to the Module name if not specified.
                     maxLength: 53
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                     type: string
                   repoURL:
                     description: |-
                       RepoURL is the URL of the Helm chart repository.
                       Supports HTTP/HTTPS Helm repositories and OCI registries (oci://).
                     minLength: 1
+                    pattern: ^(https?://|oci://).+$
                     type: string
                   secretRef:
                     description: |-
@@ -128,6 +131,7 @@ spec:
                         description: |-
                           MaxRetries is the maximum number of retries before marking the release as failed.
                           Defaults to 0 (no retries).
+                        format: int32
                         minimum: 0
                         type: integer
                     type: object
@@ -139,7 +143,7 @@ spec:
                     x-kubernetes-preserve-unknown-fields: true
                   version:
                     description: |-
-                      Version is the chart version to install, following semver constraints.
+                      Version is the exact chart version to install (e.g. "1.2.3").
                       If empty, the latest version is used.
                     type: string
                 required:
@@ -173,6 +177,7 @@ spec:
                       properties:
                         patch:
                           description: Patch is the inline YAML patch content.
+                          minLength: 1
                           type: string
                         target:
                           description: |-
@@ -180,8 +185,9 @@ spec:
                             If not set, the patch is applied to all matching resources.
                           properties:
                             annotationSelector:
-                              description: AnnotationSelector filters resources by
-                                annotations (e.g. "app=nginx").
+                              description: |-
+                                AnnotationSelector filters resources by annotations
+                                (e.g. "config.kubernetes.io/managed-by=kustomize").
                               type: string
                             group:
                               description: Group is the API group of the target resource.
@@ -240,6 +246,11 @@ spec:
                         description: Tag is the Git tag to check out.
                         type: string
                     type: object
+                    x-kubernetes-validations:
+                    - message: at most one of branch, tag, commit, or semver may be
+                        set
+                      rule: '[has(self.branch), has(self.tag), has(self.commit), has(self.semver)].filter(x,
+                        x).size() <= 1'
                   secretRef:
                     description: |-
                       SecretRef references a Secret containing credentials for the Git
@@ -270,6 +281,7 @@ spec:
                       URL is the Git repository URL containing the kustomization.
                       Supports HTTPS and SSH URLs.
                     minLength: 1
+                    pattern: ^(https?://|git@|ssh://).+$
                     type: string
                 required:
                 - interval

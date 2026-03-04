@@ -193,6 +193,16 @@ spec:
                   status:
                     description: Status is the Helm release status (e.g. deployed,
                       failed, pending-upgrade).
+                    enum:
+                    - unknown
+                    - deployed
+                    - uninstalled
+                    - superseded
+                    - failed
+                    - uninstalling
+                    - pending-install
+                    - pending-upgrade
+                    - pending-rollback
                     type: string
                   valuesChecksum:
                     description: |-
@@ -216,13 +226,13 @@ spec:
                         ID uniquely identifies the resource in the format
                         "<namespace>_<name>_<group>_<kind>".
                       type: string
-                    v:
+                    version:
                       description: Version is the API version of the resource (e.g.
                         "v1", "apps/v1").
                       type: string
                   required:
                   - id
-                  - v
+                  - version
                   type: object
                 type: array
               kustomization:
