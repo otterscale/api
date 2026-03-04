@@ -17,8 +17,8 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // MemberRole defines the role of a member in the workspace.
@@ -98,16 +98,12 @@ type WorkspaceSpec struct {
 	Members []WorkspaceMember `json:"members"`
 
 	// ResourceQuota defines the compute resource constraints (CPU, Memory, etc.) applied to the underlying namespace.
-	// The actual schema is composed at runtime by the Schema RPC from the core/v1 ResourceQuota.
-	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	ResourceQuota *runtime.RawExtension `json:"resourceQuota,omitempty"`
+	ResourceQuota *corev1.ResourceQuotaSpec `json:"resourceQuota,omitempty"`
 
 	// LimitRange defines the default resource limits and requests for pods in the workspace.
-	// The actual schema is composed at runtime by the Schema RPC from the core/v1 LimitRange.
-	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	LimitRange *runtime.RawExtension `json:"limitRange,omitempty"`
+	LimitRange *corev1.LimitRangeSpec `json:"limitRange,omitempty"`
 
 	// NetworkIsolation defines the ingress traffic rules for the workspace.
 	// +optional
