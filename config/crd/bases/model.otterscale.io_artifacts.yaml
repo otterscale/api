@@ -167,11 +167,12 @@ spec:
                       Only use for development or air-gapped environments.
                     type: boolean
                   registry:
-                    description: Registry is the OCI registry host, optionally with
-                      port (e.g. "ghcr.io", "registry.local:5001").
+                    description: |-
+                      Registry is the OCI registry host, optionally with port (e.g. "ghcr.io", "registry.local:5001").
+                      Must not contain slashes — the path component belongs in Repository.
                     maxLength: 253
                     minLength: 1
-                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9._/:-]*$
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9._:-]*$
                     type: string
                   repository:
                     description: |-

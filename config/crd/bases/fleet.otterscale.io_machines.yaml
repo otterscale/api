@@ -80,6 +80,7 @@ spec:
                 - message: bareMetalHostRef is immutable
                   rule: self == oldSelf
               bootstrap:
+                default: false
                 description: |-
                   Bootstrap indicates whether this Machine is the initial bootstrap node
                   responsible for initializing etcd. Exactly one control plane Machine per

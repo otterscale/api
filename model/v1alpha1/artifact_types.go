@@ -118,9 +118,10 @@ type HuggingFaceSource struct {
 // create Artifacts should have access; they already have equivalent privileges.
 type OCITarget struct {
 	// Registry is the OCI registry host, optionally with port (e.g. "ghcr.io", "registry.local:5001").
+	// Must not contain slashes — the path component belongs in Repository.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
-	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._/:-]*$"
+	// +kubebuilder:validation:Pattern="^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"
 	// +required
 	Registry string `json:"registry"`
 

@@ -97,6 +97,7 @@ type MachineSpec struct {
 	// Bootstrap indicates whether this Machine is the initial bootstrap node
 	// responsible for initializing etcd. Exactly one control plane Machine per
 	// Cluster should have this set to true. Must not be set on worker Machines.
+	// +kubebuilder:default=false
 	// +optional
 	Bootstrap bool `json:"bootstrap,omitempty"`
 }
