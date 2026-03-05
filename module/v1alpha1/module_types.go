@@ -59,6 +59,17 @@ type ModuleSpec struct {
 	ApprovedTemplateGeneration *int64 `json:"approvedTemplateGeneration,omitempty"`
 }
 
+// ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
+type ResourceReference struct {
+	// Name is the name of the referenced resource.
+	// +required
+	Name string `json:"name"`
+
+	// Namespace is the namespace of the referenced resource.
+	// +optional
+	Namespace string `json:"namespace,omitempty"`
+}
+
 // ModuleStatus defines the observed state of a Module.
 // It contains references to the actual FluxCD resources created by the controller
 // and reflects their health status.
@@ -137,16 +148,4 @@ type ModuleList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
 	Items           []Module `json:"items"`
-}
-
-// ResourceReference is a lightweight reference to a Kubernetes resource
-// managed by the operator.
-type ResourceReference struct {
-	// Name is the name of the referenced resource.
-	// +required
-	Name string `json:"name"`
-
-	// Namespace is the namespace of the referenced resource.
-	// +optional
-	Namespace string `json:"namespace,omitempty"`
 }

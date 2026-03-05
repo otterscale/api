@@ -62,7 +62,7 @@ type ModuleTemplateSpec struct {
 
 // ModuleTemplate is the Schema for the moduletemplates API.
 // A ModuleTemplate defines a reusable platform module blueprint containing either
-// a Helm chart or Kustomization specification. Users create Module CRs
+// a FluxCD HelmRelease or Kustomization specification. Users create Module CRs
 // to instantiate and deploy modules from these templates.
 type ModuleTemplate struct {
 	metav1.TypeMeta `json:",inline"`
