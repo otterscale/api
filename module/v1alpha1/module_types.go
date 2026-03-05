@@ -41,8 +41,8 @@ type ModuleSpec struct {
 	// +optional
 	Namespace *string `json:"namespace,omitempty"`
 
-	// Values overrides the default Helm chart values for Helm-based modules.
-	// Only applicable when the referenced ModuleTemplate uses a HelmChart.
+	// Values overrides the default Helm chart values for HelmRelease-based modules.
+	// Only applicable when the referenced ModuleTemplate uses a HelmRelease.
 	// Ignored for Kustomization-based modules.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
@@ -60,8 +60,8 @@ type ModuleSpec struct {
 }
 
 // ModuleStatus defines the observed state of a Module.
-// It tracks the template generation lifecycle and reports the health of
-// the underlying Helm release or Kustomization.
+// It contains references to the actual FluxCD resources created by the controller
+// and reflects their health status.
 type ModuleStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
 	// It corresponds to the Module's generation, which is updated on mutation by the API Server.
@@ -69,8 +69,8 @@ type ModuleStatus struct {
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
 	// AppliedTemplateGeneration is the ModuleTemplate generation that was last
-	// successfully applied. The controller uses this to detect whether a
-	// template upgrade is pending.
+	// successfully applied to the FluxCD resources. The controller uses this to
+	// detect whether a template upgrade is pending.
 	// +optional
 	AppliedTemplateGeneration int64 `json:"appliedTemplateGeneration,omitempty"`
 
@@ -80,29 +80,20 @@ type ModuleStatus struct {
 	// +optional
 	AvailableTemplateGeneration int64 `json:"availableTemplateGeneration,omitempty"`
 
-	// Namespace is the resolved target namespace where resources are deployed.
+	// Namespace is the resolved target namespace where FluxCD resources are deployed.
 	// It reflects the effective namespace (Module override or ModuleTemplate default).
 	// +optional
 	Namespace string `json:"namespace,omitempty"`
 
-	// HelmRelease captures the observed state of the Helm release
-	// when the Module is backed by a HelmChart.
+	// HelmReleaseRef is a reference to the FluxCD HelmRelease managed by this Module.
 	// +optional
-	HelmRelease *HelmReleaseStatus `json:"helmRelease,omitempty"`
+	HelmReleaseRef *ResourceReference `json:"helmReleaseRef,omitempty"`
 
-	// Kustomization captures the observed state of the Kustomize-based
-	// deployment when the Module is backed by a Kustomization.
+	// KustomizationRef is a reference to the FluxCD Kustomization managed by this Module.
 	// +optional
-	Kustomization *KustomizationStatus `json:"kustomization,omitempty"`
+	KustomizationRef *ResourceReference `json:"kustomizationRef,omitempty"`
 
-	// Inventory tracks the Kubernetes resources managed by this Module.
-	// Used for garbage collection (pruning) of resources that are no longer
-	// part of the desired state.
-	// +listType=atomic
-	// +optional
-	Inventory []InventoryEntry `json:"inventory,omitempty"`
-
-	// Conditions store the status conditions of the Module (e.g., Ready, UpgradeAvailable).
+	// Conditions store the status conditions of the Module (e.g., Ready, TemplateNotFound).
 	// +listType=map
 	// +listMapKey=type
 	// +optional
@@ -121,7 +112,7 @@ type ModuleStatus struct {
 
 // Module is the Schema for the modules API.
 // A Module represents an installed platform addon instantiated from a ModuleTemplate.
-// The controller manages the underlying Helm release or Kustomization directly
+// The controller creates the corresponding FluxCD HelmRelease or Kustomization
 // and reflects its status back to the Module.
 type Module struct {
 	metav1.TypeMeta `json:",inline"`
@@ -146,4 +137,16 @@ type ModuleList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
 	Items           []Module `json:"items"`
+}
+
+// ResourceReference is a lightweight reference to a Kubernetes resource
+// managed by the operator.
+type ResourceReference struct {
+	// Name is the name of the referenced resource.
+	// +required
+	Name string `json:"name"`
+
+	// Namespace is the namespace of the referenced resource.
+	// +optional
+	Namespace string `json:"namespace,omitempty"`
 }
