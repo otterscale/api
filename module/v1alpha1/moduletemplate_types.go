@@ -18,20 +18,21 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// ModuleClassSpec defines the desired state of a ModuleClass.
+// ModuleTemplateSpec defines the desired state of a ModuleTemplate.
 // It serves as a reusable catalog entry for platform modules, containing either
 // a Helm chart or Kustomization specification.
 // +kubebuilder:validation:XValidation:rule="(has(self.helmChart) && !has(self.kustomization)) || (!has(self.helmChart) && has(self.kustomization))",message="exactly one of helmChart or kustomization must be set"
-type ModuleClassSpec struct {
-	// Description is a human-readable description of the module class.
+type ModuleTemplateSpec struct {
+	// Description is a human-readable description of the module template.
 	// +kubebuilder:validation:MaxLength=1024
 	// +optional
 	Description string `json:"description,omitempty"`
 
 	// Namespace is the default target namespace where resources will be
-	// deployed when a Module is instantiated from this class.
+	// deployed when a Module is instantiated from this template.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Pattern=`^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$`
@@ -41,15 +42,17 @@ type ModuleClassSpec struct {
 	// HelmChart defines a Helm chart-based module.
 	// The operator downloads the chart and manages the Helm release directly.
 	// Mutually exclusive with Kustomization (enforced via CEL).
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	HelmChart *HelmChartTemplate `json:"helmChart,omitempty"`
+	HelmChart *runtime.RawExtension `json:"helmChart,omitempty"`
 
 	// Kustomization defines a Kustomize-based module.
 	// The operator clones the source, builds the kustomization, and applies
 	// the manifests using server-side apply.
 	// Mutually exclusive with HelmChart (enforced via CEL).
+	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
-	Kustomization *KustomizationTemplate `json:"kustomization,omitempty"`
+	Kustomization *runtime.RawExtension `json:"kustomization,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -58,27 +61,27 @@ type ModuleClassSpec struct {
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.spec.namespace`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
-// ModuleClass is the Schema for the moduleclasses API.
-// A ModuleClass defines a reusable platform module blueprint containing either
+// ModuleTemplate is the Schema for the moduletemplates API.
+// A ModuleTemplate defines a reusable platform module blueprint containing either
 // a Helm chart or Kustomization specification. Users create Module CRs
-// to instantiate and deploy modules from these classes.
-type ModuleClass struct {
+// to instantiate and deploy modules from these templates.
+type ModuleTemplate struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Standard object's metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitzero"`
 
-	// Spec defines the desired behavior of the ModuleClass.
+	// Spec defines the desired behavior of the ModuleTemplate.
 	// +required
-	Spec ModuleClassSpec `json:"spec"`
+	Spec ModuleTemplateSpec `json:"spec"`
 }
 
 // +kubebuilder:object:root=true
 
-// ModuleClassList contains a list of ModuleClass resources.
-type ModuleClassList struct {
+// ModuleTemplateList contains a list of ModuleTemplate resources.
+type ModuleTemplateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
-	Items           []ModuleClass `json:"items"`
+	Items           []ModuleTemplate `json:"items"`
 }

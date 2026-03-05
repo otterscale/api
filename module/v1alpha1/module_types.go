@@ -22,19 +22,19 @@ import (
 )
 
 // ModuleSpec defines the desired state of an installed Module.
-// A Module instantiates a ModuleClass by referencing it and optionally
+// A Module instantiates a ModuleTemplate by referencing it and optionally
 // overriding the target namespace or Helm values.
 type ModuleSpec struct {
-	// ModuleClassName is the name of the ModuleClass to instantiate.
+	// TemplateRef is the name of the ModuleTemplate to instantiate.
 	// This field is immutable after creation.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=253
-	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="moduleClassName is immutable"
+	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="templateRef is immutable"
 	// +required
-	ModuleClassName string `json:"moduleClassName"`
+	TemplateRef string `json:"templateRef"`
 
-	// Namespace overrides the default target namespace defined in the ModuleClass.
-	// If not specified, the namespace from the ModuleClass is used.
+	// Namespace overrides the default target namespace defined in the ModuleTemplate.
+	// If not specified, the namespace from the ModuleTemplate is used.
 	// +kubebuilder:validation:MinLength=1
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Pattern=`^([a-z0-9]([-a-z0-9]*[a-z0-9])?)$`
@@ -42,25 +42,25 @@ type ModuleSpec struct {
 	Namespace *string `json:"namespace,omitempty"`
 
 	// Values overrides the default Helm chart values for Helm-based modules.
-	// Only applicable when the referenced ModuleClass uses a HelmChart.
+	// Only applicable when the referenced ModuleTemplate uses a HelmChart.
 	// Ignored for Kustomization-based modules.
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
 	Values *runtime.RawExtension `json:"values,omitempty"`
 
-	// ApprovedClassGeneration is the ModuleClass generation that has been
-	// approved for deployment. When the referenced ModuleClass's generation
+	// ApprovedTemplateGeneration is the ModuleTemplate generation that has been
+	// approved for deployment. When the referenced ModuleTemplate's generation
 	// exceeds this value, the controller will not apply changes until this field
 	// is updated to match or exceed the new generation.
 	//
-	// Leave unset (nil) to auto-approve all class changes (legacy behavior).
+	// Leave unset (nil) to auto-approve all template changes (legacy behavior).
 	// Set explicitly to enable manual upgrade approval.
 	// +optional
-	ApprovedClassGeneration *int64 `json:"approvedClassGeneration,omitempty"`
+	ApprovedTemplateGeneration *int64 `json:"approvedTemplateGeneration,omitempty"`
 }
 
 // ModuleStatus defines the observed state of a Module.
-// It tracks the class generation lifecycle and reports the health of
+// It tracks the template generation lifecycle and reports the health of
 // the underlying Helm release or Kustomization.
 type ModuleStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
@@ -68,20 +68,20 @@ type ModuleStatus struct {
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
-	// AppliedClassGeneration is the ModuleClass generation that was last
+	// AppliedTemplateGeneration is the ModuleTemplate generation that was last
 	// successfully applied. The controller uses this to detect whether a
-	// class upgrade is pending.
+	// template upgrade is pending.
 	// +optional
-	AppliedClassGeneration int64 `json:"appliedClassGeneration,omitempty"`
+	AppliedTemplateGeneration int64 `json:"appliedTemplateGeneration,omitempty"`
 
-	// AvailableClassGeneration is the latest generation of the referenced
-	// ModuleClass. When this exceeds AppliedClassGeneration, an upgrade
+	// AvailableTemplateGeneration is the latest generation of the referenced
+	// ModuleTemplate. When this exceeds AppliedTemplateGeneration, an upgrade
 	// is available.
 	// +optional
-	AvailableClassGeneration int64 `json:"availableClassGeneration,omitempty"`
+	AvailableTemplateGeneration int64 `json:"availableTemplateGeneration,omitempty"`
 
 	// Namespace is the resolved target namespace where resources are deployed.
-	// It reflects the effective namespace (Module override or ModuleClass default).
+	// It reflects the effective namespace (Module override or ModuleTemplate default).
 	// +optional
 	Namespace string `json:"namespace,omitempty"`
 
@@ -113,14 +113,14 @@ type ModuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 // +kubebuilder:resource:scope=Cluster,categories={otterscale}
-// +kubebuilder:printcolumn:name="Class",type=string,JSONPath=`.spec.moduleClassName`
+// +kubebuilder:printcolumn:name="Template",type=string,JSONPath=`.spec.templateRef`
 // +kubebuilder:printcolumn:name="Namespace",type=string,JSONPath=`.status.namespace`
 // +kubebuilder:printcolumn:name="Ready",type=string,JSONPath=`.status.conditions[?(@.type=="Ready")].status`
 // +kubebuilder:printcolumn:name="Outdated",type=string,JSONPath=`.status.conditions[?(@.type=="UpgradeAvailable")].status`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // Module is the Schema for the modules API.
-// A Module represents an installed platform addon instantiated from a ModuleClass.
+// A Module represents an installed platform addon instantiated from a ModuleTemplate.
 // The controller manages the underlying Helm release or Kustomization directly
 // and reflects its status back to the Module.
 type Module struct {
