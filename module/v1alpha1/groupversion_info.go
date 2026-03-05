@@ -40,8 +40,8 @@ func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(GroupVersion,
 		&Module{},
 		&ModuleList{},
-		&ModuleClass{},
-		&ModuleClassList{},
+		&ModuleTemplate{},
+		&ModuleTemplateList{},
 	)
 	metav1.AddToGroupVersion(s, GroupVersion)
 	return nil

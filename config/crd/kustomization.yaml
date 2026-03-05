@@ -6,7 +6,7 @@ resources:
   - bases/fleet.otterscale.io_machines.yaml
   - bases/model.otterscale.io_artifacts.yaml
   - bases/module.otterscale.io_modules.yaml
-  - bases/module.otterscale.io_moduleclasses.yaml
+  - bases/module.otterscale.io_moduletemplates.yaml
   - bases/tenant.otterscale.io_workspaces.yaml
   - bases/workload.otterscale.io_applications.yaml
 
