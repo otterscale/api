@@ -6,9 +6,9 @@ inputs:
 plugins:
   - remote: buf.build/protocolbuffers/go:v1.36.11
     out: .
-    opt: 
-     - paths=source_relative
-     - default_api_level=API_OPAQUE
+    opt:
+      - paths=source_relative
+      - default_api_level=API_OPAQUE
   - remote: buf.build/connectrpc/go:v1.19.1
     out: .
     opt:
@@ -19,3 +19,4 @@ plugins:
     out: ts/src
     opt:
       - target=js+dts
+      - import_extension=.js
