@@ -167,6 +167,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.resource.v1.Resource'
+  /otterscale.resource.v1.ResourceService/Columns:
+    post:
+      tags:
+        - ResourceService
+      summary: Columns
+      description: |-
+        Columns returns the printer column definitions for a resource type,
+         equivalent to the columns shown by `kubectl get` and `kubectl get -o wide`.
+         It uses the Kubernetes Table API internally and caches results.
+      operationId: ResourceService_Columns
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.ColumnsRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.ColumnsResponse'
   /otterscale.resource.v1.ResourceService/Create:
     post:
       tags:
@@ -541,6 +580,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.runtime.v1.ScaleResponse'
+  /otterscale.runtime.v1.RuntimeService/SubResourceAction:
+    post:
+      tags:
+        - RuntimeService
+      summary: SubResourceAction
+      description: |-
+        SubResourceAction performs a generic action on a Kubernetes
+         subresource, such as KubeVirt VM start/stop/restart. The request
+         is forwarded to kube-apiserver via impersonation, so RBAC is
+         enforced automatically. Only PUT and POST methods are allowed.
+      operationId: RuntimeService_SubResourceAction
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.SubResourceActionRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.SubResourceActionResponse'
   /otterscale.runtime.v1.RuntimeService/WritePortForward:
     post:
       tags:
@@ -1062,6 +1141,85 @@ components:
       title: ApplyRequest
       additionalProperties: false
       description: ApplyRequest defines the parameters for Server-Side Apply (SSA).
+    otterscale.resource.v1.ColumnDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          description: The display name of the column (e.g., "Name", "Ready", "Node").
+        type:
+          type: string
+          title: type
+          description: The data type of the column (e.g., "string", "integer", "date").
+        format:
+          type: string
+          title: format
+          description: The display format (e.g., "name", "int32").
+        description:
+          type: string
+          title: description
+          description: A human-readable description of the column.
+        priority:
+          type: integer
+          title: priority
+          format: int32
+          description: |-
+            Display priority: 0 means shown by default, 1 means shown only
+             in wide mode (kubectl get -o wide).
+        jsonPath:
+          type: string
+          title: json_path
+          description: |-
+            The JSONPath expression to extract the column value from the
+             resource object. Present for CRD-defined columns.
+      title: ColumnDefinition
+      additionalProperties: false
+      description: |-
+        ColumnDefinition describes a single column as returned by the
+         Kubernetes Table API, equivalent to what `kubectl get` displays.
+    otterscale.resource.v1.ColumnsRequest:
+      type: object
+      properties:
+        cluster:
+          type: string
+          title: cluster
+          description: The target Kubernetes cluster identifier.
+        group:
+          type: string
+          title: group
+          description: Kubernetes API Group (e.g., "apps").
+        version:
+          type: string
+          title: version
+          description: Kubernetes API Version (e.g., "v1").
+        resource:
+          type: string
+          title: resource
+          description: Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+        namespace:
+          type: string
+          title: namespace
+          description: |-
+            The namespace to use for the Table API request.
+             Required for namespace-scoped resources.
+      title: ColumnsRequest
+      additionalProperties: false
+      description: |-
+        ColumnsRequest defines the parameters for retrieving printer column
+         definitions for a resource type.
+    otterscale.resource.v1.ColumnsResponse:
+      type: object
+      properties:
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/otterscale.resource.v1.ColumnDefinition'
+          title: columns
+          description: The list of column definitions.
+      title: ColumnsResponse
+      additionalProperties: false
+      description: ColumnsResponse contains the column definitions for a resource type.
     otterscale.resource.v1.CreateRequest:
       type: object
       properties:
@@ -1691,6 +1849,67 @@ components:
       title: ScaleResponse
       additionalProperties: false
       description: ScaleResponse contains the updated replica count after scaling.
+    otterscale.runtime.v1.SubResourceActionRequest:
+      type: object
+      properties:
+        cluster:
+          type: string
+          title: cluster
+          description: The target Kubernetes cluster identifier.
+        group:
+          type: string
+          title: group
+          description: Kubernetes API Group (e.g., "kubevirt.io").
+        version:
+          type: string
+          title: version
+          description: Kubernetes API Version (e.g., "v1").
+        resource:
+          type: string
+          title: resource
+          description: Kubernetes API Resource name in plural (e.g., "virtualmachines").
+        namespace:
+          type: string
+          title: namespace
+          description: The namespace of the resource.
+        name:
+          type: string
+          title: name
+          description: The name of the resource.
+        subresource:
+          type: string
+          title: subresource
+          description: The subresource to invoke (e.g., "start", "stop", "restart").
+        method:
+          type: string
+          title: method
+          description: |-
+            The HTTP method for the subresource action. Only "PUT" and "POST"
+             are allowed; DELETE and PATCH have dedicated RPCs.
+        body:
+          type: string
+          title: body
+          format: byte
+          description: Optional JSON body (e.g., KubeVirt StopOptions with gracePeriod).
+      title: SubResourceActionRequest
+      additionalProperties: false
+      description: |-
+        SubResourceActionRequest defines the parameters for invoking a
+         subresource action on any Kubernetes resource. This is designed for
+         operations like KubeVirt VM start/stop/restart/migrate that use PUT
+         or POST on a named subresource path.
+    otterscale.runtime.v1.SubResourceActionResponse:
+      type: object
+      properties:
+        result:
+          title: result
+          description: The JSON response body returned by the API server, if any.
+          $ref: '#/components/schemas/google.protobuf.Struct'
+      title: SubResourceActionResponse
+      additionalProperties: false
+      description: |-
+        SubResourceActionResponse contains the optional response body from
+         the subresource action.
     otterscale.runtime.v1.WritePortForwardRequest:
       type: object
       properties:

@@ -326,6 +326,256 @@ func (b0 APIResource_builder) Build() *APIResource {
 	return m0
 }
 
+// ColumnDefinition describes a single column as returned by the
+// Kubernetes Table API, equivalent to what `kubectl get` displays.
+type ColumnDefinition struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,1,opt,name=name"`
+	xxx_hidden_Type        *string                `protobuf:"bytes,2,opt,name=type"`
+	xxx_hidden_Format      *string                `protobuf:"bytes,3,opt,name=format"`
+	xxx_hidden_Description *string                `protobuf:"bytes,4,opt,name=description"`
+	xxx_hidden_Priority    int32                  `protobuf:"varint,5,opt,name=priority"`
+	xxx_hidden_JsonPath    *string                `protobuf:"bytes,6,opt,name=json_path,json=jsonPath"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *ColumnDefinition) Reset() {
+	*x = ColumnDefinition{}
+	mi := &file_resource_v1_resource_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ColumnDefinition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ColumnDefinition) ProtoMessage() {}
+
+func (x *ColumnDefinition) ProtoReflect() protoreflect.Message {
+	mi := &file_resource_v1_resource_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *ColumnDefinition) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnDefinition) GetType() string {
+	if x != nil {
+		if x.xxx_hidden_Type != nil {
+			return *x.xxx_hidden_Type
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnDefinition) GetFormat() string {
+	if x != nil {
+		if x.xxx_hidden_Format != nil {
+			return *x.xxx_hidden_Format
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnDefinition) GetDescription() string {
+	if x != nil {
+		if x.xxx_hidden_Description != nil {
+			return *x.xxx_hidden_Description
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnDefinition) GetPriority() int32 {
+	if x != nil {
+		return x.xxx_hidden_Priority
+	}
+	return 0
+}
+
+func (x *ColumnDefinition) GetJsonPath() string {
+	if x != nil {
+		if x.xxx_hidden_JsonPath != nil {
+			return *x.xxx_hidden_JsonPath
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnDefinition) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 6)
+}
+
+func (x *ColumnDefinition) SetType(v string) {
+	x.xxx_hidden_Type = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 6)
+}
+
+func (x *ColumnDefinition) SetFormat(v string) {
+	x.xxx_hidden_Format = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 6)
+}
+
+func (x *ColumnDefinition) SetDescription(v string) {
+	x.xxx_hidden_Description = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 6)
+}
+
+func (x *ColumnDefinition) SetPriority(v int32) {
+	x.xxx_hidden_Priority = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 6)
+}
+
+func (x *ColumnDefinition) SetJsonPath(v string) {
+	x.xxx_hidden_JsonPath = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 6)
+}
+
+func (x *ColumnDefinition) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ColumnDefinition) HasType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ColumnDefinition) HasFormat() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ColumnDefinition) HasDescription() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ColumnDefinition) HasPriority() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *ColumnDefinition) HasJsonPath() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *ColumnDefinition) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *ColumnDefinition) ClearType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Type = nil
+}
+
+func (x *ColumnDefinition) ClearFormat() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Format = nil
+}
+
+func (x *ColumnDefinition) ClearDescription() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Description = nil
+}
+
+func (x *ColumnDefinition) ClearPriority() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Priority = 0
+}
+
+func (x *ColumnDefinition) ClearJsonPath() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_JsonPath = nil
+}
+
+type ColumnDefinition_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The display name of the column (e.g., "Name", "Ready", "Node").
+	Name *string
+	// The data type of the column (e.g., "string", "integer", "date").
+	Type *string
+	// The display format (e.g., "name", "int32").
+	Format *string
+	// A human-readable description of the column.
+	Description *string
+	// Display priority: 0 means shown by default, 1 means shown only
+	// in wide mode (kubectl get -o wide).
+	Priority *int32
+	// The JSONPath expression to extract the column value from the
+	// resource object. Present for CRD-defined columns.
+	JsonPath *string
+}
+
+func (b0 ColumnDefinition_builder) Build() *ColumnDefinition {
+	m0 := &ColumnDefinition{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 6)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Type != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 6)
+		x.xxx_hidden_Type = b.Type
+	}
+	if b.Format != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 6)
+		x.xxx_hidden_Format = b.Format
+	}
+	if b.Description != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 6)
+		x.xxx_hidden_Description = b.Description
+	}
+	if b.Priority != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 6)
+		x.xxx_hidden_Priority = *b.Priority
+	}
+	if b.JsonPath != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 6)
+		x.xxx_hidden_JsonPath = b.JsonPath
+	}
+	return m0
+}
+
 // DiscoveryRequest defines the parameters for discovering API resources.
 type DiscoveryRequest struct {
 	state                  protoimpl.MessageState `protogen:"opaque.v1"`
@@ -338,7 +588,7 @@ type DiscoveryRequest struct {
 
 func (x *DiscoveryRequest) Reset() {
 	*x = DiscoveryRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[1]
+	mi := &file_resource_v1_resource_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +600,7 @@ func (x *DiscoveryRequest) String() string {
 func (*DiscoveryRequest) ProtoMessage() {}
 
 func (x *DiscoveryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[1]
+	mi := &file_resource_v1_resource_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -416,7 +666,7 @@ type DiscoveryResponse struct {
 
 func (x *DiscoveryResponse) Reset() {
 	*x = DiscoveryResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[2]
+	mi := &file_resource_v1_resource_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -428,7 +678,7 @@ func (x *DiscoveryResponse) String() string {
 func (*DiscoveryResponse) ProtoMessage() {}
 
 func (x *DiscoveryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[2]
+	mi := &file_resource_v1_resource_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -482,7 +732,7 @@ type SchemaRequest struct {
 
 func (x *SchemaRequest) Reset() {
 	*x = SchemaRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[3]
+	mi := &file_resource_v1_resource_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -494,7 +744,7 @@ func (x *SchemaRequest) String() string {
 func (*SchemaRequest) ProtoMessage() {}
 
 func (x *SchemaRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[3]
+	mi := &file_resource_v1_resource_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +909,7 @@ type SchemaResponse struct {
 
 func (x *SchemaResponse) Reset() {
 	*x = SchemaResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	mi := &file_resource_v1_resource_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -671,7 +921,7 @@ func (x *SchemaResponse) String() string {
 func (*SchemaResponse) ProtoMessage() {}
 
 func (x *SchemaResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[4]
+	mi := &file_resource_v1_resource_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -719,6 +969,285 @@ func (b0 SchemaResponse_builder) Build() *SchemaResponse {
 	return m0
 }
 
+// ColumnsRequest defines the parameters for retrieving printer column
+// definitions for a resource type.
+type ColumnsRequest struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *ColumnsRequest) Reset() {
+	*x = ColumnsRequest{}
+	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ColumnsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ColumnsRequest) ProtoMessage() {}
+
+func (x *ColumnsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *ColumnsRequest) GetCluster() string {
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnsRequest) GetGroup() string {
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnsRequest) GetVersion() string {
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnsRequest) GetResource() string {
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnsRequest) GetNamespace() string {
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *ColumnsRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 5)
+}
+
+func (x *ColumnsRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 5)
+}
+
+func (x *ColumnsRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 5)
+}
+
+func (x *ColumnsRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 5)
+}
+
+func (x *ColumnsRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 5)
+}
+
+func (x *ColumnsRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *ColumnsRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *ColumnsRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *ColumnsRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *ColumnsRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *ColumnsRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *ColumnsRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *ColumnsRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *ColumnsRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *ColumnsRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+type ColumnsRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "apps").
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+	Resource *string
+	// The namespace to use for the Table API request.
+	// Required for namespace-scoped resources.
+	Namespace *string
+}
+
+func (b0 ColumnsRequest_builder) Build() *ColumnsRequest {
+	m0 := &ColumnsRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 5)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 5)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 5)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 5)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 5)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	return m0
+}
+
+// ColumnsResponse contains the column definitions for a resource type.
+type ColumnsResponse struct {
+	state              protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Columns *[]*ColumnDefinition   `protobuf:"bytes,1,rep,name=columns"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *ColumnsResponse) Reset() {
+	*x = ColumnsResponse{}
+	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ColumnsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ColumnsResponse) ProtoMessage() {}
+
+func (x *ColumnsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *ColumnsResponse) GetColumns() []*ColumnDefinition {
+	if x != nil {
+		if x.xxx_hidden_Columns != nil {
+			return *x.xxx_hidden_Columns
+		}
+	}
+	return nil
+}
+
+func (x *ColumnsResponse) SetColumns(v []*ColumnDefinition) {
+	x.xxx_hidden_Columns = &v
+}
+
+type ColumnsResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The list of column definitions.
+	Columns []*ColumnDefinition
+}
+
+func (b0 ColumnsResponse_builder) Build() *ColumnsResponse {
+	m0 := &ColumnsResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Columns = &b.Columns
+	return m0
+}
+
 // Resource represents a single Kubernetes object serialized as a JSON string.
 type Resource struct {
 	state             protoimpl.MessageState `protogen:"opaque.v1"`
@@ -729,7 +1258,7 @@ type Resource struct {
 
 func (x *Resource) Reset() {
 	*x = Resource{}
-	mi := &file_resource_v1_resource_proto_msgTypes[5]
+	mi := &file_resource_v1_resource_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -741,7 +1270,7 @@ func (x *Resource) String() string {
 func (*Resource) ProtoMessage() {}
 
 func (x *Resource) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[5]
+	mi := &file_resource_v1_resource_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -810,7 +1339,7 @@ type ListRequest struct {
 
 func (x *ListRequest) Reset() {
 	*x = ListRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	mi := &file_resource_v1_resource_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -822,7 +1351,7 @@ func (x *ListRequest) String() string {
 func (*ListRequest) ProtoMessage() {}
 
 func (x *ListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[6]
+	mi := &file_resource_v1_resource_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1154,7 +1683,7 @@ type ListResponse struct {
 
 func (x *ListResponse) Reset() {
 	*x = ListResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	mi := &file_resource_v1_resource_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1166,7 +1695,7 @@ func (x *ListResponse) String() string {
 func (*ListResponse) ProtoMessage() {}
 
 func (x *ListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[7]
+	mi := &file_resource_v1_resource_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1318,7 +1847,7 @@ type GetRequest struct {
 
 func (x *GetRequest) Reset() {
 	*x = GetRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[8]
+	mi := &file_resource_v1_resource_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1330,7 +1859,7 @@ func (x *GetRequest) String() string {
 func (*GetRequest) ProtoMessage() {}
 
 func (x *GetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[8]
+	mi := &file_resource_v1_resource_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1569,7 +2098,7 @@ type DescribeRequest struct {
 
 func (x *DescribeRequest) Reset() {
 	*x = DescribeRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[9]
+	mi := &file_resource_v1_resource_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1581,7 +2110,7 @@ func (x *DescribeRequest) String() string {
 func (*DescribeRequest) ProtoMessage() {}
 
 func (x *DescribeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[9]
+	mi := &file_resource_v1_resource_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1813,7 +2342,7 @@ type DescribeResponse struct {
 
 func (x *DescribeResponse) Reset() {
 	*x = DescribeResponse{}
-	mi := &file_resource_v1_resource_proto_msgTypes[10]
+	mi := &file_resource_v1_resource_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1825,7 +2354,7 @@ func (x *DescribeResponse) String() string {
 func (*DescribeResponse) ProtoMessage() {}
 
 func (x *DescribeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[10]
+	mi := &file_resource_v1_resource_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1906,7 +2435,7 @@ type CreateRequest struct {
 
 func (x *CreateRequest) Reset() {
 	*x = CreateRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_resource_v1_resource_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1918,7 +2447,7 @@ func (x *CreateRequest) String() string {
 func (*CreateRequest) ProtoMessage() {}
 
 func (x *CreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[11]
+	mi := &file_resource_v1_resource_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2159,7 +2688,7 @@ type ApplyRequest struct {
 
 func (x *ApplyRequest) Reset() {
 	*x = ApplyRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[12]
+	mi := &file_resource_v1_resource_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2171,7 +2700,7 @@ func (x *ApplyRequest) String() string {
 func (*ApplyRequest) ProtoMessage() {}
 
 func (x *ApplyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[12]
+	mi := &file_resource_v1_resource_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2506,7 +3035,7 @@ type DeleteRequest struct {
 
 func (x *DeleteRequest) Reset() {
 	*x = DeleteRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[13]
+	mi := &file_resource_v1_resource_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2518,7 +3047,7 @@ func (x *DeleteRequest) String() string {
 func (*DeleteRequest) ProtoMessage() {}
 
 func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[13]
+	mi := &file_resource_v1_resource_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2790,7 +3319,7 @@ type WatchRequest struct {
 
 func (x *WatchRequest) Reset() {
 	*x = WatchRequest{}
-	mi := &file_resource_v1_resource_proto_msgTypes[14]
+	mi := &file_resource_v1_resource_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2802,7 +3331,7 @@ func (x *WatchRequest) String() string {
 func (*WatchRequest) ProtoMessage() {}
 
 func (x *WatchRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[14]
+	mi := &file_resource_v1_resource_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3103,7 +3632,7 @@ type WatchEvent struct {
 
 func (x *WatchEvent) Reset() {
 	*x = WatchEvent{}
-	mi := &file_resource_v1_resource_proto_msgTypes[15]
+	mi := &file_resource_v1_resource_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3115,7 +3644,7 @@ func (x *WatchEvent) String() string {
 func (*WatchEvent) ProtoMessage() {}
 
 func (x *WatchEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_resource_v1_resource_proto_msgTypes[15]
+	mi := &file_resource_v1_resource_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3243,7 +3772,14 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"namespaced\x12\x14\n" +
 	"\x05verbs\x18\x06 \x03(\tR\x05verbs\x12\x1f\n" +
 	"\vshort_names\x18\a \x03(\tR\n" +
-	"shortNames\",\n" +
+	"shortNames\"\xad\x01\n" +
+	"\x10ColumnDefinition\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x16\n" +
+	"\x06format\x18\x03 \x01(\tR\x06format\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x1a\n" +
+	"\bpriority\x18\x05 \x01(\x05R\bpriority\x12\x1b\n" +
+	"\tjson_path\x18\x06 \x01(\tR\bjsonPath\",\n" +
 	"\x10DiscoveryRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\"]\n" +
 	"\x11DiscoveryResponse\x12H\n" +
@@ -3254,7 +3790,15 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\aversion\x18\x03 \x01(\tR\aversion\x12\x12\n" +
 	"\x04kind\x18\x04 \x01(\tR\x04kind\"A\n" +
 	"\x0eSchemaResponse\x12/\n" +
-	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schema\";\n" +
+	"\x06schema\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06schema\"\x94\x01\n" +
+	"\x0eColumnsRequest\x12\x18\n" +
+	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
+	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
+	"\aversion\x18\x03 \x01(\tR\aversion\x12\x1a\n" +
+	"\bresource\x18\x04 \x01(\tR\bresource\x12\x1c\n" +
+	"\tnamespace\x18\x05 \x01(\tR\tnamespace\"U\n" +
+	"\x0fColumnsResponse\x12B\n" +
+	"\acolumns\x18\x01 \x03(\v2(.otterscale.resource.v1.ColumnDefinitionR\acolumns\";\n" +
 	"\bResource\x12/\n" +
 	"\x06object\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06object\"\x91\x02\n" +
 	"\vListRequest\x12\x18\n" +
@@ -3337,11 +3881,13 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\fTYPE_DELETED\x10\x03\x12\x11\n" +
 	"\rTYPE_BOOKMARK\x10\x04\x12\x0e\n" +
 	"\n" +
-	"TYPE_ERROR\x10\x052\xee\a\n" +
+	"TYPE_ERROR\x10\x052\xe3\b\n" +
 	"\x0fResourceService\x12y\n" +
 	"\tDiscovery\x12(.otterscale.resource.v1.DiscoveryRequest\x1a).otterscale.resource.v1.DiscoveryResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled\x12p\n" +
 	"\x06Schema\x12%.otterscale.resource.v1.SchemaRequest\x1a&.otterscale.resource.v1.SchemaResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
+	"\x10resource-enabled\x12s\n" +
+	"\aColumns\x12&.otterscale.resource.v1.ColumnsRequest\x1a'.otterscale.resource.v1.ColumnsResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled\x12j\n" +
 	"\x04List\x12#.otterscale.resource.v1.ListRequest\x1a$.otterscale.resource.v1.ListResponse\"\x17\x8a\xdf\xd5\x1d\x12\n" +
 	"\x10resource-enabled\x12d\n" +
@@ -3359,60 +3905,66 @@ const file_resource_v1_resource_proto_rawDesc = "" +
 	"\x10resource-enabled0\x01B2Z0github.com/otterscale/api/resource/v1;resourcev1b\beditionsp\xe8\a"
 
 var file_resource_v1_resource_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_resource_v1_resource_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_resource_v1_resource_proto_goTypes = []any{
 	(WatchEvent_Type)(0),      // 0: otterscale.resource.v1.WatchEvent.Type
 	(*APIResource)(nil),       // 1: otterscale.resource.v1.APIResource
-	(*DiscoveryRequest)(nil),  // 2: otterscale.resource.v1.DiscoveryRequest
-	(*DiscoveryResponse)(nil), // 3: otterscale.resource.v1.DiscoveryResponse
-	(*SchemaRequest)(nil),     // 4: otterscale.resource.v1.SchemaRequest
-	(*SchemaResponse)(nil),    // 5: otterscale.resource.v1.SchemaResponse
-	(*Resource)(nil),          // 6: otterscale.resource.v1.Resource
-	(*ListRequest)(nil),       // 7: otterscale.resource.v1.ListRequest
-	(*ListResponse)(nil),      // 8: otterscale.resource.v1.ListResponse
-	(*GetRequest)(nil),        // 9: otterscale.resource.v1.GetRequest
-	(*DescribeRequest)(nil),   // 10: otterscale.resource.v1.DescribeRequest
-	(*DescribeResponse)(nil),  // 11: otterscale.resource.v1.DescribeResponse
-	(*CreateRequest)(nil),     // 12: otterscale.resource.v1.CreateRequest
-	(*ApplyRequest)(nil),      // 13: otterscale.resource.v1.ApplyRequest
-	(*DeleteRequest)(nil),     // 14: otterscale.resource.v1.DeleteRequest
-	(*WatchRequest)(nil),      // 15: otterscale.resource.v1.WatchRequest
-	(*WatchEvent)(nil),        // 16: otterscale.resource.v1.WatchEvent
-	(*structpb.Struct)(nil),   // 17: google.protobuf.Struct
-	(*emptypb.Empty)(nil),     // 18: google.protobuf.Empty
+	(*ColumnDefinition)(nil),  // 2: otterscale.resource.v1.ColumnDefinition
+	(*DiscoveryRequest)(nil),  // 3: otterscale.resource.v1.DiscoveryRequest
+	(*DiscoveryResponse)(nil), // 4: otterscale.resource.v1.DiscoveryResponse
+	(*SchemaRequest)(nil),     // 5: otterscale.resource.v1.SchemaRequest
+	(*SchemaResponse)(nil),    // 6: otterscale.resource.v1.SchemaResponse
+	(*ColumnsRequest)(nil),    // 7: otterscale.resource.v1.ColumnsRequest
+	(*ColumnsResponse)(nil),   // 8: otterscale.resource.v1.ColumnsResponse
+	(*Resource)(nil),          // 9: otterscale.resource.v1.Resource
+	(*ListRequest)(nil),       // 10: otterscale.resource.v1.ListRequest
+	(*ListResponse)(nil),      // 11: otterscale.resource.v1.ListResponse
+	(*GetRequest)(nil),        // 12: otterscale.resource.v1.GetRequest
+	(*DescribeRequest)(nil),   // 13: otterscale.resource.v1.DescribeRequest
+	(*DescribeResponse)(nil),  // 14: otterscale.resource.v1.DescribeResponse
+	(*CreateRequest)(nil),     // 15: otterscale.resource.v1.CreateRequest
+	(*ApplyRequest)(nil),      // 16: otterscale.resource.v1.ApplyRequest
+	(*DeleteRequest)(nil),     // 17: otterscale.resource.v1.DeleteRequest
+	(*WatchRequest)(nil),      // 18: otterscale.resource.v1.WatchRequest
+	(*WatchEvent)(nil),        // 19: otterscale.resource.v1.WatchEvent
+	(*structpb.Struct)(nil),   // 20: google.protobuf.Struct
+	(*emptypb.Empty)(nil),     // 21: google.protobuf.Empty
 }
 var file_resource_v1_resource_proto_depIdxs = []int32{
 	1,  // 0: otterscale.resource.v1.DiscoveryResponse.api_resources:type_name -> otterscale.resource.v1.APIResource
-	17, // 1: otterscale.resource.v1.SchemaResponse.schema:type_name -> google.protobuf.Struct
-	17, // 2: otterscale.resource.v1.Resource.object:type_name -> google.protobuf.Struct
-	6,  // 3: otterscale.resource.v1.ListResponse.items:type_name -> otterscale.resource.v1.Resource
-	6,  // 4: otterscale.resource.v1.DescribeResponse.resource:type_name -> otterscale.resource.v1.Resource
-	6,  // 5: otterscale.resource.v1.DescribeResponse.events:type_name -> otterscale.resource.v1.Resource
-	0,  // 6: otterscale.resource.v1.WatchEvent.type:type_name -> otterscale.resource.v1.WatchEvent.Type
-	6,  // 7: otterscale.resource.v1.WatchEvent.resource:type_name -> otterscale.resource.v1.Resource
-	2,  // 8: otterscale.resource.v1.ResourceService.Discovery:input_type -> otterscale.resource.v1.DiscoveryRequest
-	4,  // 9: otterscale.resource.v1.ResourceService.Schema:input_type -> otterscale.resource.v1.SchemaRequest
-	7,  // 10: otterscale.resource.v1.ResourceService.List:input_type -> otterscale.resource.v1.ListRequest
-	9,  // 11: otterscale.resource.v1.ResourceService.Get:input_type -> otterscale.resource.v1.GetRequest
-	10, // 12: otterscale.resource.v1.ResourceService.Describe:input_type -> otterscale.resource.v1.DescribeRequest
-	12, // 13: otterscale.resource.v1.ResourceService.Create:input_type -> otterscale.resource.v1.CreateRequest
-	13, // 14: otterscale.resource.v1.ResourceService.Apply:input_type -> otterscale.resource.v1.ApplyRequest
-	14, // 15: otterscale.resource.v1.ResourceService.Delete:input_type -> otterscale.resource.v1.DeleteRequest
-	15, // 16: otterscale.resource.v1.ResourceService.Watch:input_type -> otterscale.resource.v1.WatchRequest
-	3,  // 17: otterscale.resource.v1.ResourceService.Discovery:output_type -> otterscale.resource.v1.DiscoveryResponse
-	5,  // 18: otterscale.resource.v1.ResourceService.Schema:output_type -> otterscale.resource.v1.SchemaResponse
-	8,  // 19: otterscale.resource.v1.ResourceService.List:output_type -> otterscale.resource.v1.ListResponse
-	6,  // 20: otterscale.resource.v1.ResourceService.Get:output_type -> otterscale.resource.v1.Resource
-	11, // 21: otterscale.resource.v1.ResourceService.Describe:output_type -> otterscale.resource.v1.DescribeResponse
-	6,  // 22: otterscale.resource.v1.ResourceService.Create:output_type -> otterscale.resource.v1.Resource
-	6,  // 23: otterscale.resource.v1.ResourceService.Apply:output_type -> otterscale.resource.v1.Resource
-	18, // 24: otterscale.resource.v1.ResourceService.Delete:output_type -> google.protobuf.Empty
-	16, // 25: otterscale.resource.v1.ResourceService.Watch:output_type -> otterscale.resource.v1.WatchEvent
-	17, // [17:26] is the sub-list for method output_type
-	8,  // [8:17] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	20, // 1: otterscale.resource.v1.SchemaResponse.schema:type_name -> google.protobuf.Struct
+	2,  // 2: otterscale.resource.v1.ColumnsResponse.columns:type_name -> otterscale.resource.v1.ColumnDefinition
+	20, // 3: otterscale.resource.v1.Resource.object:type_name -> google.protobuf.Struct
+	9,  // 4: otterscale.resource.v1.ListResponse.items:type_name -> otterscale.resource.v1.Resource
+	9,  // 5: otterscale.resource.v1.DescribeResponse.resource:type_name -> otterscale.resource.v1.Resource
+	9,  // 6: otterscale.resource.v1.DescribeResponse.events:type_name -> otterscale.resource.v1.Resource
+	0,  // 7: otterscale.resource.v1.WatchEvent.type:type_name -> otterscale.resource.v1.WatchEvent.Type
+	9,  // 8: otterscale.resource.v1.WatchEvent.resource:type_name -> otterscale.resource.v1.Resource
+	3,  // 9: otterscale.resource.v1.ResourceService.Discovery:input_type -> otterscale.resource.v1.DiscoveryRequest
+	5,  // 10: otterscale.resource.v1.ResourceService.Schema:input_type -> otterscale.resource.v1.SchemaRequest
+	7,  // 11: otterscale.resource.v1.ResourceService.Columns:input_type -> otterscale.resource.v1.ColumnsRequest
+	10, // 12: otterscale.resource.v1.ResourceService.List:input_type -> otterscale.resource.v1.ListRequest
+	12, // 13: otterscale.resource.v1.ResourceService.Get:input_type -> otterscale.resource.v1.GetRequest
+	13, // 14: otterscale.resource.v1.ResourceService.Describe:input_type -> otterscale.resource.v1.DescribeRequest
+	15, // 15: otterscale.resource.v1.ResourceService.Create:input_type -> otterscale.resource.v1.CreateRequest
+	16, // 16: otterscale.resource.v1.ResourceService.Apply:input_type -> otterscale.resource.v1.ApplyRequest
+	17, // 17: otterscale.resource.v1.ResourceService.Delete:input_type -> otterscale.resource.v1.DeleteRequest
+	18, // 18: otterscale.resource.v1.ResourceService.Watch:input_type -> otterscale.resource.v1.WatchRequest
+	4,  // 19: otterscale.resource.v1.ResourceService.Discovery:output_type -> otterscale.resource.v1.DiscoveryResponse
+	6,  // 20: otterscale.resource.v1.ResourceService.Schema:output_type -> otterscale.resource.v1.SchemaResponse
+	8,  // 21: otterscale.resource.v1.ResourceService.Columns:output_type -> otterscale.resource.v1.ColumnsResponse
+	11, // 22: otterscale.resource.v1.ResourceService.List:output_type -> otterscale.resource.v1.ListResponse
+	9,  // 23: otterscale.resource.v1.ResourceService.Get:output_type -> otterscale.resource.v1.Resource
+	14, // 24: otterscale.resource.v1.ResourceService.Describe:output_type -> otterscale.resource.v1.DescribeResponse
+	9,  // 25: otterscale.resource.v1.ResourceService.Create:output_type -> otterscale.resource.v1.Resource
+	9,  // 26: otterscale.resource.v1.ResourceService.Apply:output_type -> otterscale.resource.v1.Resource
+	21, // 27: otterscale.resource.v1.ResourceService.Delete:output_type -> google.protobuf.Empty
+	19, // 28: otterscale.resource.v1.ResourceService.Watch:output_type -> otterscale.resource.v1.WatchEvent
+	19, // [19:29] is the sub-list for method output_type
+	9,  // [9:19] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_resource_v1_resource_proto_init() }
@@ -3426,7 +3978,7 @@ func file_resource_v1_resource_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_resource_v1_resource_proto_rawDesc), len(file_resource_v1_resource_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   16,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -53,6 +53,9 @@ const (
 	RuntimeServiceScaleProcedure = "/otterscale.runtime.v1.RuntimeService/Scale"
 	// RuntimeServiceRestartProcedure is the fully-qualified name of the RuntimeService's Restart RPC.
 	RuntimeServiceRestartProcedure = "/otterscale.runtime.v1.RuntimeService/Restart"
+	// RuntimeServiceSubResourceActionProcedure is the fully-qualified name of the RuntimeService's
+	// SubResourceAction RPC.
+	RuntimeServiceSubResourceActionProcedure = "/otterscale.runtime.v1.RuntimeService/SubResourceAction"
 )
 
 // RuntimeServiceClient is a client for the otterscale.runtime.v1.RuntimeService service.
@@ -79,6 +82,11 @@ type RuntimeServiceClient interface {
 	// Restart triggers a rolling restart of a workload by patching the
 	// pod template annotation, equivalent to `kubectl rollout restart`.
 	Restart(context.Context, *RestartRequest) (*emptypb.Empty, error)
+	// SubResourceAction performs a generic action on a Kubernetes
+	// subresource, such as KubeVirt VM start/stop/restart. The request
+	// is forwarded to kube-apiserver via impersonation, so RBAC is
+	// enforced automatically. Only PUT and POST methods are allowed.
+	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
 }
 
 // NewRuntimeServiceClient constructs a client for the otterscale.runtime.v1.RuntimeService service.
@@ -140,19 +148,26 @@ func NewRuntimeServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(runtimeServiceMethods.ByName("Restart")),
 			connect.WithClientOptions(opts...),
 		),
+		subResourceAction: connect.NewClient[SubResourceActionRequest, SubResourceActionResponse](
+			httpClient,
+			baseURL+RuntimeServiceSubResourceActionProcedure,
+			connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // runtimeServiceClient implements RuntimeServiceClient.
 type runtimeServiceClient struct {
-	podLog           *connect.Client[PodLogRequest, PodLogResponse]
-	executeTTY       *connect.Client[ExecuteTTYRequest, ExecuteTTYResponse]
-	writeTTY         *connect.Client[WriteTTYRequest, emptypb.Empty]
-	resizeTTY        *connect.Client[ResizeTTYRequest, emptypb.Empty]
-	portForward      *connect.Client[PortForwardRequest, PortForwardResponse]
-	writePortForward *connect.Client[WritePortForwardRequest, emptypb.Empty]
-	scale            *connect.Client[ScaleRequest, ScaleResponse]
-	restart          *connect.Client[RestartRequest, emptypb.Empty]
+	podLog            *connect.Client[PodLogRequest, PodLogResponse]
+	executeTTY        *connect.Client[ExecuteTTYRequest, ExecuteTTYResponse]
+	writeTTY          *connect.Client[WriteTTYRequest, emptypb.Empty]
+	resizeTTY         *connect.Client[ResizeTTYRequest, emptypb.Empty]
+	portForward       *connect.Client[PortForwardRequest, PortForwardResponse]
+	writePortForward  *connect.Client[WritePortForwardRequest, emptypb.Empty]
+	scale             *connect.Client[ScaleRequest, ScaleResponse]
+	restart           *connect.Client[RestartRequest, emptypb.Empty]
+	subResourceAction *connect.Client[SubResourceActionRequest, SubResourceActionResponse]
 }
 
 // PodLog calls otterscale.runtime.v1.RuntimeService.PodLog.
@@ -215,6 +230,15 @@ func (c *runtimeServiceClient) Restart(ctx context.Context, req *RestartRequest)
 	return nil, err
 }
 
+// SubResourceAction calls otterscale.runtime.v1.RuntimeService.SubResourceAction.
+func (c *runtimeServiceClient) SubResourceAction(ctx context.Context, req *SubResourceActionRequest) (*SubResourceActionResponse, error) {
+	response, err := c.subResourceAction.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // RuntimeServiceHandler is an implementation of the otterscale.runtime.v1.RuntimeService service.
 type RuntimeServiceHandler interface {
 	// PodLog streams log output from a container, similar to `kubectl logs -f`.
@@ -239,6 +263,11 @@ type RuntimeServiceHandler interface {
 	// Restart triggers a rolling restart of a workload by patching the
 	// pod template annotation, equivalent to `kubectl rollout restart`.
 	Restart(context.Context, *RestartRequest) (*emptypb.Empty, error)
+	// SubResourceAction performs a generic action on a Kubernetes
+	// subresource, such as KubeVirt VM start/stop/restart. The request
+	// is forwarded to kube-apiserver via impersonation, so RBAC is
+	// enforced automatically. Only PUT and POST methods are allowed.
+	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
 }
 
 // NewRuntimeServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -296,6 +325,12 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 		connect.WithSchema(runtimeServiceMethods.ByName("Restart")),
 		connect.WithHandlerOptions(opts...),
 	)
+	runtimeServiceSubResourceActionHandler := connect.NewUnaryHandlerSimple(
+		RuntimeServiceSubResourceActionProcedure,
+		svc.SubResourceAction,
+		connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/otterscale.runtime.v1.RuntimeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case RuntimeServicePodLogProcedure:
@@ -314,6 +349,8 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 			runtimeServiceScaleHandler.ServeHTTP(w, r)
 		case RuntimeServiceRestartProcedure:
 			runtimeServiceRestartHandler.ServeHTTP(w, r)
+		case RuntimeServiceSubResourceActionProcedure:
+			runtimeServiceSubResourceActionHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -353,4 +390,8 @@ func (UnimplementedRuntimeServiceHandler) Scale(context.Context, *ScaleRequest) 
 
 func (UnimplementedRuntimeServiceHandler) Restart(context.Context, *RestartRequest) (*emptypb.Empty, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.Restart is not implemented"))
+}
+
+func (UnimplementedRuntimeServiceHandler) SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.SubResourceAction is not implemented"))
 }

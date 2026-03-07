@@ -11,6 +11,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	unsafe "unsafe"
@@ -2213,11 +2214,438 @@ func (b0 RestartRequest_builder) Build() *RestartRequest {
 	return m0
 }
 
+// SubResourceActionRequest defines the parameters for invoking a
+// subresource action on any Kubernetes resource. This is designed for
+// operations like KubeVirt VM start/stop/restart/migrate that use PUT
+// or POST on a named subresource path.
+type SubResourceActionRequest struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Group       *string                `protobuf:"bytes,2,opt,name=group"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	xxx_hidden_Resource    *string                `protobuf:"bytes,4,opt,name=resource"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,5,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,6,opt,name=name"`
+	xxx_hidden_Subresource *string                `protobuf:"bytes,7,opt,name=subresource"`
+	xxx_hidden_Method      *string                `protobuf:"bytes,8,opt,name=method"`
+	xxx_hidden_Body        []byte                 `protobuf:"bytes,9,opt,name=body"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *SubResourceActionRequest) Reset() {
+	*x = SubResourceActionRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubResourceActionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubResourceActionRequest) ProtoMessage() {}
+
+func (x *SubResourceActionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *SubResourceActionRequest) GetCluster() string {
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetGroup() string {
+	if x != nil {
+		if x.xxx_hidden_Group != nil {
+			return *x.xxx_hidden_Group
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetVersion() string {
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetResource() string {
+	if x != nil {
+		if x.xxx_hidden_Resource != nil {
+			return *x.xxx_hidden_Resource
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetNamespace() string {
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetSubresource() string {
+	if x != nil {
+		if x.xxx_hidden_Subresource != nil {
+			return *x.xxx_hidden_Subresource
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetMethod() string {
+	if x != nil {
+		if x.xxx_hidden_Method != nil {
+			return *x.xxx_hidden_Method
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *SubResourceActionRequest) GetBody() []byte {
+	if x != nil {
+		return x.xxx_hidden_Body
+	}
+	return nil
+}
+
+func (x *SubResourceActionRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+}
+
+func (x *SubResourceActionRequest) SetGroup(v string) {
+	x.xxx_hidden_Group = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
+}
+
+func (x *SubResourceActionRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
+}
+
+func (x *SubResourceActionRequest) SetResource(v string) {
+	x.xxx_hidden_Resource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
+}
+
+func (x *SubResourceActionRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
+}
+
+func (x *SubResourceActionRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
+}
+
+func (x *SubResourceActionRequest) SetSubresource(v string) {
+	x.xxx_hidden_Subresource = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
+}
+
+func (x *SubResourceActionRequest) SetMethod(v string) {
+	x.xxx_hidden_Method = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 9)
+}
+
+func (x *SubResourceActionRequest) SetBody(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Body = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 9)
+}
+
+func (x *SubResourceActionRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *SubResourceActionRequest) HasGroup() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *SubResourceActionRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *SubResourceActionRequest) HasResource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *SubResourceActionRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *SubResourceActionRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *SubResourceActionRequest) HasSubresource() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *SubResourceActionRequest) HasMethod() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *SubResourceActionRequest) HasBody() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
+}
+
+func (x *SubResourceActionRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *SubResourceActionRequest) ClearGroup() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Group = nil
+}
+
+func (x *SubResourceActionRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+func (x *SubResourceActionRequest) ClearResource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Resource = nil
+}
+
+func (x *SubResourceActionRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *SubResourceActionRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *SubResourceActionRequest) ClearSubresource() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_Subresource = nil
+}
+
+func (x *SubResourceActionRequest) ClearMethod() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_Method = nil
+}
+
+func (x *SubResourceActionRequest) ClearBody() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	x.xxx_hidden_Body = nil
+}
+
+type SubResourceActionRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// Kubernetes API Group (e.g., "kubevirt.io").
+	Group *string
+	// Kubernetes API Version (e.g., "v1").
+	Version *string
+	// Kubernetes API Resource name in plural (e.g., "virtualmachines").
+	Resource *string
+	// The namespace of the resource.
+	Namespace *string
+	// The name of the resource.
+	Name *string
+	// The subresource to invoke (e.g., "start", "stop", "restart").
+	Subresource *string
+	// The HTTP method for the subresource action. Only "PUT" and "POST"
+	// are allowed; DELETE and PATCH have dedicated RPCs.
+	Method *string
+	// Optional JSON body (e.g., KubeVirt StopOptions with gracePeriod).
+	Body []byte
+}
+
+func (b0 SubResourceActionRequest_builder) Build() *SubResourceActionRequest {
+	m0 := &SubResourceActionRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Group != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 9)
+		x.xxx_hidden_Group = b.Group
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 9)
+		x.xxx_hidden_Version = b.Version
+	}
+	if b.Resource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 9)
+		x.xxx_hidden_Resource = b.Resource
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 9)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 9)
+		x.xxx_hidden_Name = b.Name
+	}
+	if b.Subresource != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 9)
+		x.xxx_hidden_Subresource = b.Subresource
+	}
+	if b.Method != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 9)
+		x.xxx_hidden_Method = b.Method
+	}
+	if b.Body != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 9)
+		x.xxx_hidden_Body = b.Body
+	}
+	return m0
+}
+
+// SubResourceActionResponse contains the optional response body from
+// the subresource action.
+type SubResourceActionResponse struct {
+	state             protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Result *structpb.Struct       `protobuf:"bytes,1,opt,name=result"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *SubResourceActionResponse) Reset() {
+	*x = SubResourceActionResponse{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubResourceActionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubResourceActionResponse) ProtoMessage() {}
+
+func (x *SubResourceActionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *SubResourceActionResponse) GetResult() *structpb.Struct {
+	if x != nil {
+		return x.xxx_hidden_Result
+	}
+	return nil
+}
+
+func (x *SubResourceActionResponse) SetResult(v *structpb.Struct) {
+	x.xxx_hidden_Result = v
+}
+
+func (x *SubResourceActionResponse) HasResult() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Result != nil
+}
+
+func (x *SubResourceActionResponse) ClearResult() {
+	x.xxx_hidden_Result = nil
+}
+
+type SubResourceActionResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The JSON response body returned by the API server, if any.
+	Result *structpb.Struct
+}
+
+func (b0 SubResourceActionResponse_builder) Build() *SubResourceActionResponse {
+	m0 := &SubResourceActionResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Result = b.Result
+	return m0
+}
+
 var File_runtime_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\n" +
-	"\x18runtime/v1/runtime.proto\x12\x15otterscale.runtime.v1\x1a\rfeature.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x82\x03\n" +
+	"\x18runtime/v1/runtime.proto\x12\x15otterscale.runtime.v1\x1a\rfeature.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x82\x03\n" +
 	"\rPodLogRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1c\n" +
 	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12\x12\n" +
@@ -2290,7 +2718,19 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\aversion\x18\x03 \x01(\tR\aversion\x12\x1a\n" +
 	"\bresource\x18\x04 \x01(\tR\bresource\x12\x1c\n" +
 	"\tnamespace\x18\x05 \x01(\tR\tnamespace\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name2\x8a\a\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\"\x80\x02\n" +
+	"\x18SubResourceActionRequest\x12\x18\n" +
+	"\acluster\x18\x01 \x01(\tR\acluster\x12\x14\n" +
+	"\x05group\x18\x02 \x01(\tR\x05group\x12\x18\n" +
+	"\aversion\x18\x03 \x01(\tR\aversion\x12\x1a\n" +
+	"\bresource\x18\x04 \x01(\tR\bresource\x12\x1c\n" +
+	"\tnamespace\x18\x05 \x01(\tR\tnamespace\x12\x12\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\x12 \n" +
+	"\vsubresource\x18\a \x01(\tR\vsubresource\x12\x16\n" +
+	"\x06method\x18\b \x01(\tR\x06method\x12\x12\n" +
+	"\x04body\x18\t \x01(\fR\x04body\"L\n" +
+	"\x19SubResourceActionResponse\x12/\n" +
+	"\x06result\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06result2\x9b\b\n" +
 	"\x0eRuntimeService\x12o\n" +
 	"\x06PodLog\x12$.otterscale.runtime.v1.PodLogRequest\x1a%.otterscale.runtime.v1.PodLogResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled0\x01\x12{\n" +
@@ -2308,48 +2748,56 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x05Scale\x12#.otterscale.runtime.v1.ScaleRequest\x1a$.otterscale.runtime.v1.ScaleResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x12`\n" +
 	"\aRestart\x12%.otterscale.runtime.v1.RestartRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
+	"\x0fruntime-enabled\x12\x8e\x01\n" +
+	"\x11SubResourceAction\x12/.otterscale.runtime.v1.SubResourceActionRequest\x1a0.otterscale.runtime.v1.SubResourceActionResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabledB0Z.github.com/otterscale/api/runtime/v1;runtimev1b\beditionsp\xe8\a"
 
-var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_runtime_v1_runtime_proto_goTypes = []any{
-	(*PodLogRequest)(nil),           // 0: otterscale.runtime.v1.PodLogRequest
-	(*PodLogResponse)(nil),          // 1: otterscale.runtime.v1.PodLogResponse
-	(*ExecuteTTYRequest)(nil),       // 2: otterscale.runtime.v1.ExecuteTTYRequest
-	(*ExecuteTTYResponse)(nil),      // 3: otterscale.runtime.v1.ExecuteTTYResponse
-	(*WriteTTYRequest)(nil),         // 4: otterscale.runtime.v1.WriteTTYRequest
-	(*ResizeTTYRequest)(nil),        // 5: otterscale.runtime.v1.ResizeTTYRequest
-	(*PortForwardRequest)(nil),      // 6: otterscale.runtime.v1.PortForwardRequest
-	(*PortForwardResponse)(nil),     // 7: otterscale.runtime.v1.PortForwardResponse
-	(*WritePortForwardRequest)(nil), // 8: otterscale.runtime.v1.WritePortForwardRequest
-	(*ScaleRequest)(nil),            // 9: otterscale.runtime.v1.ScaleRequest
-	(*ScaleResponse)(nil),           // 10: otterscale.runtime.v1.ScaleResponse
-	(*RestartRequest)(nil),          // 11: otterscale.runtime.v1.RestartRequest
-	(*timestamppb.Timestamp)(nil),   // 12: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),           // 13: google.protobuf.Empty
+	(*PodLogRequest)(nil),             // 0: otterscale.runtime.v1.PodLogRequest
+	(*PodLogResponse)(nil),            // 1: otterscale.runtime.v1.PodLogResponse
+	(*ExecuteTTYRequest)(nil),         // 2: otterscale.runtime.v1.ExecuteTTYRequest
+	(*ExecuteTTYResponse)(nil),        // 3: otterscale.runtime.v1.ExecuteTTYResponse
+	(*WriteTTYRequest)(nil),           // 4: otterscale.runtime.v1.WriteTTYRequest
+	(*ResizeTTYRequest)(nil),          // 5: otterscale.runtime.v1.ResizeTTYRequest
+	(*PortForwardRequest)(nil),        // 6: otterscale.runtime.v1.PortForwardRequest
+	(*PortForwardResponse)(nil),       // 7: otterscale.runtime.v1.PortForwardResponse
+	(*WritePortForwardRequest)(nil),   // 8: otterscale.runtime.v1.WritePortForwardRequest
+	(*ScaleRequest)(nil),              // 9: otterscale.runtime.v1.ScaleRequest
+	(*ScaleResponse)(nil),             // 10: otterscale.runtime.v1.ScaleResponse
+	(*RestartRequest)(nil),            // 11: otterscale.runtime.v1.RestartRequest
+	(*SubResourceActionRequest)(nil),  // 12: otterscale.runtime.v1.SubResourceActionRequest
+	(*SubResourceActionResponse)(nil), // 13: otterscale.runtime.v1.SubResourceActionResponse
+	(*timestamppb.Timestamp)(nil),     // 14: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),           // 15: google.protobuf.Struct
+	(*emptypb.Empty)(nil),             // 16: google.protobuf.Empty
 }
 var file_runtime_v1_runtime_proto_depIdxs = []int32{
-	12, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
-	0,  // 1: otterscale.runtime.v1.RuntimeService.PodLog:input_type -> otterscale.runtime.v1.PodLogRequest
-	2,  // 2: otterscale.runtime.v1.RuntimeService.ExecuteTTY:input_type -> otterscale.runtime.v1.ExecuteTTYRequest
-	4,  // 3: otterscale.runtime.v1.RuntimeService.WriteTTY:input_type -> otterscale.runtime.v1.WriteTTYRequest
-	5,  // 4: otterscale.runtime.v1.RuntimeService.ResizeTTY:input_type -> otterscale.runtime.v1.ResizeTTYRequest
-	6,  // 5: otterscale.runtime.v1.RuntimeService.PortForward:input_type -> otterscale.runtime.v1.PortForwardRequest
-	8,  // 6: otterscale.runtime.v1.RuntimeService.WritePortForward:input_type -> otterscale.runtime.v1.WritePortForwardRequest
-	9,  // 7: otterscale.runtime.v1.RuntimeService.Scale:input_type -> otterscale.runtime.v1.ScaleRequest
-	11, // 8: otterscale.runtime.v1.RuntimeService.Restart:input_type -> otterscale.runtime.v1.RestartRequest
-	1,  // 9: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
-	3,  // 10: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
-	13, // 11: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
-	13, // 12: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
-	7,  // 13: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
-	13, // 14: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
-	10, // 15: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
-	13, // 16: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
-	9,  // [9:17] is the sub-list for method output_type
-	1,  // [1:9] is the sub-list for method input_type
-	1,  // [1:1] is the sub-list for extension type_name
-	1,  // [1:1] is the sub-list for extension extendee
-	0,  // [0:1] is the sub-list for field type_name
+	14, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
+	15, // 1: otterscale.runtime.v1.SubResourceActionResponse.result:type_name -> google.protobuf.Struct
+	0,  // 2: otterscale.runtime.v1.RuntimeService.PodLog:input_type -> otterscale.runtime.v1.PodLogRequest
+	2,  // 3: otterscale.runtime.v1.RuntimeService.ExecuteTTY:input_type -> otterscale.runtime.v1.ExecuteTTYRequest
+	4,  // 4: otterscale.runtime.v1.RuntimeService.WriteTTY:input_type -> otterscale.runtime.v1.WriteTTYRequest
+	5,  // 5: otterscale.runtime.v1.RuntimeService.ResizeTTY:input_type -> otterscale.runtime.v1.ResizeTTYRequest
+	6,  // 6: otterscale.runtime.v1.RuntimeService.PortForward:input_type -> otterscale.runtime.v1.PortForwardRequest
+	8,  // 7: otterscale.runtime.v1.RuntimeService.WritePortForward:input_type -> otterscale.runtime.v1.WritePortForwardRequest
+	9,  // 8: otterscale.runtime.v1.RuntimeService.Scale:input_type -> otterscale.runtime.v1.ScaleRequest
+	11, // 9: otterscale.runtime.v1.RuntimeService.Restart:input_type -> otterscale.runtime.v1.RestartRequest
+	12, // 10: otterscale.runtime.v1.RuntimeService.SubResourceAction:input_type -> otterscale.runtime.v1.SubResourceActionRequest
+	1,  // 11: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
+	3,  // 12: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
+	16, // 13: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
+	16, // 14: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
+	7,  // 15: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
+	16, // 16: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
+	10, // 17: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
+	16, // 18: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
+	13, // 19: otterscale.runtime.v1.RuntimeService.SubResourceAction:output_type -> otterscale.runtime.v1.SubResourceActionResponse
+	11, // [11:20] is the sub-list for method output_type
+	2,  // [2:11] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_runtime_v1_runtime_proto_init() }
@@ -2363,7 +2811,7 @@ func file_runtime_v1_runtime_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_runtime_v1_runtime_proto_rawDesc), len(file_runtime_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
