@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
-import type { Message } from "@bufbuild/protobuf";
+import type { JsonObject, Message } from "@bufbuild/protobuf";
 import type { EmptySchema, Timestamp } from "@bufbuild/protobuf/wkt";
 
 /**
@@ -525,6 +525,107 @@ export declare type RestartRequest = Message<"otterscale.runtime.v1.RestartReque
 export declare const RestartRequestSchema: GenMessage<RestartRequest>;
 
 /**
+ * SubResourceActionRequest defines the parameters for invoking a
+ * subresource action on any Kubernetes resource. This is designed for
+ * operations like KubeVirt VM start/stop/restart/migrate that use PUT
+ * or POST on a named subresource path.
+ *
+ * @generated from message otterscale.runtime.v1.SubResourceActionRequest
+ */
+export declare type SubResourceActionRequest = Message<"otterscale.runtime.v1.SubResourceActionRequest"> & {
+  /**
+   * The target Kubernetes cluster identifier.
+   *
+   * @generated from field: string cluster = 1;
+   */
+  cluster: string;
+
+  /**
+   * Kubernetes API Group (e.g., "kubevirt.io").
+   *
+   * @generated from field: string group = 2;
+   */
+  group: string;
+
+  /**
+   * Kubernetes API Version (e.g., "v1").
+   *
+   * @generated from field: string version = 3;
+   */
+  version: string;
+
+  /**
+   * Kubernetes API Resource name in plural (e.g., "virtualmachines").
+   *
+   * @generated from field: string resource = 4;
+   */
+  resource: string;
+
+  /**
+   * The namespace of the resource.
+   *
+   * @generated from field: string namespace = 5;
+   */
+  namespace: string;
+
+  /**
+   * The name of the resource.
+   *
+   * @generated from field: string name = 6;
+   */
+  name: string;
+
+  /**
+   * The subresource to invoke (e.g., "start", "stop", "restart").
+   *
+   * @generated from field: string subresource = 7;
+   */
+  subresource: string;
+
+  /**
+   * The HTTP method for the subresource action. Only "PUT" and "POST"
+   * are allowed; DELETE and PATCH have dedicated RPCs.
+   *
+   * @generated from field: string method = 8;
+   */
+  method: string;
+
+  /**
+   * Optional JSON body (e.g., KubeVirt StopOptions with gracePeriod).
+   *
+   * @generated from field: bytes body = 9;
+   */
+  body: Uint8Array;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.SubResourceActionRequest.
+ * Use `create(SubResourceActionRequestSchema)` to create a new message.
+ */
+export declare const SubResourceActionRequestSchema: GenMessage<SubResourceActionRequest>;
+
+/**
+ * SubResourceActionResponse contains the optional response body from
+ * the subresource action.
+ *
+ * @generated from message otterscale.runtime.v1.SubResourceActionResponse
+ */
+export declare type SubResourceActionResponse = Message<"otterscale.runtime.v1.SubResourceActionResponse"> & {
+  /**
+   * The JSON response body returned by the API server, if any.
+   *
+   * @generated from field: google.protobuf.Struct result = 1;
+   */
+  result?: JsonObject;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.SubResourceActionResponse.
+ * Use `create(SubResourceActionResponseSchema)` to create a new message.
+ */
+export declare const SubResourceActionResponseSchema: GenMessage<SubResourceActionResponse>;
+
+/**
  * RuntimeService provides runtime operations for Kubernetes workloads,
  * including log streaming, interactive exec, port forwarding, scaling,
  * and rolling restarts.
@@ -617,6 +718,19 @@ export declare const RuntimeService: GenService<{
     methodKind: "unary";
     input: typeof RestartRequestSchema;
     output: typeof EmptySchema;
+  },
+  /**
+   * SubResourceAction performs a generic action on a Kubernetes
+   * subresource, such as KubeVirt VM start/stop/restart. The request
+   * is forwarded to kube-apiserver via impersonation, so RBAC is
+   * enforced automatically. Only PUT and POST methods are allowed.
+   *
+   * @generated from rpc otterscale.runtime.v1.RuntimeService.SubResourceAction
+   */
+  subResourceAction: {
+    methodKind: "unary";
+    input: typeof SubResourceActionRequestSchema;
+    output: typeof SubResourceActionResponseSchema;
   },
 }>;
 

@@ -74,6 +74,64 @@ export declare type APIResource = Message<"otterscale.resource.v1.APIResource"> 
 export declare const APIResourceSchema: GenMessage<APIResource>;
 
 /**
+ * ColumnDefinition describes a single column as returned by the
+ * Kubernetes Table API, equivalent to what `kubectl get` displays.
+ *
+ * @generated from message otterscale.resource.v1.ColumnDefinition
+ */
+export declare type ColumnDefinition = Message<"otterscale.resource.v1.ColumnDefinition"> & {
+  /**
+   * The display name of the column (e.g., "Name", "Ready", "Node").
+   *
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * The data type of the column (e.g., "string", "integer", "date").
+   *
+   * @generated from field: string type = 2;
+   */
+  type: string;
+
+  /**
+   * The display format (e.g., "name", "int32").
+   *
+   * @generated from field: string format = 3;
+   */
+  format: string;
+
+  /**
+   * A human-readable description of the column.
+   *
+   * @generated from field: string description = 4;
+   */
+  description: string;
+
+  /**
+   * Display priority: 0 means shown by default, 1 means shown only
+   * in wide mode (kubectl get -o wide).
+   *
+   * @generated from field: int32 priority = 5;
+   */
+  priority: number;
+
+  /**
+   * The JSONPath expression to extract the column value from the
+   * resource object. Present for CRD-defined columns.
+   *
+   * @generated from field: string json_path = 6;
+   */
+  jsonPath: string;
+};
+
+/**
+ * Describes the message otterscale.resource.v1.ColumnDefinition.
+ * Use `create(ColumnDefinitionSchema)` to create a new message.
+ */
+export declare const ColumnDefinitionSchema: GenMessage<ColumnDefinition>;
+
+/**
  * DiscoveryRequest defines the parameters for discovering API resources.
  *
  * @generated from message otterscale.resource.v1.DiscoveryRequest
@@ -173,6 +231,76 @@ export declare type SchemaResponse = Message<"otterscale.resource.v1.SchemaRespo
  * Use `create(SchemaResponseSchema)` to create a new message.
  */
 export declare const SchemaResponseSchema: GenMessage<SchemaResponse>;
+
+/**
+ * ColumnsRequest defines the parameters for retrieving printer column
+ * definitions for a resource type.
+ *
+ * @generated from message otterscale.resource.v1.ColumnsRequest
+ */
+export declare type ColumnsRequest = Message<"otterscale.resource.v1.ColumnsRequest"> & {
+  /**
+   * The target Kubernetes cluster identifier.
+   *
+   * @generated from field: string cluster = 1;
+   */
+  cluster: string;
+
+  /**
+   * Kubernetes API Group (e.g., "apps").
+   *
+   * @generated from field: string group = 2;
+   */
+  group: string;
+
+  /**
+   * Kubernetes API Version (e.g., "v1").
+   *
+   * @generated from field: string version = 3;
+   */
+  version: string;
+
+  /**
+   * Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+   *
+   * @generated from field: string resource = 4;
+   */
+  resource: string;
+
+  /**
+   * The namespace to use for the Table API request.
+   * Required for namespace-scoped resources.
+   *
+   * @generated from field: string namespace = 5;
+   */
+  namespace: string;
+};
+
+/**
+ * Describes the message otterscale.resource.v1.ColumnsRequest.
+ * Use `create(ColumnsRequestSchema)` to create a new message.
+ */
+export declare const ColumnsRequestSchema: GenMessage<ColumnsRequest>;
+
+/**
+ * ColumnsResponse contains the column definitions for a resource type.
+ *
+ * @generated from message otterscale.resource.v1.ColumnsResponse
+ */
+export declare type ColumnsResponse = Message<"otterscale.resource.v1.ColumnsResponse"> & {
+  /**
+   * The list of column definitions.
+   *
+   * @generated from field: repeated otterscale.resource.v1.ColumnDefinition columns = 1;
+   */
+  columns: ColumnDefinition[];
+};
+
+/**
+ * Describes the message otterscale.resource.v1.ColumnsResponse.
+ * Use `create(ColumnsResponseSchema)` to create a new message.
+ */
+export declare const ColumnsResponseSchema: GenMessage<ColumnsResponse>;
 
 /**
  * Resource represents a single Kubernetes object serialized as a JSON string.
@@ -831,6 +959,18 @@ export declare const ResourceService: GenService<{
     methodKind: "unary";
     input: typeof SchemaRequestSchema;
     output: typeof SchemaResponseSchema;
+  },
+  /**
+   * Columns returns the printer column definitions for a resource type,
+   * equivalent to the columns shown by `kubectl get` and `kubectl get -o wide`.
+   * It uses the Kubernetes Table API internally and caches results.
+   *
+   * @generated from rpc otterscale.resource.v1.ResourceService.Columns
+   */
+  columns: {
+    methodKind: "unary";
+    input: typeof ColumnsRequestSchema;
+    output: typeof ColumnsResponseSchema;
   },
   /**
    * List retrieves a collection of resources based on the provided GVR and filters.
