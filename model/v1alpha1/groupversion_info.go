@@ -38,8 +38,8 @@ var (
 
 func addKnownTypes(s *runtime.Scheme) error {
 	s.AddKnownTypes(GroupVersion,
-		&Artifact{},
-		&ArtifactList{},
+		&ModelArtifact{},
+		&ModelArtifactList{},
 		&ModelService{},
 		&ModelServiceList{},
 	)

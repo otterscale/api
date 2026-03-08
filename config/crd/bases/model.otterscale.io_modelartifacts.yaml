@@ -4,16 +4,16 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.20.1
-  name: artifacts.model.otterscale.io
+  name: modelartifacts.model.otterscale.io
 spec:
   group: model.otterscale.io
   names:
     categories:
     - otterscale
-    kind: Artifact
-    listKind: ArtifactList
-    plural: artifacts
-    singular: artifact
+    kind: ModelArtifact
+    listKind: ModelArtifactList
+    plural: modelartifacts
+    singular: modelartifact
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -40,8 +40,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: |-
-          Artifact is the Schema for the artifacts API.
-          An Artifact declares intent to import a model from a source (e.g. HuggingFace),
+          ModelArtifact is the Schema for the model artifacts API.
+          A ModelArtifact declares intent to import a model from a source (e.g. HuggingFace),
           package it as an OCI artifact (ModelPack or ModelKit format), and push it to an
           OCI-compliant registry. The controller creates a Kubernetes Job to execute the
           import/pack/push pipeline and reports the resulting digest back to the status.
@@ -108,7 +108,7 @@ spec:
                             type: string
                           name:
                             description: Name is the name of the Secret in the same
-                              namespace as the Artifact.
+                              namespace as the ModelArtifact.
                             minLength: 1
                             type: string
                         required:
@@ -155,7 +155,7 @@ spec:
                     properties:
                       name:
                         description: Name is the name of the Secret in the same namespace
-                          as the Artifact.
+                          as the ModelArtifact.
                         minLength: 1
                         type: string
                     required:
@@ -208,7 +208,7 @@ spec:
                 format: date-time
                 type: string
               conditions:
-                description: Conditions store the status conditions of the Artifact.
+                description: Conditions store the status conditions of the ModelArtifact.
                 items:
                   description: Condition contains details for one aspect of the current
                     state of this API Resource.

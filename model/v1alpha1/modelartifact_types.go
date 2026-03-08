@@ -33,28 +33,28 @@ const (
 	PackFormatModelKit PackFormat = "ModelKit"
 )
 
-// ArtifactPhase represents the current lifecycle phase of an Artifact.
+// ModelArtifactPhase represents the current lifecycle phase of a ModelArtifact.
 // +enum
-type ArtifactPhase string
+type ModelArtifactPhase string
 
 const (
 	// PhasePending indicates the pipeline has not yet started.
-	PhasePending ArtifactPhase = "Pending"
+	PhasePending ModelArtifactPhase = "Pending"
 
 	// PhaseRunning indicates the import/pack/push Job is in progress.
-	PhaseRunning ArtifactPhase = "Running"
+	PhaseRunning ModelArtifactPhase = "Running"
 
 	// PhaseSucceeded indicates the artifact was successfully pushed to the registry.
-	PhaseSucceeded ArtifactPhase = "Succeeded"
+	PhaseSucceeded ModelArtifactPhase = "Succeeded"
 
 	// PhaseFailed indicates the pipeline encountered an error.
-	PhaseFailed ArtifactPhase = "Failed"
+	PhaseFailed ModelArtifactPhase = "Failed"
 )
 
-// ArtifactSpec defines the desired state of an Artifact.
+// ModelArtifactSpec defines the desired state of a ModelArtifact.
 // It declares the model source, target OCI registry, packaging format,
 // and temporary storage for the import/pack/push pipeline.
-type ArtifactSpec struct {
+type ModelArtifactSpec struct {
 	// Source defines where to fetch the model from.
 	// +required
 	Source ModelSource `json:"source"`
@@ -87,7 +87,7 @@ type ModelSource struct {
 // HuggingFaceSource configures model retrieval from HuggingFace Hub.
 //
 // SECURITY: Model and Revision are passed to shell scripts. Only users who can
-// create Artifacts should have access; they already have equivalent privileges.
+// create ModelArtifacts should have access; they already have equivalent privileges.
 type HuggingFaceSource struct {
 	// Model is the HuggingFace model identifier (e.g. "microsoft/phi-4", "facebook/opt-125m").
 	// Must contain only alphanumerics, dots, underscores, hyphens, and slashes.
@@ -115,7 +115,7 @@ type HuggingFaceSource struct {
 // OCITarget defines the destination OCI registry for the packaged artifact.
 //
 // SECURITY: Registry, Repository, and Tag are passed to shell scripts. Only users who can
-// create Artifacts should have access; they already have equivalent privileges.
+// create ModelArtifacts should have access; they already have equivalent privileges.
 type OCITarget struct {
 	// Registry is the OCI registry host, optionally with port (e.g. "ghcr.io", "registry.local:5001").
 	// Must not contain slashes — the path component belongs in Repository.
@@ -169,7 +169,7 @@ type StorageSpec struct {
 // SecretReference references a Secret by name. Used when the Secret structure
 // is fixed by convention (e.g. "username" and "password" keys for OCI credentials).
 type SecretReference struct {
-	// Name is the name of the Secret in the same namespace as the Artifact.
+	// Name is the name of the Secret in the same namespace as the ModelArtifact.
 	// +kubebuilder:validation:MinLength=1
 	// +required
 	Name string `json:"name"`
@@ -177,7 +177,7 @@ type SecretReference struct {
 
 // SecretKeySelector references a specific key within a Secret.
 type SecretKeySelector struct {
-	// Name is the name of the Secret in the same namespace as the Artifact.
+	// Name is the name of the Secret in the same namespace as the ModelArtifact.
 	// +kubebuilder:validation:MinLength=1
 	// +required
 	Name string `json:"name"`
@@ -198,15 +198,15 @@ type ResourceReference struct {
 	Namespace string `json:"namespace,omitempty"`
 }
 
-// ArtifactStatus defines the observed state of an Artifact.
-type ArtifactStatus struct {
+// ModelArtifactStatus defines the observed state of a ModelArtifact.
+type ModelArtifactStatus struct {
 	// ObservedGeneration is the most recent generation observed by the controller.
 	// +optional
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
 	// Phase is the high-level summary of the artifact lifecycle.
 	// +optional
-	Phase ArtifactPhase `json:"phase,omitempty"`
+	Phase ModelArtifactPhase `json:"phase,omitempty"`
 
 	// Digest is the OCI manifest digest of the pushed artifact (e.g. "sha256:abc123...").
 	// Only populated when Phase is Succeeded.
@@ -229,7 +229,7 @@ type ArtifactStatus struct {
 	// +optional
 	CompletionTime *metav1.Time `json:"completionTime,omitempty"`
 
-	// Conditions store the status conditions of the Artifact.
+	// Conditions store the status conditions of the ModelArtifact.
 	// +listType=map
 	// +listMapKey=type
 	// +optional
@@ -247,12 +247,12 @@ type ArtifactStatus struct {
 // +kubebuilder:printcolumn:name="Digest",type=string,JSONPath=`.status.digest`,priority=1
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
-// Artifact is the Schema for the artifacts API.
-// An Artifact declares intent to import a model from a source (e.g. HuggingFace),
+// ModelArtifact is the Schema for the model artifacts API.
+// A ModelArtifact declares intent to import a model from a source (e.g. HuggingFace),
 // package it as an OCI artifact (ModelPack or ModelKit format), and push it to an
 // OCI-compliant registry. The controller creates a Kubernetes Job to execute the
 // import/pack/push pipeline and reports the resulting digest back to the status.
-type Artifact struct {
+type ModelArtifact struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Standard object's metadata.
@@ -261,18 +261,18 @@ type Artifact struct {
 
 	// Spec defines the desired artifact.
 	// +required
-	Spec ArtifactSpec `json:"spec"`
+	Spec ModelArtifactSpec `json:"spec"`
 
 	// Status represents the current state of the artifact pipeline.
 	// +optional
-	Status ArtifactStatus `json:"status,omitzero"`
+	Status ModelArtifactStatus `json:"status,omitzero"`
 }
 
 // +kubebuilder:object:root=true
 
-// ArtifactList contains a list of Artifact resources.
-type ArtifactList struct {
+// ModelArtifactList contains a list of ModelArtifact resources.
+type ModelArtifactList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitzero"`
-	Items           []Artifact `json:"items"`
+	Items           []ModelArtifact `json:"items"`
 }
