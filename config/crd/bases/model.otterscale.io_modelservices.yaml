@@ -623,7 +623,7 @@ spec:
                         description: Path is the HTTP endpoint to scrape metrics from.
                         type: string
                       portName:
-                        default: metrics
+                        default: http
                         description: PortName to scrape metrics from. Must match a
                           named port on the vLLM container.
                         type: string
@@ -781,6 +781,10 @@ spec:
                   RoutingProxy configures the llm-d routing sidecar for disaggregated serving.
                   Required when Prefill is set; the proxy routes prefill requests between pods.
                 properties:
+                  certPath:
+                    description: CertPath is the path to TLS certificates for the
+                      routing proxy.
+                    type: string
                   connector:
                     default: nixlv2
                     description: Connector specifies the KV-cache transfer protocol.
@@ -789,6 +793,12 @@ spec:
                     default: ghcr.io/llm-d/llm-d-routing-sidecar:v0.6.0
                     description: Image is the routing proxy container image.
                     type: string
+                  prefillerUseTLS:
+                    description: PrefillerUseTLS enables TLS for prefiller communication.
+                    type: boolean
+                  secureProxy:
+                    description: SecureProxy enables TLS on the routing proxy.
+                    type: boolean
                   targetPort:
                     default: 8200
                     description: |-
@@ -798,6 +808,14 @@ spec:
                     maximum: 65535
                     minimum: 1
                     type: integer
+                  zapEncoder:
+                    description: ZapEncoder sets the Zap log encoding format (e.g.
+                      "json", "console").
+                    type: string
+                  zapLogLevel:
+                    description: ZapLogLevel sets the Zap log level (e.g. "debug",
+                      "info", "error").
+                    type: string
                 type: object
             required:
             - accelerator

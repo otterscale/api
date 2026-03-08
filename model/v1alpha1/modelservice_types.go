@@ -250,6 +250,26 @@ type RoutingProxySpec struct {
 	// +kubebuilder:validation:Maximum=65535
 	// +optional
 	TargetPort int32 `json:"targetPort,omitempty"`
+
+	// ZapEncoder sets the Zap log encoding format (e.g. "json", "console").
+	// +optional
+	ZapEncoder string `json:"zapEncoder,omitempty"`
+
+	// ZapLogLevel sets the Zap log level (e.g. "debug", "info", "error").
+	// +optional
+	ZapLogLevel string `json:"zapLogLevel,omitempty"`
+
+	// SecureProxy enables TLS on the routing proxy.
+	// +optional
+	SecureProxy *bool `json:"secureProxy,omitempty"`
+
+	// PrefillerUseTLS enables TLS for prefiller communication.
+	// +optional
+	PrefillerUseTLS *bool `json:"prefillerUseTLS,omitempty"`
+
+	// CertPath is the path to TLS certificates for the routing proxy.
+	// +optional
+	CertPath string `json:"certPath,omitempty"`
 }
 
 // InferencePoolSpec configures the Gateway API Inference Extension InferencePool.
@@ -338,7 +358,7 @@ type PodMonitorSpec struct {
 	Enabled bool `json:"enabled,omitempty"`
 
 	// PortName to scrape metrics from. Must match a named port on the vLLM container.
-	// +kubebuilder:default="metrics"
+	// +kubebuilder:default="http"
 	// +optional
 	PortName string `json:"portName,omitempty"`
 
