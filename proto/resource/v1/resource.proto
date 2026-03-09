@@ -24,13 +24,6 @@ service ResourceService {
     option (otterscale.api.feature) = {name: "resource-enabled"};
   }
 
-  // Columns returns the printer column definitions for a resource type,
-  // equivalent to the columns shown by `kubectl get` and `kubectl get -o wide`.
-  // It uses the Kubernetes Table API internally and caches results.
-  rpc Columns(ColumnsRequest) returns (ColumnsResponse) {
-    option (otterscale.api.feature) = {name: "resource-enabled"};
-  }
-
   // List retrieves a collection of resources based on the provided GVR and filters.
   rpc List(ListRequest) returns (ListResponse) {
     option (otterscale.api.feature) = {name: "resource-enabled"};
@@ -70,7 +63,7 @@ service ResourceService {
 }
 
 // ---------------------------------------------------------------------------
-// Discovery / Schema / Columns
+// Discovery / Schema
 // ---------------------------------------------------------------------------
 
 // APIResource represents a Kubernetes API resource with its metadata.
@@ -95,30 +88,6 @@ message APIResource {
 
   // Abbreviated aliases for the resource (e.g., "deploy" for deployments).
   repeated string short_names = 7;
-}
-
-// ColumnDefinition describes a single column as returned by the
-// Kubernetes Table API, equivalent to what `kubectl get` displays.
-message ColumnDefinition {
-  // The display name of the column (e.g., "Name", "Ready", "Node").
-  string name = 1;
-
-  // The data type of the column (e.g., "string", "integer", "date").
-  string type = 2;
-
-  // The display format (e.g., "name", "int32").
-  string format = 3;
-
-  // A human-readable description of the column.
-  string description = 4;
-
-  // Display priority: 0 means shown by default, 1 means shown only
-  // in wide mode (kubectl get -o wide).
-  int32 priority = 5;
-
-  // The JSONPath expression to extract the column value from the
-  // resource object. Present for CRD-defined columns.
-  string json_path = 6;
 }
 
 // DiscoveryRequest defines the parameters for discovering API resources.
@@ -152,32 +121,6 @@ message SchemaRequest {
 message SchemaResponse {
   // The raw JSON Schema describing the resource structure.
   google.protobuf.Struct schema = 1;
-}
-
-// ColumnsRequest defines the parameters for retrieving printer column
-// definitions for a resource type.
-message ColumnsRequest {
-  // The target Kubernetes cluster identifier.
-  string cluster = 1;
-
-  // Kubernetes API Group (e.g., "apps").
-  string group = 2;
-
-  // Kubernetes API Version (e.g., "v1").
-  string version = 3;
-
-  // Kubernetes API Resource name in plural (e.g., "pods", "deployments").
-  string resource = 4;
-
-  // The namespace to use for the Table API request.
-  // Required for namespace-scoped resources.
-  string namespace = 5;
-}
-
-// ColumnsResponse contains the column definitions for a resource type.
-message ColumnsResponse {
-  // The list of column definitions.
-  repeated ColumnDefinition columns = 1;
 }
 
 // ---------------------------------------------------------------------------
