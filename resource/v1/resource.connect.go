@@ -38,8 +38,6 @@ const (
 	ResourceServiceDiscoveryProcedure = "/otterscale.resource.v1.ResourceService/Discovery"
 	// ResourceServiceSchemaProcedure is the fully-qualified name of the ResourceService's Schema RPC.
 	ResourceServiceSchemaProcedure = "/otterscale.resource.v1.ResourceService/Schema"
-	// ResourceServiceColumnsProcedure is the fully-qualified name of the ResourceService's Columns RPC.
-	ResourceServiceColumnsProcedure = "/otterscale.resource.v1.ResourceService/Columns"
 	// ResourceServiceListProcedure is the fully-qualified name of the ResourceService's List RPC.
 	ResourceServiceListProcedure = "/otterscale.resource.v1.ResourceService/List"
 	// ResourceServiceGetProcedure is the fully-qualified name of the ResourceService's Get RPC.
@@ -66,10 +64,6 @@ type ResourceServiceClient interface {
 	// The raw JSON Schema (Draft 4/7 or 2020-12) describing the resource structure.
 	// This is typically derived from Kubernetes OpenAPIV3Schema.
 	Schema(context.Context, *SchemaRequest) (*SchemaResponse, error)
-	// Columns returns the printer column definitions for a resource type,
-	// equivalent to the columns shown by `kubectl get` and `kubectl get -o wide`.
-	// It uses the Kubernetes Table API internally and caches results.
-	Columns(context.Context, *ColumnsRequest) (*ColumnsResponse, error)
 	// List retrieves a collection of resources based on the provided GVR and filters.
 	List(context.Context, *ListRequest) (*ListResponse, error)
 	// Get retrieves a single resource by its name within a namespace.
@@ -109,12 +103,6 @@ func NewResourceServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			httpClient,
 			baseURL+ResourceServiceSchemaProcedure,
 			connect.WithSchema(resourceServiceMethods.ByName("Schema")),
-			connect.WithClientOptions(opts...),
-		),
-		columns: connect.NewClient[ColumnsRequest, ColumnsResponse](
-			httpClient,
-			baseURL+ResourceServiceColumnsProcedure,
-			connect.WithSchema(resourceServiceMethods.ByName("Columns")),
 			connect.WithClientOptions(opts...),
 		),
 		list: connect.NewClient[ListRequest, ListResponse](
@@ -166,7 +154,6 @@ func NewResourceServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 type resourceServiceClient struct {
 	discovery *connect.Client[DiscoveryRequest, DiscoveryResponse]
 	schema    *connect.Client[SchemaRequest, SchemaResponse]
-	columns   *connect.Client[ColumnsRequest, ColumnsResponse]
 	list      *connect.Client[ListRequest, ListResponse]
 	get       *connect.Client[GetRequest, Resource]
 	describe  *connect.Client[DescribeRequest, DescribeResponse]
@@ -188,15 +175,6 @@ func (c *resourceServiceClient) Discovery(ctx context.Context, req *DiscoveryReq
 // Schema calls otterscale.resource.v1.ResourceService.Schema.
 func (c *resourceServiceClient) Schema(ctx context.Context, req *SchemaRequest) (*SchemaResponse, error) {
 	response, err := c.schema.CallUnary(ctx, connect.NewRequest(req))
-	if response != nil {
-		return response.Msg, err
-	}
-	return nil, err
-}
-
-// Columns calls otterscale.resource.v1.ResourceService.Columns.
-func (c *resourceServiceClient) Columns(ctx context.Context, req *ColumnsRequest) (*ColumnsResponse, error) {
-	response, err := c.columns.CallUnary(ctx, connect.NewRequest(req))
 	if response != nil {
 		return response.Msg, err
 	}
@@ -272,10 +250,6 @@ type ResourceServiceHandler interface {
 	// The raw JSON Schema (Draft 4/7 or 2020-12) describing the resource structure.
 	// This is typically derived from Kubernetes OpenAPIV3Schema.
 	Schema(context.Context, *SchemaRequest) (*SchemaResponse, error)
-	// Columns returns the printer column definitions for a resource type,
-	// equivalent to the columns shown by `kubectl get` and `kubectl get -o wide`.
-	// It uses the Kubernetes Table API internally and caches results.
-	Columns(context.Context, *ColumnsRequest) (*ColumnsResponse, error)
 	// List retrieves a collection of resources based on the provided GVR and filters.
 	List(context.Context, *ListRequest) (*ListResponse, error)
 	// Get retrieves a single resource by its name within a namespace.
@@ -311,12 +285,6 @@ func NewResourceServiceHandler(svc ResourceServiceHandler, opts ...connect.Handl
 		ResourceServiceSchemaProcedure,
 		svc.Schema,
 		connect.WithSchema(resourceServiceMethods.ByName("Schema")),
-		connect.WithHandlerOptions(opts...),
-	)
-	resourceServiceColumnsHandler := connect.NewUnaryHandlerSimple(
-		ResourceServiceColumnsProcedure,
-		svc.Columns,
-		connect.WithSchema(resourceServiceMethods.ByName("Columns")),
 		connect.WithHandlerOptions(opts...),
 	)
 	resourceServiceListHandler := connect.NewUnaryHandlerSimple(
@@ -367,8 +335,6 @@ func NewResourceServiceHandler(svc ResourceServiceHandler, opts ...connect.Handl
 			resourceServiceDiscoveryHandler.ServeHTTP(w, r)
 		case ResourceServiceSchemaProcedure:
 			resourceServiceSchemaHandler.ServeHTTP(w, r)
-		case ResourceServiceColumnsProcedure:
-			resourceServiceColumnsHandler.ServeHTTP(w, r)
 		case ResourceServiceListProcedure:
 			resourceServiceListHandler.ServeHTTP(w, r)
 		case ResourceServiceGetProcedure:
@@ -398,10 +364,6 @@ func (UnimplementedResourceServiceHandler) Discovery(context.Context, *Discovery
 
 func (UnimplementedResourceServiceHandler) Schema(context.Context, *SchemaRequest) (*SchemaResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.resource.v1.ResourceService.Schema is not implemented"))
-}
-
-func (UnimplementedResourceServiceHandler) Columns(context.Context, *ColumnsRequest) (*ColumnsResponse, error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.resource.v1.ResourceService.Columns is not implemented"))
 }
 
 func (UnimplementedResourceServiceHandler) List(context.Context, *ListRequest) (*ListResponse, error) {
