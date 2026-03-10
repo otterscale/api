@@ -10,9 +10,3 @@ resources:
   - bases/module.otterscale.io_moduletemplates.yaml
   - bases/tenant.otterscale.io_workspaces.yaml
   - bases/workload.otterscale.io_applications.yaml
-
-patches:
-  - target:
-      kind: CustomResourceDefinition
-      name: applications.workload.otterscale.io
-    path: patches/preserve_embedded_metadata.yaml
