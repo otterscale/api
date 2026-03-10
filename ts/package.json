@@ -1,6 +1,6 @@
 {
   "name": "@otterscale/api",
-  "version": "0.8.23",
+  "version": "0.8.24",
   "type": "module",
   "exports": {
     "./feature": {
