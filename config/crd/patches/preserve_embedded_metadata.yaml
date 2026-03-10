@@ -1,6 +1,0 @@
-# controller-gen emits embedded ObjectMeta (e.g. PodTemplateSpec.metadata)
-# as bare "type: object", causing the API server to prune labels/annotations.
-# This patch adds x-kubernetes-preserve-unknown-fields to retain them.
-- op: add
-  path: /spec/versions/0/schema/openAPIV3Schema/properties/spec/properties/deployment/properties/template/properties/metadata/x-kubernetes-preserve-unknown-fields
-  value: true
