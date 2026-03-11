@@ -29,15 +29,16 @@ jobs:
         run: |
           TAG_NAME="${GITHUB_REF#refs/tags/}"
           VERSION="${TAG_NAME#v}"
-          cd ts && pnpm version "$VERSION" --no-git-tag-version --allow-same-version
+          pnpm version "$VERSION" --no-git-tag-version --allow-same-version
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ts/package.json
+          git add package.json
           git commit -m "chore(ts): release typescript package $VERSION"
           git push origin HEAD:"$DEFAULT_BRANCH"
         env:
           GITHUB_REF: ${{ github.ref }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        working-directory: ts
 
       - run: pnpm install --frozen-lockfile
         working-directory: ts
