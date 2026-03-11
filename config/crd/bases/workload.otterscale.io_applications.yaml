@@ -18616,9 +18616,8 @@ spec:
                 - deployment
                 type: object
                 x-kubernetes-validations:
-                - message: mountPath is required when persistentVolumeClaim is set
-                  rule: '!has(self.persistentVolumeClaim) || (has(self.mountPath)
-                    && size(self.mountPath) > 0)'
+                - message: persistentVolumeClaim and mountPath must be specified together
+                  rule: has(self.persistentVolumeClaim) == has(self.mountPath)
               job:
                 description: |-
                   Job defines the job template for a one-off workload.
