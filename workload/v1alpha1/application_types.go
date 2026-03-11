@@ -43,7 +43,7 @@ const (
 // optional Service, optional PersistentVolumeClaim, and the path at which the
 // PVC is mounted inside every container.
 //
-// +kubebuilder:validation:XValidation:rule="!has(self.persistentVolumeClaim) || (has(self.mountPath) && size(self.mountPath) > 0)",message="mountPath is required when persistentVolumeClaim is set"
+// +kubebuilder:validation:XValidation:rule="has(self.persistentVolumeClaim) == has(self.mountPath)",message="persistentVolumeClaim and mountPath must be specified together"
 type DeploymentConfig struct {
 	// Deployment defines the pod template, replicas, and update strategy
 	// for a long-running workload.
