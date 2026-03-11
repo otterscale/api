@@ -25,12 +25,12 @@ jobs:
       - run: |
           VERSION="${GITHUB_REF#refs/tags/v}"
           pnpm version "$VERSION" --no-git-tag-version --allow-same-version
+          pnpm install --frozen-lockfile
+          if echo "$VERSION" | grep -qE '-(alpha|beta|rc|next)'; then
+            pnpm publish --no-git-checks --access public --tag next
+          else
+            pnpm publish --no-git-checks --access public
+          fi
         env:
           GITHUB_REF: ${{ github.ref }}
-        working-directory: ts
-
-      - run: pnpm install --frozen-lockfile
-        working-directory: ts
-
-      - run: pnpm publish --no-git-checks --access public
         working-directory: ts
