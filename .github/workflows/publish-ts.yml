@@ -26,7 +26,7 @@ jobs:
           VERSION="${GITHUB_REF#refs/tags/v}"
           pnpm version "$VERSION" --no-git-tag-version --allow-same-version
           pnpm install --frozen-lockfile
-          if echo "$VERSION" | grep -qE '-(alpha|beta|rc|next)'; then
+          if echo "$VERSION" | grep -qE -- '-alpha|-beta|-rc|-next'; then
             pnpm publish --no-git-checks --access public --tag next
           else
             pnpm publish --no-git-checks --access public
