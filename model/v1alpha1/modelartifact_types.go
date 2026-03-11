@@ -141,8 +141,9 @@ type OCITarget struct {
 	// +optional
 	Tag string `json:"tag,omitempty"`
 
-	// CredentialsSecretRef references a Secret containing OCI registry credentials.
-	// The Secret must contain "username" and "password" keys.
+	// CredentialsSecretRef references a Secret of type kubernetes.io/dockerconfigjson
+	// containing OCI registry credentials. The Secret is mounted into the Job Pod
+	// at /.docker/config.json so that kit push authenticates automatically.
 	// +optional
 	CredentialsSecretRef *SecretReference `json:"credentialsSecretRef,omitempty"`
 
@@ -166,8 +167,7 @@ type StorageSpec struct {
 	StorageClassName *string `json:"storageClassName,omitempty"`
 }
 
-// SecretReference references a Secret by name. Used when the Secret structure
-// is fixed by convention (e.g. "username" and "password" keys for OCI credentials).
+// SecretReference references a Secret by name.
 type SecretReference struct {
 	// Name is the name of the Secret in the same namespace as the ModelArtifact.
 	// +kubebuilder:validation:MinLength=1
