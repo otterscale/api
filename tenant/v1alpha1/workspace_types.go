@@ -160,6 +160,11 @@ type WorkspaceStatus struct {
 	// +optional
 	NetworkPolicyRef *ResourceReference `json:"networkPolicyRef,omitempty"`
 
+	// ImagePullSecretRef is a reference to the docker-registry Secret
+	// containing Harbor robot credentials for image pull/push.
+	// +optional
+	ImagePullSecretRef *ResourceReference `json:"imagePullSecretRef,omitempty"`
+
 	// Conditions store the status conditions of the Workspace (e.g., Ready, Failed).
 	// +listType=map
 	// +listMapKey=type
