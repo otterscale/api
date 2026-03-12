@@ -211,6 +211,11 @@ func (in *WorkspaceStatus) DeepCopyInto(out *WorkspaceStatus) {
 		*out = new(ResourceReference)
 		**out = **in
 	}
+	if in.ImagePullSecretRef != nil {
+		in, out := &in.ImagePullSecretRef, &out.ImagePullSecretRef
+		*out = new(ResourceReference)
+		**out = **in
+	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
 		*out = make([]metav1.Condition, len(*in))
