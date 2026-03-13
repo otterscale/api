@@ -155,6 +155,14 @@ spec:
                       maxLength: 253
                       minLength: 1
                       type: string
+                    username:
+                      description: |-
+                        Username is the member's Harbor registry username.
+                        When set, this value is used as the Harbor project member identity
+                        instead of Subject.
+                      maxLength: 253
+                      minLength: 1
+                      type: string
                   required:
                   - role
                   - subject
