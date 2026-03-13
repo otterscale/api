@@ -1,4 +1,4 @@
-name: publish ts
+name: Publish Typescript Package
 
 on:
   release:
