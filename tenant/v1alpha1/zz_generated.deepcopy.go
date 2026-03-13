@@ -221,6 +221,11 @@ func (in *WorkspaceStatus) DeepCopyInto(out *WorkspaceStatus) {
 		*out = new(ResourceReference)
 		**out = **in
 	}
+	if in.HelmRepositoryRef != nil {
+		in, out := &in.HelmRepositoryRef, &out.HelmRepositoryRef
+		*out = new(ResourceReference)
+		**out = **in
+	}
 	if in.Conditions != nil {
 		in, out := &in.Conditions, &out.Conditions
 		*out = make([]metav1.Condition, len(*in))
