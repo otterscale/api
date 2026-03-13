@@ -173,6 +173,10 @@ type WorkspaceStatus struct {
 	// +optional
 	ImagePullSecretRef *ResourceReference `json:"imagePullSecretRef,omitempty"`
 
+	// HelmRepositoryRef is a reference to the FluxCD HelmRepository for this workspace's Harbor OCI registry.
+	// +optional
+	HelmRepositoryRef *ResourceReference `json:"helmRepositoryRef,omitempty"`
+
 	// Conditions store the status conditions of the Workspace (e.g., Ready, Failed).
 	// +listType=map
 	// +listMapKey=type
