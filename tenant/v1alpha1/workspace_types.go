@@ -49,6 +49,14 @@ type WorkspaceMember struct {
 	// +required
 	Subject string `json:"subject"`
 
+	// Username is the member's Harbor registry username.
+	// When set, this value is used as the Harbor project member identity
+	// instead of Subject.
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MaxLength=253
+	// +optional
+	Username *string `json:"username,omitempty"`
+
 	// Name is the human-readable display name of the member.
 	// +optional
 	Name *string `json:"name,omitempty"`
