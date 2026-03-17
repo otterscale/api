@@ -141,7 +141,6 @@ type ModelSpec struct {
 // EngineSpec configures the vLLM inference engine.
 type EngineSpec struct {
 	// Image is the vLLM container image.
-	// +kubebuilder:default="ghcr.io/llm-d/llm-d-cuda:v0.5.1"
 	// +optional
 	Image string `json:"image,omitempty"`
 
@@ -234,7 +233,6 @@ type RoleSpec struct {
 // incoming requests and handles prefill/decode routing for disaggregated serving.
 type RoutingProxySpec struct {
 	// Image is the routing proxy container image.
-	// +kubebuilder:default="ghcr.io/llm-d/llm-d-routing-sidecar:v0.6.0"
 	// +optional
 	Image string `json:"image,omitempty"`
 
@@ -289,7 +287,6 @@ type InferencePoolSpec struct {
 // The EPP service name is automatically derived from the ModelService name.
 type EndpointPickerSpec struct {
 	// Image is the EPP container image.
-	// +kubebuilder:default="ghcr.io/llm-d/llm-d-inference-scheduler:v0.6.0"
 	// +optional
 	Image string `json:"image,omitempty"`
 

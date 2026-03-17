@@ -405,7 +405,6 @@ spec:
                       type: object
                     type: array
                   image:
-                    default: ghcr.io/llm-d/llm-d-cuda:v0.5.1
                     description: Image is the vLLM container image.
                     type: string
                   imagePullPolicy:
@@ -472,7 +471,6 @@ spec:
                         - FailClose
                         type: string
                       image:
-                        default: ghcr.io/llm-d/llm-d-inference-scheduler:v0.6.0
                         description: Image is the EPP container image.
                         type: string
                       port:
@@ -790,7 +788,6 @@ spec:
                     description: Connector specifies the KV-cache transfer protocol.
                     type: string
                   image:
-                    default: ghcr.io/llm-d/llm-d-routing-sidecar:v0.6.0
                     description: Image is the routing proxy container image.
                     type: string
                   prefillerUseTLS:
