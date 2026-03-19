@@ -794,6 +794,7 @@ spec:
                     description: PrefillerUseTLS enables TLS for prefiller communication.
                     type: boolean
                   secureProxy:
+                    default: false
                     description: SecureProxy enables TLS on the routing proxy.
                     type: boolean
                   targetPort:
