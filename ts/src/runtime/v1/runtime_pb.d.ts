@@ -626,12 +626,12 @@ export declare type SubResourceActionResponse = Message<"otterscale.runtime.v1.S
 export declare const SubResourceActionResponseSchema: GenMessage<SubResourceActionResponse>;
 
 /**
- * HelmShowChartRequest defines parameters for retrieving chart metadata
+ * ShowChartRequest defines parameters for retrieving chart metadata
  * from a remote Helm repository.
  *
- * @generated from message otterscale.runtime.v1.HelmShowChartRequest
+ * @generated from message otterscale.runtime.v1.ShowChartRequest
  */
-export declare type HelmShowChartRequest = Message<"otterscale.runtime.v1.HelmShowChartRequest"> & {
+export declare type ShowChartRequest = Message<"otterscale.runtime.v1.ShowChartRequest"> & {
   /**
    * The URL of the Helm chart repository (HTTP/HTTPS or OCI).
    *
@@ -655,18 +655,18 @@ export declare type HelmShowChartRequest = Message<"otterscale.runtime.v1.HelmSh
 };
 
 /**
- * Describes the message otterscale.runtime.v1.HelmShowChartRequest.
- * Use `create(HelmShowChartRequestSchema)` to create a new message.
+ * Describes the message otterscale.runtime.v1.ShowChartRequest.
+ * Use `create(ShowChartRequestSchema)` to create a new message.
  */
-export declare const HelmShowChartRequestSchema: GenMessage<HelmShowChartRequest>;
+export declare const ShowChartRequestSchema: GenMessage<ShowChartRequest>;
 
 /**
- * HelmShowChartResponse contains the default values and README from
+ * ShowChartResponse contains the default values and README from
  * a Helm chart.
  *
- * @generated from message otterscale.runtime.v1.HelmShowChartResponse
+ * @generated from message otterscale.runtime.v1.ShowChartResponse
  */
-export declare type HelmShowChartResponse = Message<"otterscale.runtime.v1.HelmShowChartResponse"> & {
+export declare type ShowChartResponse = Message<"otterscale.runtime.v1.ShowChartResponse"> & {
   /**
    * The raw content of the chart's values.yaml file.
    *
@@ -683,10 +683,10 @@ export declare type HelmShowChartResponse = Message<"otterscale.runtime.v1.HelmS
 };
 
 /**
- * Describes the message otterscale.runtime.v1.HelmShowChartResponse.
- * Use `create(HelmShowChartResponseSchema)` to create a new message.
+ * Describes the message otterscale.runtime.v1.ShowChartResponse.
+ * Use `create(ShowChartResponseSchema)` to create a new message.
  */
-export declare const HelmShowChartResponseSchema: GenMessage<HelmShowChartResponse>;
+export declare const ShowChartResponseSchema: GenMessage<ShowChartResponse>;
 
 /**
  * RuntimeService provides runtime operations for Kubernetes workloads,
@@ -796,16 +796,16 @@ export declare const RuntimeService: GenService<{
     output: typeof SubResourceActionResponseSchema;
   },
   /**
-   * HelmShowChart retrieves the default values.yaml and README.md from
+   * ShowChart retrieves the default values.yaml and README.md from
    * a Helm chart in a remote repository (HTTP or OCI). This executes
    * server-side and does not require a cluster connection.
    *
-   * @generated from rpc otterscale.runtime.v1.RuntimeService.HelmShowChart
+   * @generated from rpc otterscale.runtime.v1.RuntimeService.ShowChart
    */
-  helmShowChart: {
+  showChart: {
     methodKind: "unary";
-    input: typeof HelmShowChartRequestSchema;
-    output: typeof HelmShowChartResponseSchema;
+    input: typeof ShowChartRequestSchema;
+    output: typeof ShowChartResponseSchema;
   },
 }>;
 
