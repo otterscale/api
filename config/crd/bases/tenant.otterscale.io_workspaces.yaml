@@ -148,6 +148,11 @@ spec:
                       - edit
                       - view
                       type: string
+                    serviceAccount:
+                      description: |-
+                        ServiceAccount indicates whether this member is a service account
+                        rather than a human user.
+                      type: boolean
                     subject:
                       description: |-
                         Subject is the unique identifier of the member (e.g., OIDC subject or username).

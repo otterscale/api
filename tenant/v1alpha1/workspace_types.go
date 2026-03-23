@@ -60,6 +60,11 @@ type WorkspaceMember struct {
 	// Name is the human-readable display name of the member.
 	// +optional
 	Name *string `json:"name,omitempty"`
+
+	// ServiceAccount indicates whether this member is a service account
+	// rather than a human user.
+	// +optional
+	ServiceAccount bool `json:"serviceAccount,omitempty"`
 }
 
 // NetworkIsolationSpec configures network policies for the workspace.
