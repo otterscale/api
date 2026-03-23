@@ -626,6 +626,69 @@ export declare type SubResourceActionResponse = Message<"otterscale.runtime.v1.S
 export declare const SubResourceActionResponseSchema: GenMessage<SubResourceActionResponse>;
 
 /**
+ * HelmShowChartRequest defines parameters for retrieving chart metadata
+ * from a remote Helm repository.
+ *
+ * @generated from message otterscale.runtime.v1.HelmShowChartRequest
+ */
+export declare type HelmShowChartRequest = Message<"otterscale.runtime.v1.HelmShowChartRequest"> & {
+  /**
+   * The URL of the Helm chart repository (HTTP/HTTPS or OCI).
+   *
+   * @generated from field: string repo_url = 1;
+   */
+  repoUrl: string;
+
+  /**
+   * The name of the chart within the repository.
+   *
+   * @generated from field: string chart_name = 2;
+   */
+  chartName: string;
+
+  /**
+   * The chart version to query. If empty, the latest version is used.
+   *
+   * @generated from field: string version = 3;
+   */
+  version: string;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.HelmShowChartRequest.
+ * Use `create(HelmShowChartRequestSchema)` to create a new message.
+ */
+export declare const HelmShowChartRequestSchema: GenMessage<HelmShowChartRequest>;
+
+/**
+ * HelmShowChartResponse contains the default values and README from
+ * a Helm chart.
+ *
+ * @generated from message otterscale.runtime.v1.HelmShowChartResponse
+ */
+export declare type HelmShowChartResponse = Message<"otterscale.runtime.v1.HelmShowChartResponse"> & {
+  /**
+   * The raw content of the chart's values.yaml file.
+   *
+   * @generated from field: bytes values = 1;
+   */
+  values: Uint8Array;
+
+  /**
+   * The raw content of the chart's README.md file.
+   *
+   * @generated from field: bytes readme = 2;
+   */
+  readme: Uint8Array;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.HelmShowChartResponse.
+ * Use `create(HelmShowChartResponseSchema)` to create a new message.
+ */
+export declare const HelmShowChartResponseSchema: GenMessage<HelmShowChartResponse>;
+
+/**
  * RuntimeService provides runtime operations for Kubernetes workloads,
  * including log streaming, interactive exec, port forwarding, scaling,
  * and rolling restarts.
@@ -731,6 +794,18 @@ export declare const RuntimeService: GenService<{
     methodKind: "unary";
     input: typeof SubResourceActionRequestSchema;
     output: typeof SubResourceActionResponseSchema;
+  },
+  /**
+   * HelmShowChart retrieves the default values.yaml and README.md from
+   * a Helm chart in a remote repository (HTTP or OCI). This executes
+   * server-side and does not require a cluster connection.
+   *
+   * @generated from rpc otterscale.runtime.v1.RuntimeService.HelmShowChart
+   */
+  helmShowChart: {
+    methodKind: "unary";
+    input: typeof HelmShowChartRequestSchema;
+    output: typeof HelmShowChartResponseSchema;
   },
 }>;
 

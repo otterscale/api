@@ -66,6 +66,14 @@ service RuntimeService {
   rpc SubResourceAction(SubResourceActionRequest) returns (SubResourceActionResponse) {
     option (otterscale.api.feature) = {name: "runtime-enabled"};
   }
+
+  // HelmShowChart retrieves the default values.yaml and README.md from
+  // a Helm chart in a remote repository (HTTP or OCI). This executes
+  // server-side and does not require a cluster connection.
+  rpc HelmShowChart(HelmShowChartRequest) returns (HelmShowChartResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (otterscale.api.feature) = {name: "runtime-enabled"};
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -324,4 +332,31 @@ message SubResourceActionRequest {
 message SubResourceActionResponse {
   // The JSON response body returned by the API server, if any.
   google.protobuf.Struct result = 1;
+}
+
+// ---------------------------------------------------------------------------
+// HelmShowChart
+// ---------------------------------------------------------------------------
+
+// HelmShowChartRequest defines parameters for retrieving chart metadata
+// from a remote Helm repository.
+message HelmShowChartRequest {
+  // The URL of the Helm chart repository (HTTP/HTTPS or OCI).
+  string repo_url = 1;
+
+  // The name of the chart within the repository.
+  string chart_name = 2;
+
+  // The chart version to query. If empty, the latest version is used.
+  string version = 3;
+}
+
+// HelmShowChartResponse contains the default values and README from
+// a Helm chart.
+message HelmShowChartResponse {
+  // The raw content of the chart's values.yaml file.
+  bytes values = 1;
+
+  // The raw content of the chart's README.md file.
+  bytes readme = 2;
 }

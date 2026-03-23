@@ -56,6 +56,9 @@ const (
 	// RuntimeServiceSubResourceActionProcedure is the fully-qualified name of the RuntimeService's
 	// SubResourceAction RPC.
 	RuntimeServiceSubResourceActionProcedure = "/otterscale.runtime.v1.RuntimeService/SubResourceAction"
+	// RuntimeServiceHelmShowChartProcedure is the fully-qualified name of the RuntimeService's
+	// HelmShowChart RPC.
+	RuntimeServiceHelmShowChartProcedure = "/otterscale.runtime.v1.RuntimeService/HelmShowChart"
 )
 
 // RuntimeServiceClient is a client for the otterscale.runtime.v1.RuntimeService service.
@@ -87,6 +90,10 @@ type RuntimeServiceClient interface {
 	// is forwarded to kube-apiserver via impersonation, so RBAC is
 	// enforced automatically. Only PUT and POST methods are allowed.
 	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
+	// HelmShowChart retrieves the default values.yaml and README.md from
+	// a Helm chart in a remote repository (HTTP or OCI). This executes
+	// server-side and does not require a cluster connection.
+	HelmShowChart(context.Context, *HelmShowChartRequest) (*HelmShowChartResponse, error)
 }
 
 // NewRuntimeServiceClient constructs a client for the otterscale.runtime.v1.RuntimeService service.
@@ -154,6 +161,13 @@ func NewRuntimeServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
 			connect.WithClientOptions(opts...),
 		),
+		helmShowChart: connect.NewClient[HelmShowChartRequest, HelmShowChartResponse](
+			httpClient,
+			baseURL+RuntimeServiceHelmShowChartProcedure,
+			connect.WithSchema(runtimeServiceMethods.ByName("HelmShowChart")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -168,6 +182,7 @@ type runtimeServiceClient struct {
 	scale             *connect.Client[ScaleRequest, ScaleResponse]
 	restart           *connect.Client[RestartRequest, emptypb.Empty]
 	subResourceAction *connect.Client[SubResourceActionRequest, SubResourceActionResponse]
+	helmShowChart     *connect.Client[HelmShowChartRequest, HelmShowChartResponse]
 }
 
 // PodLog calls otterscale.runtime.v1.RuntimeService.PodLog.
@@ -239,6 +254,15 @@ func (c *runtimeServiceClient) SubResourceAction(ctx context.Context, req *SubRe
 	return nil, err
 }
 
+// HelmShowChart calls otterscale.runtime.v1.RuntimeService.HelmShowChart.
+func (c *runtimeServiceClient) HelmShowChart(ctx context.Context, req *HelmShowChartRequest) (*HelmShowChartResponse, error) {
+	response, err := c.helmShowChart.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // RuntimeServiceHandler is an implementation of the otterscale.runtime.v1.RuntimeService service.
 type RuntimeServiceHandler interface {
 	// PodLog streams log output from a container, similar to `kubectl logs -f`.
@@ -268,6 +292,10 @@ type RuntimeServiceHandler interface {
 	// is forwarded to kube-apiserver via impersonation, so RBAC is
 	// enforced automatically. Only PUT and POST methods are allowed.
 	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
+	// HelmShowChart retrieves the default values.yaml and README.md from
+	// a Helm chart in a remote repository (HTTP or OCI). This executes
+	// server-side and does not require a cluster connection.
+	HelmShowChart(context.Context, *HelmShowChartRequest) (*HelmShowChartResponse, error)
 }
 
 // NewRuntimeServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -331,6 +359,13 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 		connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
 		connect.WithHandlerOptions(opts...),
 	)
+	runtimeServiceHelmShowChartHandler := connect.NewUnaryHandlerSimple(
+		RuntimeServiceHelmShowChartProcedure,
+		svc.HelmShowChart,
+		connect.WithSchema(runtimeServiceMethods.ByName("HelmShowChart")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/otterscale.runtime.v1.RuntimeService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case RuntimeServicePodLogProcedure:
@@ -351,6 +386,8 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 			runtimeServiceRestartHandler.ServeHTTP(w, r)
 		case RuntimeServiceSubResourceActionProcedure:
 			runtimeServiceSubResourceActionHandler.ServeHTTP(w, r)
+		case RuntimeServiceHelmShowChartProcedure:
+			runtimeServiceHelmShowChartHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -394,4 +431,8 @@ func (UnimplementedRuntimeServiceHandler) Restart(context.Context, *RestartReque
 
 func (UnimplementedRuntimeServiceHandler) SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.SubResourceAction is not implemented"))
+}
+
+func (UnimplementedRuntimeServiceHandler) HelmShowChart(context.Context, *HelmShowChartRequest) (*HelmShowChartResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.HelmShowChart is not implemented"))
 }

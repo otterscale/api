@@ -427,6 +427,45 @@ paths:
                 $ref: '#/components/schemas/otterscale.resource.v1.SchemaResponse'
   /otterscale.resource.v1.ResourceService/Watch: {}
   /otterscale.runtime.v1.RuntimeService/ExecuteTTY: {}
+  /otterscale.runtime.v1.RuntimeService/HelmShowChart:
+    post:
+      tags:
+        - RuntimeService
+      summary: HelmShowChart
+      description: |-
+        HelmShowChart retrieves the default values.yaml and README.md from
+         a Helm chart in a remote repository (HTTP or OCI). This executes
+         server-side and does not require a cluster connection.
+      operationId: RuntimeService_HelmShowChart
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.HelmShowChartRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.HelmShowChartResponse'
   /otterscale.runtime.v1.RuntimeService/PodLog: {}
   /otterscale.runtime.v1.RuntimeService/PortForward: {}
   /otterscale.runtime.v1.RuntimeService/ResizeTTY:
@@ -1520,6 +1559,44 @@ components:
       title: ExecuteTTYResponse
       additionalProperties: false
       description: ExecuteTTYResponse streams output from the exec session.
+    otterscale.runtime.v1.HelmShowChartRequest:
+      type: object
+      properties:
+        repoUrl:
+          type: string
+          title: repo_url
+          description: The URL of the Helm chart repository (HTTP/HTTPS or OCI).
+        chartName:
+          type: string
+          title: chart_name
+          description: The name of the chart within the repository.
+        version:
+          type: string
+          title: version
+          description: The chart version to query. If empty, the latest version is used.
+      title: HelmShowChartRequest
+      additionalProperties: false
+      description: |-
+        HelmShowChartRequest defines parameters for retrieving chart metadata
+         from a remote Helm repository.
+    otterscale.runtime.v1.HelmShowChartResponse:
+      type: object
+      properties:
+        values:
+          type: string
+          title: values
+          format: byte
+          description: The raw content of the chart's values.yaml file.
+        readme:
+          type: string
+          title: readme
+          format: byte
+          description: The raw content of the chart's README.md file.
+      title: HelmShowChartResponse
+      additionalProperties: false
+      description: |-
+        HelmShowChartResponse contains the default values and README from
+         a Helm chart.
     otterscale.runtime.v1.PodLogRequest:
       type: object
       properties:
