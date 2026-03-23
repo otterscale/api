@@ -2641,6 +2641,270 @@ func (b0 SubResourceActionResponse_builder) Build() *SubResourceActionResponse {
 	return m0
 }
 
+// HelmShowChartRequest defines parameters for retrieving chart metadata
+// from a remote Helm repository.
+type HelmShowChartRequest struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_RepoUrl     *string                `protobuf:"bytes,1,opt,name=repo_url,json=repoUrl"`
+	xxx_hidden_ChartName   *string                `protobuf:"bytes,2,opt,name=chart_name,json=chartName"`
+	xxx_hidden_Version     *string                `protobuf:"bytes,3,opt,name=version"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *HelmShowChartRequest) Reset() {
+	*x = HelmShowChartRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HelmShowChartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HelmShowChartRequest) ProtoMessage() {}
+
+func (x *HelmShowChartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *HelmShowChartRequest) GetRepoUrl() string {
+	if x != nil {
+		if x.xxx_hidden_RepoUrl != nil {
+			return *x.xxx_hidden_RepoUrl
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *HelmShowChartRequest) GetChartName() string {
+	if x != nil {
+		if x.xxx_hidden_ChartName != nil {
+			return *x.xxx_hidden_ChartName
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *HelmShowChartRequest) GetVersion() string {
+	if x != nil {
+		if x.xxx_hidden_Version != nil {
+			return *x.xxx_hidden_Version
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *HelmShowChartRequest) SetRepoUrl(v string) {
+	x.xxx_hidden_RepoUrl = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *HelmShowChartRequest) SetChartName(v string) {
+	x.xxx_hidden_ChartName = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *HelmShowChartRequest) SetVersion(v string) {
+	x.xxx_hidden_Version = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *HelmShowChartRequest) HasRepoUrl() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *HelmShowChartRequest) HasChartName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *HelmShowChartRequest) HasVersion() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *HelmShowChartRequest) ClearRepoUrl() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_RepoUrl = nil
+}
+
+func (x *HelmShowChartRequest) ClearChartName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_ChartName = nil
+}
+
+func (x *HelmShowChartRequest) ClearVersion() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Version = nil
+}
+
+type HelmShowChartRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The URL of the Helm chart repository (HTTP/HTTPS or OCI).
+	RepoUrl *string
+	// The name of the chart within the repository.
+	ChartName *string
+	// The chart version to query. If empty, the latest version is used.
+	Version *string
+}
+
+func (b0 HelmShowChartRequest_builder) Build() *HelmShowChartRequest {
+	m0 := &HelmShowChartRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.RepoUrl != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_RepoUrl = b.RepoUrl
+	}
+	if b.ChartName != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_ChartName = b.ChartName
+	}
+	if b.Version != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_Version = b.Version
+	}
+	return m0
+}
+
+// HelmShowChartResponse contains the default values and README from
+// a Helm chart.
+type HelmShowChartResponse struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Values      []byte                 `protobuf:"bytes,1,opt,name=values"`
+	xxx_hidden_Readme      []byte                 `protobuf:"bytes,2,opt,name=readme"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *HelmShowChartResponse) Reset() {
+	*x = HelmShowChartResponse{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HelmShowChartResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HelmShowChartResponse) ProtoMessage() {}
+
+func (x *HelmShowChartResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *HelmShowChartResponse) GetValues() []byte {
+	if x != nil {
+		return x.xxx_hidden_Values
+	}
+	return nil
+}
+
+func (x *HelmShowChartResponse) GetReadme() []byte {
+	if x != nil {
+		return x.xxx_hidden_Readme
+	}
+	return nil
+}
+
+func (x *HelmShowChartResponse) SetValues(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Values = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *HelmShowChartResponse) SetReadme(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Readme = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *HelmShowChartResponse) HasValues() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *HelmShowChartResponse) HasReadme() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *HelmShowChartResponse) ClearValues() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Values = nil
+}
+
+func (x *HelmShowChartResponse) ClearReadme() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Readme = nil
+}
+
+type HelmShowChartResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The raw content of the chart's values.yaml file.
+	Values []byte
+	// The raw content of the chart's README.md file.
+	Readme []byte
+}
+
+func (b0 HelmShowChartResponse_builder) Build() *HelmShowChartResponse {
+	m0 := &HelmShowChartResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Values != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Values = b.Values
+	}
+	if b.Readme != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Readme = b.Readme
+	}
+	return m0
+}
+
 var File_runtime_v1_runtime_proto protoreflect.FileDescriptor
 
 const file_runtime_v1_runtime_proto_rawDesc = "" +
@@ -2730,7 +2994,15 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x06method\x18\b \x01(\tR\x06method\x12\x12\n" +
 	"\x04body\x18\t \x01(\fR\x04body\"L\n" +
 	"\x19SubResourceActionResponse\x12/\n" +
-	"\x06result\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06result2\x9b\b\n" +
+	"\x06result\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06result\"j\n" +
+	"\x14HelmShowChartRequest\x12\x19\n" +
+	"\brepo_url\x18\x01 \x01(\tR\arepoUrl\x12\x1d\n" +
+	"\n" +
+	"chart_name\x18\x02 \x01(\tR\tchartName\x12\x18\n" +
+	"\aversion\x18\x03 \x01(\tR\aversion\"G\n" +
+	"\x15HelmShowChartResponse\x12\x16\n" +
+	"\x06values\x18\x01 \x01(\fR\x06values\x12\x16\n" +
+	"\x06readme\x18\x02 \x01(\fR\x06readme2\xa3\t\n" +
 	"\x0eRuntimeService\x12o\n" +
 	"\x06PodLog\x12$.otterscale.runtime.v1.PodLogRequest\x1a%.otterscale.runtime.v1.PodLogResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled0\x01\x12{\n" +
@@ -2750,9 +3022,11 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\aRestart\x12%.otterscale.runtime.v1.RestartRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x12\x8e\x01\n" +
 	"\x11SubResourceAction\x12/.otterscale.runtime.v1.SubResourceActionRequest\x1a0.otterscale.runtime.v1.SubResourceActionResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
-	"\x0fruntime-enabledB0Z.github.com/otterscale/api/runtime/v1;runtimev1b\beditionsp\xe8\a"
+	"\x0fruntime-enabled\x12\x85\x01\n" +
+	"\rHelmShowChart\x12+.otterscale.runtime.v1.HelmShowChartRequest\x1a,.otterscale.runtime.v1.HelmShowChartResponse\"\x19\x8a\xdf\xd5\x1d\x11\n" +
+	"\x0fruntime-enabled\x90\x02\x01B0Z.github.com/otterscale/api/runtime/v1;runtimev1b\beditionsp\xe8\a"
 
-var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_runtime_v1_runtime_proto_goTypes = []any{
 	(*PodLogRequest)(nil),             // 0: otterscale.runtime.v1.PodLogRequest
 	(*PodLogResponse)(nil),            // 1: otterscale.runtime.v1.PodLogResponse
@@ -2768,13 +3042,15 @@ var file_runtime_v1_runtime_proto_goTypes = []any{
 	(*RestartRequest)(nil),            // 11: otterscale.runtime.v1.RestartRequest
 	(*SubResourceActionRequest)(nil),  // 12: otterscale.runtime.v1.SubResourceActionRequest
 	(*SubResourceActionResponse)(nil), // 13: otterscale.runtime.v1.SubResourceActionResponse
-	(*timestamppb.Timestamp)(nil),     // 14: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),           // 15: google.protobuf.Struct
-	(*emptypb.Empty)(nil),             // 16: google.protobuf.Empty
+	(*HelmShowChartRequest)(nil),      // 14: otterscale.runtime.v1.HelmShowChartRequest
+	(*HelmShowChartResponse)(nil),     // 15: otterscale.runtime.v1.HelmShowChartResponse
+	(*timestamppb.Timestamp)(nil),     // 16: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),           // 17: google.protobuf.Struct
+	(*emptypb.Empty)(nil),             // 18: google.protobuf.Empty
 }
 var file_runtime_v1_runtime_proto_depIdxs = []int32{
-	14, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
-	15, // 1: otterscale.runtime.v1.SubResourceActionResponse.result:type_name -> google.protobuf.Struct
+	16, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
+	17, // 1: otterscale.runtime.v1.SubResourceActionResponse.result:type_name -> google.protobuf.Struct
 	0,  // 2: otterscale.runtime.v1.RuntimeService.PodLog:input_type -> otterscale.runtime.v1.PodLogRequest
 	2,  // 3: otterscale.runtime.v1.RuntimeService.ExecuteTTY:input_type -> otterscale.runtime.v1.ExecuteTTYRequest
 	4,  // 4: otterscale.runtime.v1.RuntimeService.WriteTTY:input_type -> otterscale.runtime.v1.WriteTTYRequest
@@ -2784,17 +3060,19 @@ var file_runtime_v1_runtime_proto_depIdxs = []int32{
 	9,  // 8: otterscale.runtime.v1.RuntimeService.Scale:input_type -> otterscale.runtime.v1.ScaleRequest
 	11, // 9: otterscale.runtime.v1.RuntimeService.Restart:input_type -> otterscale.runtime.v1.RestartRequest
 	12, // 10: otterscale.runtime.v1.RuntimeService.SubResourceAction:input_type -> otterscale.runtime.v1.SubResourceActionRequest
-	1,  // 11: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
-	3,  // 12: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
-	16, // 13: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
-	16, // 14: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
-	7,  // 15: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
-	16, // 16: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
-	10, // 17: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
-	16, // 18: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
-	13, // 19: otterscale.runtime.v1.RuntimeService.SubResourceAction:output_type -> otterscale.runtime.v1.SubResourceActionResponse
-	11, // [11:20] is the sub-list for method output_type
-	2,  // [2:11] is the sub-list for method input_type
+	14, // 11: otterscale.runtime.v1.RuntimeService.HelmShowChart:input_type -> otterscale.runtime.v1.HelmShowChartRequest
+	1,  // 12: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
+	3,  // 13: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
+	18, // 14: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
+	18, // 15: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
+	7,  // 16: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
+	18, // 17: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
+	10, // 18: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
+	18, // 19: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
+	13, // 20: otterscale.runtime.v1.RuntimeService.SubResourceAction:output_type -> otterscale.runtime.v1.SubResourceActionResponse
+	15, // 21: otterscale.runtime.v1.RuntimeService.HelmShowChart:output_type -> otterscale.runtime.v1.HelmShowChartResponse
+	12, // [12:22] is the sub-list for method output_type
+	2,  // [2:12] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name
 	2,  // [2:2] is the sub-list for extension extendee
 	0,  // [0:2] is the sub-list for field type_name
@@ -2811,7 +3089,7 @@ func file_runtime_v1_runtime_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_runtime_v1_runtime_proto_rawDesc), len(file_runtime_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
