@@ -12,6 +12,62 @@ info:
   version: v1
 paths:
   /otterscale.link.v1.LinkService/GetAgentManifest:
+    get:
+      tags:
+        - LinkService
+      summary: GetAgentManifest
+      description: |-
+        GetAgentManifest returns a multi-document YAML manifest for installing
+         the otterscale agent on a target Kubernetes cluster. The manifest
+         includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
+         caller to cluster-admin), and a Deployment running the agent.
+      operationId: LinkService_GetAgentManifest.get
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+        - name: message
+          in: query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.link.v1.GetAgentManifestRequest'
+        - name: encoding
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/encoding'
+        - name: base64
+          in: query
+          schema:
+            $ref: '#/components/schemas/base64'
+        - name: compression
+          in: query
+          schema:
+            $ref: '#/components/schemas/compression'
+        - name: connect
+          in: query
+          schema:
+            $ref: '#/components/schemas/connect'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.link.v1.GetAgentManifestResponse'
     post:
       tags:
         - LinkService
@@ -425,10 +481,408 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.resource.v1.SchemaResponse'
-  /otterscale.resource.v1.ResourceService/Watch: {}
-  /otterscale.runtime.v1.RuntimeService/ExecuteTTY: {}
-  /otterscale.runtime.v1.RuntimeService/PodLog: {}
-  /otterscale.runtime.v1.RuntimeService/PortForward: {}
+  /otterscale.resource.v1.ResourceService/Watch:
+    post:
+      tags:
+        - ResourceService
+      summary: Watch
+      description: Watch initiates a server-side stream to monitor resource changes in real-time.
+      operationId: ResourceService_Watch
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.WatchRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.WatchEvent'
+  /otterscale.runtime.v1.RuntimeService/ExecuteTTY:
+    post:
+      tags:
+        - RuntimeService
+      summary: ExecuteTTY
+      description: |-
+        ExecuteTTY starts an interactive exec session in a container and streams
+         stdout/stderr back. Due to browser limitations, bidirectional streaming
+         cannot be used; stdin is sent via the separate WriteTTY RPC.
+      operationId: RuntimeService_ExecuteTTY
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ExecuteTTYResponse'
+  /otterscale.runtime.v1.RuntimeService/PodLog:
+    post:
+      tags:
+        - RuntimeService
+      summary: PodLog
+      description: PodLog streams log output from a container, similar to `kubectl logs -f`.
+      operationId: RuntimeService_PodLog
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PodLogRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PodLogResponse'
+  /otterscale.runtime.v1.RuntimeService/PortForward:
+    post:
+      tags:
+        - RuntimeService
+      summary: PortForward
+      description: |-
+        PortForward opens a port-forward session to a pod and streams data back.
+         Due to browser limitations, bidirectional streaming cannot be used;
+         data to the pod is sent via the separate WritePortForward RPC.
+      operationId: RuntimeService_PortForward
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.PortForwardResponse'
   /otterscale.runtime.v1.RuntimeService/ResizeTTY:
     post:
       tags:
@@ -542,6 +996,61 @@ paths:
               schema:
                 $ref: '#/components/schemas/otterscale.runtime.v1.ScaleResponse'
   /otterscale.runtime.v1.RuntimeService/ShowChart:
+    get:
+      tags:
+        - RuntimeService
+      summary: ShowChart
+      description: |-
+        ShowChart retrieves the default values.yaml and README.md from
+         a Helm chart in a remote repository (HTTP or OCI). This executes
+         server-side and does not require a cluster connection.
+      operationId: RuntimeService_ShowChart.get
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+        - name: message
+          in: query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ShowChartRequest'
+        - name: encoding
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/encoding'
+        - name: base64
+          in: query
+          schema:
+            $ref: '#/components/schemas/base64'
+        - name: compression
+          in: query
+          schema:
+            $ref: '#/components/schemas/compression'
+        - name: connect
+          in: query
+          schema:
+            $ref: '#/components/schemas/connect'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.ShowChartResponse'
     post:
       tags:
         - RuntimeService
@@ -620,6 +1129,109 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.runtime.v1.SubResourceActionResponse'
+  /otterscale.runtime.v1.RuntimeService/VNC:
+    post:
+      tags:
+        - RuntimeService
+      summary: VNC
+      description: |-
+        VNC opens a VNC session to a KubeVirt VirtualMachineInstance and
+         streams raw VNC protocol data back. Due to browser limitations,
+         bidirectional streaming cannot be used; data to the VMI is sent
+         via the separate WriteVNC RPC.
+      operationId: RuntimeService_VNC
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.VNCRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/otterscale.runtime.v1.VNCResponse'
   /otterscale.runtime.v1.RuntimeService/WritePortForward:
     post:
       tags:
@@ -692,8 +1304,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /otterscale.runtime.v1.RuntimeService/WriteVNC:
+    post:
+      tags:
+        - RuntimeService
+      summary: WriteVNC
+      description: WriteVNC sends VNC data to an active VNC session.
+      operationId: RuntimeService_WriteVNC
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otterscale.runtime.v1.WriteVNCRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      enum:
+        - v1
+      description: Define the version of the Connect protocol
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -763,6 +1427,12 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    encoding:
+      title: encoding
+      enum:
+        - proto
+        - json
+      description: Define which encoding or 'Message-Codec' to use
     google.protobuf.Empty:
       type: object
       description: |-
@@ -1869,6 +2539,43 @@ components:
       description: |-
         SubResourceActionResponse contains the optional response body from
          the subresource action.
+    otterscale.runtime.v1.VNCRequest:
+      type: object
+      properties:
+        cluster:
+          type: string
+          title: cluster
+          description: The target Kubernetes cluster identifier.
+        namespace:
+          type: string
+          title: namespace
+          description: The namespace of the VirtualMachineInstance.
+        name:
+          type: string
+          title: name
+          description: The name of the VirtualMachineInstance.
+      title: VNCRequest
+      additionalProperties: false
+      description: |-
+        VNCRequest defines the parameters for starting a VNC session
+         to a KubeVirt VirtualMachineInstance.
+    otterscale.runtime.v1.VNCResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          title: session_id
+          description: |-
+            The session identifier, set only in the first response message.
+             Subsequent WriteVNC calls must reference this ID.
+        data:
+          type: string
+          title: data
+          format: byte
+          description: Raw VNC protocol data received from the VMI.
+      title: VNCResponse
+      additionalProperties: false
+      description: VNCResponse streams raw VNC protocol data from the VMI.
     otterscale.runtime.v1.WritePortForwardRequest:
       type: object
       properties:
@@ -1899,6 +2606,21 @@ components:
       title: WriteTTYRequest
       additionalProperties: false
       description: WriteTTYRequest sends stdin data to an active exec session.
+    otterscale.runtime.v1.WriteVNCRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          title: session_id
+          description: The session identifier returned in the first VNCResponse.
+        data:
+          type: string
+          title: data
+          format: byte
+          description: Raw VNC protocol data to send to the VMI.
+      title: WriteVNCRequest
+      additionalProperties: false
+      description: WriteVNCRequest sends data to an active VNC session.
   securitySchemes:
     BasicAuth:
       type: http

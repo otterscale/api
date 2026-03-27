@@ -67,6 +67,19 @@ service RuntimeService {
     option (otterscale.api.feature) = {name: "runtime-enabled"};
   }
 
+  // VNC opens a VNC session to a KubeVirt VirtualMachineInstance and
+  // streams raw VNC protocol data back. Due to browser limitations,
+  // bidirectional streaming cannot be used; data to the VMI is sent
+  // via the separate WriteVNC RPC.
+  rpc VNC(VNCRequest) returns (stream VNCResponse) {
+    option (otterscale.api.feature) = {name: "runtime-enabled"};
+  }
+
+  // WriteVNC sends VNC data to an active VNC session.
+  rpc WriteVNC(WriteVNCRequest) returns (google.protobuf.Empty) {
+    option (otterscale.api.feature) = {name: "runtime-enabled"};
+  }
+
   // ShowChart retrieves the default values.yaml and README.md from
   // a Helm chart in a remote repository (HTTP or OCI). This executes
   // server-side and does not require a cluster connection.
@@ -332,6 +345,42 @@ message SubResourceActionRequest {
 message SubResourceActionResponse {
   // The JSON response body returned by the API server, if any.
   google.protobuf.Struct result = 1;
+}
+
+// ---------------------------------------------------------------------------
+// VNC
+// ---------------------------------------------------------------------------
+
+// VNCRequest defines the parameters for starting a VNC session
+// to a KubeVirt VirtualMachineInstance.
+message VNCRequest {
+  // The target Kubernetes cluster identifier.
+  string cluster = 1;
+
+  // The namespace of the VirtualMachineInstance.
+  string namespace = 2;
+
+  // The name of the VirtualMachineInstance.
+  string name = 3;
+}
+
+// VNCResponse streams raw VNC protocol data from the VMI.
+message VNCResponse {
+  // The session identifier, set only in the first response message.
+  // Subsequent WriteVNC calls must reference this ID.
+  string session_id = 1;
+
+  // Raw VNC protocol data received from the VMI.
+  bytes data = 2;
+}
+
+// WriteVNCRequest sends data to an active VNC session.
+message WriteVNCRequest {
+  // The session identifier returned in the first VNCResponse.
+  string session_id = 1;
+
+  // Raw VNC protocol data to send to the VMI.
+  bytes data = 2;
 }
 
 // ---------------------------------------------------------------------------

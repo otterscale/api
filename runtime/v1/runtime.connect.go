@@ -56,6 +56,10 @@ const (
 	// RuntimeServiceSubResourceActionProcedure is the fully-qualified name of the RuntimeService's
 	// SubResourceAction RPC.
 	RuntimeServiceSubResourceActionProcedure = "/otterscale.runtime.v1.RuntimeService/SubResourceAction"
+	// RuntimeServiceVNCProcedure is the fully-qualified name of the RuntimeService's VNC RPC.
+	RuntimeServiceVNCProcedure = "/otterscale.runtime.v1.RuntimeService/VNC"
+	// RuntimeServiceWriteVNCProcedure is the fully-qualified name of the RuntimeService's WriteVNC RPC.
+	RuntimeServiceWriteVNCProcedure = "/otterscale.runtime.v1.RuntimeService/WriteVNC"
 	// RuntimeServiceShowChartProcedure is the fully-qualified name of the RuntimeService's ShowChart
 	// RPC.
 	RuntimeServiceShowChartProcedure = "/otterscale.runtime.v1.RuntimeService/ShowChart"
@@ -90,6 +94,13 @@ type RuntimeServiceClient interface {
 	// is forwarded to kube-apiserver via impersonation, so RBAC is
 	// enforced automatically. Only PUT and POST methods are allowed.
 	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
+	// VNC opens a VNC session to a KubeVirt VirtualMachineInstance and
+	// streams raw VNC protocol data back. Due to browser limitations,
+	// bidirectional streaming cannot be used; data to the VMI is sent
+	// via the separate WriteVNC RPC.
+	VNC(context.Context, *VNCRequest) (*connect.ServerStreamForClient[VNCResponse], error)
+	// WriteVNC sends VNC data to an active VNC session.
+	WriteVNC(context.Context, *WriteVNCRequest) (*emptypb.Empty, error)
 	// ShowChart retrieves the default values.yaml and README.md from
 	// a Helm chart in a remote repository (HTTP or OCI). This executes
 	// server-side and does not require a cluster connection.
@@ -161,6 +172,18 @@ func NewRuntimeServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
 			connect.WithClientOptions(opts...),
 		),
+		vNC: connect.NewClient[VNCRequest, VNCResponse](
+			httpClient,
+			baseURL+RuntimeServiceVNCProcedure,
+			connect.WithSchema(runtimeServiceMethods.ByName("VNC")),
+			connect.WithClientOptions(opts...),
+		),
+		writeVNC: connect.NewClient[WriteVNCRequest, emptypb.Empty](
+			httpClient,
+			baseURL+RuntimeServiceWriteVNCProcedure,
+			connect.WithSchema(runtimeServiceMethods.ByName("WriteVNC")),
+			connect.WithClientOptions(opts...),
+		),
 		showChart: connect.NewClient[ShowChartRequest, ShowChartResponse](
 			httpClient,
 			baseURL+RuntimeServiceShowChartProcedure,
@@ -182,6 +205,8 @@ type runtimeServiceClient struct {
 	scale             *connect.Client[ScaleRequest, ScaleResponse]
 	restart           *connect.Client[RestartRequest, emptypb.Empty]
 	subResourceAction *connect.Client[SubResourceActionRequest, SubResourceActionResponse]
+	vNC               *connect.Client[VNCRequest, VNCResponse]
+	writeVNC          *connect.Client[WriteVNCRequest, emptypb.Empty]
 	showChart         *connect.Client[ShowChartRequest, ShowChartResponse]
 }
 
@@ -254,6 +279,20 @@ func (c *runtimeServiceClient) SubResourceAction(ctx context.Context, req *SubRe
 	return nil, err
 }
 
+// VNC calls otterscale.runtime.v1.RuntimeService.VNC.
+func (c *runtimeServiceClient) VNC(ctx context.Context, req *VNCRequest) (*connect.ServerStreamForClient[VNCResponse], error) {
+	return c.vNC.CallServerStream(ctx, connect.NewRequest(req))
+}
+
+// WriteVNC calls otterscale.runtime.v1.RuntimeService.WriteVNC.
+func (c *runtimeServiceClient) WriteVNC(ctx context.Context, req *WriteVNCRequest) (*emptypb.Empty, error) {
+	response, err := c.writeVNC.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // ShowChart calls otterscale.runtime.v1.RuntimeService.ShowChart.
 func (c *runtimeServiceClient) ShowChart(ctx context.Context, req *ShowChartRequest) (*ShowChartResponse, error) {
 	response, err := c.showChart.CallUnary(ctx, connect.NewRequest(req))
@@ -292,6 +331,13 @@ type RuntimeServiceHandler interface {
 	// is forwarded to kube-apiserver via impersonation, so RBAC is
 	// enforced automatically. Only PUT and POST methods are allowed.
 	SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error)
+	// VNC opens a VNC session to a KubeVirt VirtualMachineInstance and
+	// streams raw VNC protocol data back. Due to browser limitations,
+	// bidirectional streaming cannot be used; data to the VMI is sent
+	// via the separate WriteVNC RPC.
+	VNC(context.Context, *VNCRequest, *connect.ServerStream[VNCResponse]) error
+	// WriteVNC sends VNC data to an active VNC session.
+	WriteVNC(context.Context, *WriteVNCRequest) (*emptypb.Empty, error)
 	// ShowChart retrieves the default values.yaml and README.md from
 	// a Helm chart in a remote repository (HTTP or OCI). This executes
 	// server-side and does not require a cluster connection.
@@ -359,6 +405,18 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 		connect.WithSchema(runtimeServiceMethods.ByName("SubResourceAction")),
 		connect.WithHandlerOptions(opts...),
 	)
+	runtimeServiceVNCHandler := connect.NewServerStreamHandlerSimple(
+		RuntimeServiceVNCProcedure,
+		svc.VNC,
+		connect.WithSchema(runtimeServiceMethods.ByName("VNC")),
+		connect.WithHandlerOptions(opts...),
+	)
+	runtimeServiceWriteVNCHandler := connect.NewUnaryHandlerSimple(
+		RuntimeServiceWriteVNCProcedure,
+		svc.WriteVNC,
+		connect.WithSchema(runtimeServiceMethods.ByName("WriteVNC")),
+		connect.WithHandlerOptions(opts...),
+	)
 	runtimeServiceShowChartHandler := connect.NewUnaryHandlerSimple(
 		RuntimeServiceShowChartProcedure,
 		svc.ShowChart,
@@ -386,6 +444,10 @@ func NewRuntimeServiceHandler(svc RuntimeServiceHandler, opts ...connect.Handler
 			runtimeServiceRestartHandler.ServeHTTP(w, r)
 		case RuntimeServiceSubResourceActionProcedure:
 			runtimeServiceSubResourceActionHandler.ServeHTTP(w, r)
+		case RuntimeServiceVNCProcedure:
+			runtimeServiceVNCHandler.ServeHTTP(w, r)
+		case RuntimeServiceWriteVNCProcedure:
+			runtimeServiceWriteVNCHandler.ServeHTTP(w, r)
 		case RuntimeServiceShowChartProcedure:
 			runtimeServiceShowChartHandler.ServeHTTP(w, r)
 		default:
@@ -431,6 +493,14 @@ func (UnimplementedRuntimeServiceHandler) Restart(context.Context, *RestartReque
 
 func (UnimplementedRuntimeServiceHandler) SubResourceAction(context.Context, *SubResourceActionRequest) (*SubResourceActionResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.SubResourceAction is not implemented"))
+}
+
+func (UnimplementedRuntimeServiceHandler) VNC(context.Context, *VNCRequest, *connect.ServerStream[VNCResponse]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.VNC is not implemented"))
+}
+
+func (UnimplementedRuntimeServiceHandler) WriteVNC(context.Context, *WriteVNCRequest) (*emptypb.Empty, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.runtime.v1.RuntimeService.WriteVNC is not implemented"))
 }
 
 func (UnimplementedRuntimeServiceHandler) ShowChart(context.Context, *ShowChartRequest) (*ShowChartResponse, error) {

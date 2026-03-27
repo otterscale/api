@@ -626,6 +626,96 @@ export declare type SubResourceActionResponse = Message<"otterscale.runtime.v1.S
 export declare const SubResourceActionResponseSchema: GenMessage<SubResourceActionResponse>;
 
 /**
+ * VNCRequest defines the parameters for starting a VNC session
+ * to a KubeVirt VirtualMachineInstance.
+ *
+ * @generated from message otterscale.runtime.v1.VNCRequest
+ */
+export declare type VNCRequest = Message<"otterscale.runtime.v1.VNCRequest"> & {
+  /**
+   * The target Kubernetes cluster identifier.
+   *
+   * @generated from field: string cluster = 1;
+   */
+  cluster: string;
+
+  /**
+   * The namespace of the VirtualMachineInstance.
+   *
+   * @generated from field: string namespace = 2;
+   */
+  namespace: string;
+
+  /**
+   * The name of the VirtualMachineInstance.
+   *
+   * @generated from field: string name = 3;
+   */
+  name: string;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.VNCRequest.
+ * Use `create(VNCRequestSchema)` to create a new message.
+ */
+export declare const VNCRequestSchema: GenMessage<VNCRequest>;
+
+/**
+ * VNCResponse streams raw VNC protocol data from the VMI.
+ *
+ * @generated from message otterscale.runtime.v1.VNCResponse
+ */
+export declare type VNCResponse = Message<"otterscale.runtime.v1.VNCResponse"> & {
+  /**
+   * The session identifier, set only in the first response message.
+   * Subsequent WriteVNC calls must reference this ID.
+   *
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * Raw VNC protocol data received from the VMI.
+   *
+   * @generated from field: bytes data = 2;
+   */
+  data: Uint8Array;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.VNCResponse.
+ * Use `create(VNCResponseSchema)` to create a new message.
+ */
+export declare const VNCResponseSchema: GenMessage<VNCResponse>;
+
+/**
+ * WriteVNCRequest sends data to an active VNC session.
+ *
+ * @generated from message otterscale.runtime.v1.WriteVNCRequest
+ */
+export declare type WriteVNCRequest = Message<"otterscale.runtime.v1.WriteVNCRequest"> & {
+  /**
+   * The session identifier returned in the first VNCResponse.
+   *
+   * @generated from field: string session_id = 1;
+   */
+  sessionId: string;
+
+  /**
+   * Raw VNC protocol data to send to the VMI.
+   *
+   * @generated from field: bytes data = 2;
+   */
+  data: Uint8Array;
+};
+
+/**
+ * Describes the message otterscale.runtime.v1.WriteVNCRequest.
+ * Use `create(WriteVNCRequestSchema)` to create a new message.
+ */
+export declare const WriteVNCRequestSchema: GenMessage<WriteVNCRequest>;
+
+/**
  * ShowChartRequest defines parameters for retrieving chart metadata
  * from a remote Helm repository.
  *
@@ -794,6 +884,29 @@ export declare const RuntimeService: GenService<{
     methodKind: "unary";
     input: typeof SubResourceActionRequestSchema;
     output: typeof SubResourceActionResponseSchema;
+  },
+  /**
+   * VNC opens a VNC session to a KubeVirt VirtualMachineInstance and
+   * streams raw VNC protocol data back. Due to browser limitations,
+   * bidirectional streaming cannot be used; data to the VMI is sent
+   * via the separate WriteVNC RPC.
+   *
+   * @generated from rpc otterscale.runtime.v1.RuntimeService.VNC
+   */
+  vNC: {
+    methodKind: "server_streaming";
+    input: typeof VNCRequestSchema;
+    output: typeof VNCResponseSchema;
+  },
+  /**
+   * WriteVNC sends VNC data to an active VNC session.
+   *
+   * @generated from rpc otterscale.runtime.v1.RuntimeService.WriteVNC
+   */
+  writeVNC: {
+    methodKind: "unary";
+    input: typeof WriteVNCRequestSchema;
+    output: typeof EmptySchema;
   },
   /**
    * ShowChart retrieves the default values.yaml and README.md from
