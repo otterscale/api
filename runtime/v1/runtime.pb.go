@@ -2641,6 +2641,384 @@ func (b0 SubResourceActionResponse_builder) Build() *SubResourceActionResponse {
 	return m0
 }
 
+// VNCRequest defines the parameters for starting a VNC session
+// to a KubeVirt VirtualMachineInstance.
+type VNCRequest struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Namespace   *string                `protobuf:"bytes,2,opt,name=namespace"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,3,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *VNCRequest) Reset() {
+	*x = VNCRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VNCRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VNCRequest) ProtoMessage() {}
+
+func (x *VNCRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *VNCRequest) GetCluster() string {
+	if x != nil {
+		if x.xxx_hidden_Cluster != nil {
+			return *x.xxx_hidden_Cluster
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *VNCRequest) GetNamespace() string {
+	if x != nil {
+		if x.xxx_hidden_Namespace != nil {
+			return *x.xxx_hidden_Namespace
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *VNCRequest) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *VNCRequest) SetCluster(v string) {
+	x.xxx_hidden_Cluster = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *VNCRequest) SetNamespace(v string) {
+	x.xxx_hidden_Namespace = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *VNCRequest) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *VNCRequest) HasCluster() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *VNCRequest) HasNamespace() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *VNCRequest) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *VNCRequest) ClearCluster() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Cluster = nil
+}
+
+func (x *VNCRequest) ClearNamespace() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Namespace = nil
+}
+
+func (x *VNCRequest) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_Name = nil
+}
+
+type VNCRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The target Kubernetes cluster identifier.
+	Cluster *string
+	// The namespace of the VirtualMachineInstance.
+	Namespace *string
+	// The name of the VirtualMachineInstance.
+	Name *string
+}
+
+func (b0 VNCRequest_builder) Build() *VNCRequest {
+	m0 := &VNCRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Cluster != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_Cluster = b.Cluster
+	}
+	if b.Namespace != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_Namespace = b.Namespace
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
+}
+
+// VNCResponse streams raw VNC protocol data from the VMI.
+type VNCResponse struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Data        []byte                 `protobuf:"bytes,2,opt,name=data"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *VNCResponse) Reset() {
+	*x = VNCResponse{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VNCResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VNCResponse) ProtoMessage() {}
+
+func (x *VNCResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *VNCResponse) GetSessionId() string {
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *VNCResponse) GetData() []byte {
+	if x != nil {
+		return x.xxx_hidden_Data
+	}
+	return nil
+}
+
+func (x *VNCResponse) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *VNCResponse) SetData(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Data = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *VNCResponse) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *VNCResponse) HasData() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *VNCResponse) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *VNCResponse) ClearData() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Data = nil
+}
+
+type VNCResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier, set only in the first response message.
+	// Subsequent WriteVNC calls must reference this ID.
+	SessionId *string
+	// Raw VNC protocol data received from the VMI.
+	Data []byte
+}
+
+func (b0 VNCResponse_builder) Build() *VNCResponse {
+	m0 := &VNCResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Data != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Data = b.Data
+	}
+	return m0
+}
+
+// WriteVNCRequest sends data to an active VNC session.
+type WriteVNCRequest struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_SessionId   *string                `protobuf:"bytes,1,opt,name=session_id,json=sessionId"`
+	xxx_hidden_Data        []byte                 `protobuf:"bytes,2,opt,name=data"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *WriteVNCRequest) Reset() {
+	*x = WriteVNCRequest{}
+	mi := &file_runtime_v1_runtime_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WriteVNCRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WriteVNCRequest) ProtoMessage() {}
+
+func (x *WriteVNCRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_runtime_v1_runtime_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *WriteVNCRequest) GetSessionId() string {
+	if x != nil {
+		if x.xxx_hidden_SessionId != nil {
+			return *x.xxx_hidden_SessionId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *WriteVNCRequest) GetData() []byte {
+	if x != nil {
+		return x.xxx_hidden_Data
+	}
+	return nil
+}
+
+func (x *WriteVNCRequest) SetSessionId(v string) {
+	x.xxx_hidden_SessionId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *WriteVNCRequest) SetData(v []byte) {
+	if v == nil {
+		v = []byte{}
+	}
+	x.xxx_hidden_Data = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *WriteVNCRequest) HasSessionId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *WriteVNCRequest) HasData() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *WriteVNCRequest) ClearSessionId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_SessionId = nil
+}
+
+func (x *WriteVNCRequest) ClearData() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Data = nil
+}
+
+type WriteVNCRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The session identifier returned in the first VNCResponse.
+	SessionId *string
+	// Raw VNC protocol data to send to the VMI.
+	Data []byte
+}
+
+func (b0 WriteVNCRequest_builder) Build() *WriteVNCRequest {
+	m0 := &WriteVNCRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.SessionId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_SessionId = b.SessionId
+	}
+	if b.Data != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Data = b.Data
+	}
+	return m0
+}
+
 // ShowChartRequest defines parameters for retrieving chart metadata
 // from a remote Helm repository.
 type ShowChartRequest struct {
@@ -2656,7 +3034,7 @@ type ShowChartRequest struct {
 
 func (x *ShowChartRequest) Reset() {
 	*x = ShowChartRequest{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2668,7 +3046,7 @@ func (x *ShowChartRequest) String() string {
 func (*ShowChartRequest) ProtoMessage() {}
 
 func (x *ShowChartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[14]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2804,7 +3182,7 @@ type ShowChartResponse struct {
 
 func (x *ShowChartResponse) Reset() {
 	*x = ShowChartResponse{}
-	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2816,7 +3194,7 @@ func (x *ShowChartResponse) String() string {
 func (*ShowChartResponse) ProtoMessage() {}
 
 func (x *ShowChartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_runtime_v1_runtime_proto_msgTypes[15]
+	mi := &file_runtime_v1_runtime_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2994,7 +3372,20 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\x06method\x18\b \x01(\tR\x06method\x12\x12\n" +
 	"\x04body\x18\t \x01(\fR\x04body\"L\n" +
 	"\x19SubResourceActionResponse\x12/\n" +
-	"\x06result\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06result\"f\n" +
+	"\x06result\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06result\"X\n" +
+	"\n" +
+	"VNCRequest\x12\x18\n" +
+	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1c\n" +
+	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\"@\n" +
+	"\vVNCResponse\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x12\n" +
+	"\x04data\x18\x02 \x01(\fR\x04data\"D\n" +
+	"\x0fWriteVNCRequest\x12\x1d\n" +
+	"\n" +
+	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x12\n" +
+	"\x04data\x18\x02 \x01(\fR\x04data\"f\n" +
 	"\x10ShowChartRequest\x12\x19\n" +
 	"\brepo_url\x18\x01 \x01(\tR\arepoUrl\x12\x1d\n" +
 	"\n" +
@@ -3002,7 +3393,8 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\aversion\x18\x03 \x01(\tR\aversion\"C\n" +
 	"\x11ShowChartResponse\x12\x16\n" +
 	"\x06values\x18\x01 \x01(\fR\x06values\x12\x16\n" +
-	"\x06readme\x18\x02 \x01(\fR\x06readme2\x96\t\n" +
+	"\x06readme\x18\x02 \x01(\fR\x06readme2\xe2\n" +
+	"\n" +
 	"\x0eRuntimeService\x12o\n" +
 	"\x06PodLog\x12$.otterscale.runtime.v1.PodLogRequest\x1a%.otterscale.runtime.v1.PodLogResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled0\x01\x12{\n" +
@@ -3022,11 +3414,15 @@ const file_runtime_v1_runtime_proto_rawDesc = "" +
 	"\aRestart\x12%.otterscale.runtime.v1.RestartRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x12\x8e\x01\n" +
 	"\x11SubResourceAction\x12/.otterscale.runtime.v1.SubResourceActionRequest\x1a0.otterscale.runtime.v1.SubResourceActionResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
+	"\x0fruntime-enabled\x12f\n" +
+	"\x03VNC\x12!.otterscale.runtime.v1.VNCRequest\x1a\".otterscale.runtime.v1.VNCResponse\"\x16\x8a\xdf\xd5\x1d\x11\n" +
+	"\x0fruntime-enabled0\x01\x12b\n" +
+	"\bWriteVNC\x12&.otterscale.runtime.v1.WriteVNCRequest\x1a\x16.google.protobuf.Empty\"\x16\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x12y\n" +
 	"\tShowChart\x12'.otterscale.runtime.v1.ShowChartRequest\x1a(.otterscale.runtime.v1.ShowChartResponse\"\x19\x8a\xdf\xd5\x1d\x11\n" +
 	"\x0fruntime-enabled\x90\x02\x01B0Z.github.com/otterscale/api/runtime/v1;runtimev1b\beditionsp\xe8\a"
 
-var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_runtime_v1_runtime_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_runtime_v1_runtime_proto_goTypes = []any{
 	(*PodLogRequest)(nil),             // 0: otterscale.runtime.v1.PodLogRequest
 	(*PodLogResponse)(nil),            // 1: otterscale.runtime.v1.PodLogResponse
@@ -3042,15 +3438,18 @@ var file_runtime_v1_runtime_proto_goTypes = []any{
 	(*RestartRequest)(nil),            // 11: otterscale.runtime.v1.RestartRequest
 	(*SubResourceActionRequest)(nil),  // 12: otterscale.runtime.v1.SubResourceActionRequest
 	(*SubResourceActionResponse)(nil), // 13: otterscale.runtime.v1.SubResourceActionResponse
-	(*ShowChartRequest)(nil),          // 14: otterscale.runtime.v1.ShowChartRequest
-	(*ShowChartResponse)(nil),         // 15: otterscale.runtime.v1.ShowChartResponse
-	(*timestamppb.Timestamp)(nil),     // 16: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),           // 17: google.protobuf.Struct
-	(*emptypb.Empty)(nil),             // 18: google.protobuf.Empty
+	(*VNCRequest)(nil),                // 14: otterscale.runtime.v1.VNCRequest
+	(*VNCResponse)(nil),               // 15: otterscale.runtime.v1.VNCResponse
+	(*WriteVNCRequest)(nil),           // 16: otterscale.runtime.v1.WriteVNCRequest
+	(*ShowChartRequest)(nil),          // 17: otterscale.runtime.v1.ShowChartRequest
+	(*ShowChartResponse)(nil),         // 18: otterscale.runtime.v1.ShowChartResponse
+	(*timestamppb.Timestamp)(nil),     // 19: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),           // 20: google.protobuf.Struct
+	(*emptypb.Empty)(nil),             // 21: google.protobuf.Empty
 }
 var file_runtime_v1_runtime_proto_depIdxs = []int32{
-	16, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
-	17, // 1: otterscale.runtime.v1.SubResourceActionResponse.result:type_name -> google.protobuf.Struct
+	19, // 0: otterscale.runtime.v1.PodLogRequest.since_time:type_name -> google.protobuf.Timestamp
+	20, // 1: otterscale.runtime.v1.SubResourceActionResponse.result:type_name -> google.protobuf.Struct
 	0,  // 2: otterscale.runtime.v1.RuntimeService.PodLog:input_type -> otterscale.runtime.v1.PodLogRequest
 	2,  // 3: otterscale.runtime.v1.RuntimeService.ExecuteTTY:input_type -> otterscale.runtime.v1.ExecuteTTYRequest
 	4,  // 4: otterscale.runtime.v1.RuntimeService.WriteTTY:input_type -> otterscale.runtime.v1.WriteTTYRequest
@@ -3060,19 +3459,23 @@ var file_runtime_v1_runtime_proto_depIdxs = []int32{
 	9,  // 8: otterscale.runtime.v1.RuntimeService.Scale:input_type -> otterscale.runtime.v1.ScaleRequest
 	11, // 9: otterscale.runtime.v1.RuntimeService.Restart:input_type -> otterscale.runtime.v1.RestartRequest
 	12, // 10: otterscale.runtime.v1.RuntimeService.SubResourceAction:input_type -> otterscale.runtime.v1.SubResourceActionRequest
-	14, // 11: otterscale.runtime.v1.RuntimeService.ShowChart:input_type -> otterscale.runtime.v1.ShowChartRequest
-	1,  // 12: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
-	3,  // 13: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
-	18, // 14: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
-	18, // 15: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
-	7,  // 16: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
-	18, // 17: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
-	10, // 18: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
-	18, // 19: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
-	13, // 20: otterscale.runtime.v1.RuntimeService.SubResourceAction:output_type -> otterscale.runtime.v1.SubResourceActionResponse
-	15, // 21: otterscale.runtime.v1.RuntimeService.ShowChart:output_type -> otterscale.runtime.v1.ShowChartResponse
-	12, // [12:22] is the sub-list for method output_type
-	2,  // [2:12] is the sub-list for method input_type
+	14, // 11: otterscale.runtime.v1.RuntimeService.VNC:input_type -> otterscale.runtime.v1.VNCRequest
+	16, // 12: otterscale.runtime.v1.RuntimeService.WriteVNC:input_type -> otterscale.runtime.v1.WriteVNCRequest
+	17, // 13: otterscale.runtime.v1.RuntimeService.ShowChart:input_type -> otterscale.runtime.v1.ShowChartRequest
+	1,  // 14: otterscale.runtime.v1.RuntimeService.PodLog:output_type -> otterscale.runtime.v1.PodLogResponse
+	3,  // 15: otterscale.runtime.v1.RuntimeService.ExecuteTTY:output_type -> otterscale.runtime.v1.ExecuteTTYResponse
+	21, // 16: otterscale.runtime.v1.RuntimeService.WriteTTY:output_type -> google.protobuf.Empty
+	21, // 17: otterscale.runtime.v1.RuntimeService.ResizeTTY:output_type -> google.protobuf.Empty
+	7,  // 18: otterscale.runtime.v1.RuntimeService.PortForward:output_type -> otterscale.runtime.v1.PortForwardResponse
+	21, // 19: otterscale.runtime.v1.RuntimeService.WritePortForward:output_type -> google.protobuf.Empty
+	10, // 20: otterscale.runtime.v1.RuntimeService.Scale:output_type -> otterscale.runtime.v1.ScaleResponse
+	21, // 21: otterscale.runtime.v1.RuntimeService.Restart:output_type -> google.protobuf.Empty
+	13, // 22: otterscale.runtime.v1.RuntimeService.SubResourceAction:output_type -> otterscale.runtime.v1.SubResourceActionResponse
+	15, // 23: otterscale.runtime.v1.RuntimeService.VNC:output_type -> otterscale.runtime.v1.VNCResponse
+	21, // 24: otterscale.runtime.v1.RuntimeService.WriteVNC:output_type -> google.protobuf.Empty
+	18, // 25: otterscale.runtime.v1.RuntimeService.ShowChart:output_type -> otterscale.runtime.v1.ShowChartResponse
+	14, // [14:26] is the sub-list for method output_type
+	2,  // [2:14] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name
 	2,  // [2:2] is the sub-list for extension extendee
 	0,  // [0:2] is the sub-list for field type_name
@@ -3089,7 +3492,7 @@ func file_runtime_v1_runtime_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_runtime_v1_runtime_proto_rawDesc), len(file_runtime_v1_runtime_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
