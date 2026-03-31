@@ -226,6 +226,10 @@ type RoleSpec struct {
 	// Tolerations for the serving pods.
 	// +optional
 	Tolerations []corev1.Toleration `json:"tolerations,omitempty"`
+
+	// Annotations for the serving pods.
+	// +optional
+	Annotations map[string]string `json:"annotations,omitempty"`
 }
 
 // RoutingProxySpec configures the llm-d routing sidecar.
