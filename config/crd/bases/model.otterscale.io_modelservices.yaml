@@ -92,6 +92,11 @@ spec:
                   Decode configures the decode (or unified) serving pods.
                   In non-disaggregated mode, these are the only serving pods.
                 properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations for the serving pods.
+                    type: object
                   nodeSelector:
                     additionalProperties:
                       type: string
@@ -633,6 +638,11 @@ spec:
                   When set, the serving architecture splits into Prefill (prompt processing)
                   and Decode (token generation) phases on separate pod groups.
                 properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations for the serving pods.
+                    type: object
                   nodeSelector:
                     additionalProperties:
                       type: string
