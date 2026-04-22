@@ -102,8 +102,7 @@ type WorkspaceSpec struct {
 	Namespace string `json:"namespace,omitempty"`
 
 	// Members is the list of members granted access to this workspace.
-	// +listType=map
-	// +listMapKey=subject
+	// +listType=atomic
 	// +kubebuilder:validation:MinItems=1
 	// +kubebuilder:validation:XValidation:rule="self.exists(u, u.role == 'admin')",message="at least one workspace member must have role 'admin'"
 	// +required
