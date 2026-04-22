@@ -174,9 +174,7 @@ spec:
                   type: object
                 minItems: 1
                 type: array
-                x-kubernetes-list-map-keys:
-                - subject
-                x-kubernetes-list-type: map
+                x-kubernetes-list-type: atomic
                 x-kubernetes-validations:
                 - message: at least one workspace member must have role 'admin'
                   rule: self.exists(u, u.role == 'admin')
