@@ -90,6 +90,11 @@ message RegisterResponse {
 message GetAgentManifestRequest {
   // The cluster name the agent will register under.
   string cluster = 1;
+
+  // Additional user identities to be granted cluster-admin via the
+  // otterscale-cluster-admin ClusterRoleBinding, in addition to the
+  // authenticated caller.
+  repeated string extra_users = 2;
 }
 
 // GetAgentManifestResponse contains the multi-document YAML manifest
