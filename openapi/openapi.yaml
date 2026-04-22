@@ -1619,6 +1619,15 @@ components:
           type: string
           title: cluster
           description: The cluster name the agent will register under.
+        extraUsers:
+          type: array
+          items:
+            type: string
+          title: extra_users
+          description: |-
+            Additional user identities to be granted cluster-admin via the
+             otterscale-cluster-admin ClusterRoleBinding, in addition to the
+             authenticated caller.
       title: GetAgentManifestRequest
       additionalProperties: false
       description: |-

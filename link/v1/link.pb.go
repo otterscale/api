@@ -613,6 +613,7 @@ func (b0 RegisterResponse_builder) Build() *RegisterResponse {
 type GetAgentManifestRequest struct {
 	state                  protoimpl.MessageState `protogen:"opaque.v1"`
 	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_ExtraUsers  []string               `protobuf:"bytes,2,rep,name=extra_users,json=extraUsers"`
 	XXX_raceDetectHookData protoimpl.RaceDetectHookData
 	XXX_presence           [1]uint32
 	unknownFields          protoimpl.UnknownFields
@@ -654,9 +655,20 @@ func (x *GetAgentManifestRequest) GetCluster() string {
 	return ""
 }
 
+func (x *GetAgentManifestRequest) GetExtraUsers() []string {
+	if x != nil {
+		return x.xxx_hidden_ExtraUsers
+	}
+	return nil
+}
+
 func (x *GetAgentManifestRequest) SetCluster(v string) {
 	x.xxx_hidden_Cluster = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 1)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *GetAgentManifestRequest) SetExtraUsers(v []string) {
+	x.xxx_hidden_ExtraUsers = v
 }
 
 func (x *GetAgentManifestRequest) HasCluster() bool {
@@ -676,6 +688,10 @@ type GetAgentManifestRequest_builder struct {
 
 	// The cluster name the agent will register under.
 	Cluster *string
+	// Additional user identities to be granted cluster-admin via the
+	// otterscale-cluster-admin ClusterRoleBinding, in addition to the
+	// authenticated caller.
+	ExtraUsers []string
 }
 
 func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
@@ -683,9 +699,10 @@ func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Cluster != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 1)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
 		x.xxx_hidden_Cluster = b.Cluster
 	}
+	x.xxx_hidden_ExtraUsers = b.ExtraUsers
 	return m0
 }
 
@@ -826,9 +843,11 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\bendpoint\x18\x01 \x01(\tR\bendpoint\x12 \n" +
 	"\vcertificate\x18\x02 \x01(\fR\vcertificate\x12%\n" +
 	"\x0eca_certificate\x18\x03 \x01(\fR\rcaCertificate\x12%\n" +
-	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion\"3\n" +
+	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion\"T\n" +
 	"\x17GetAgentManifestRequest\x12\x18\n" +
-	"\acluster\x18\x01 \x01(\tR\acluster\"H\n" +
+	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1f\n" +
+	"\vextra_users\x18\x02 \x03(\tR\n" +
+	"extraUsers\"H\n" +
 	"\x18GetAgentManifestResponse\x12\x1a\n" +
 	"\bmanifest\x18\x01 \x01(\tR\bmanifest\x12\x10\n" +
 	"\x03url\x18\x02 \x01(\tR\x03url2\xf0\x02\n" +

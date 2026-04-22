@@ -169,6 +169,15 @@ export declare type GetAgentManifestRequest = Message<"otterscale.link.v1.GetAge
    * @generated from field: string cluster = 1;
    */
   cluster: string;
+
+  /**
+   * Additional user identities to be granted cluster-admin via the
+   * otterscale-cluster-admin ClusterRoleBinding, in addition to the
+   * authenticated caller.
+   *
+   * @generated from field: repeated string extra_users = 2;
+   */
+  extraUsers: string[];
 };
 
 /**
