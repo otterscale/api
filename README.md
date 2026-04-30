@@ -64,9 +64,9 @@ kubectl apply --server-side -f https://github.com/otterscale/api/releases/downlo
 
 | Tool                                                                  | Version | Installed via                                       |
 | --------------------------------------------------------------------- | ------- | --------------------------------------------------- |
-| [buf](https://buf.build)                                              | v1.66.0 | `make proto` (auto-downloads)                       |
+| [buf](https://buf.build)                                              | v1.69.0 | `make proto` (auto-downloads)                       |
 | [controller-gen](https://github.com/kubernetes-sigs/controller-tools) | v0.20.1 | `make manifests` / `make generate` (auto-downloads) |
-| [golangci-lint](https://golangci-lint.run)                            | v2.10.1 | `make lint` (auto-downloads)                        |
+| [golangci-lint](https://golangci-lint.run)                            | v2.11.4 | `make lint` (auto-downloads)                        |
 
 ## Feature Gating
 
