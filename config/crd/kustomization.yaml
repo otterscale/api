@@ -2,11 +2,4 @@
 # since it depends on service name and namespace that are out of this kustomize package.
 # It should be run by config/default
 resources:
-  - bases/fleet.otterscale.io_clusters.yaml
-  - bases/fleet.otterscale.io_machines.yaml
-  - bases/model.otterscale.io_modelartifacts.yaml
-  - bases/model.otterscale.io_modelservices.yaml
-  - bases/module.otterscale.io_modules.yaml
-  - bases/module.otterscale.io_moduletemplates.yaml
   - bases/tenant.otterscale.io_workspaces.yaml
-  - bases/workload.otterscale.io_applications.yaml
