@@ -90,10 +90,10 @@ CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
 GOLANGCI_LINT = $(LOCALBIN)/golangci-lint
 
 ## Tool Versions
-BUF_VERSION ?= v1.66.0
+BUF_VERSION ?= v1.69.0
 KUSTOMIZE_VERSION ?= v5.8.1
 CONTROLLER_TOOLS_VERSION ?= v0.20.1
-GOLANGCI_LINT_VERSION ?= v2.10.1
+GOLANGCI_LINT_VERSION ?= v2.11.4
 
 .PHONY: buf
 buf: $(BUF) ## Download buf locally if necessary.
