@@ -492,7 +492,7 @@ export declare type CreateRequest = Message<"otterscale.resource.v1.CreateReques
   namespace: string;
 
   /**
-   * The full manifest of the object to be created in YAML format.
+   * The manifest (YAML or JSON) describing the object to be created.
    *
    * @generated from field: bytes manifest = 6;
    */
@@ -554,7 +554,8 @@ export declare type ApplyRequest = Message<"otterscale.resource.v1.ApplyRequest"
   name: string;
 
   /**
-   * A partial or YAML manifest in JSON format to be merged by the API server.
+   * A partial or complete manifest (YAML or JSON) to be merged by the
+   * API server via Server-Side Apply.
    *
    * @generated from field: bytes manifest = 7;
    */
@@ -580,6 +581,76 @@ export declare type ApplyRequest = Message<"otterscale.resource.v1.ApplyRequest"
  * Use `create(ApplyRequestSchema)` to create a new message.
  */
 export declare const ApplyRequestSchema: GenMessage<ApplyRequest>;
+
+/**
+ * UpdateRequest defines the parameters for a full-replacement update (PUT).
+ *
+ * @generated from message otterscale.resource.v1.UpdateRequest
+ */
+export declare type UpdateRequest = Message<"otterscale.resource.v1.UpdateRequest"> & {
+  /**
+   * The target Kubernetes cluster identifier.
+   *
+   * @generated from field: string cluster = 1;
+   */
+  cluster: string;
+
+  /**
+   * Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+   *
+   * @generated from field: string group = 2;
+   */
+  group: string;
+
+  /**
+   * Kubernetes API Version (e.g., "v1").
+   *
+   * @generated from field: string version = 3;
+   */
+  version: string;
+
+  /**
+   * Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+   *
+   * @generated from field: string resource = 4;
+   */
+  resource: string;
+
+  /**
+   * The namespace of the resource.
+   *
+   * @generated from field: string namespace = 5;
+   */
+  namespace: string;
+
+  /**
+   * The name of the resource.
+   *
+   * @generated from field: string name = 6;
+   */
+  name: string;
+
+  /**
+   * The complete manifest (YAML or JSON) that will replace the stored object.
+   * Server-required fields such as metadata.resourceVersion must be included.
+   *
+   * @generated from field: bytes manifest = 7;
+   */
+  manifest: Uint8Array;
+
+  /**
+   * Identifies the entity submitting the update (e.g., "otterscale-web-ui").
+   *
+   * @generated from field: string field_manager = 8;
+   */
+  fieldManager: string;
+};
+
+/**
+ * Describes the message otterscale.resource.v1.UpdateRequest.
+ * Use `create(UpdateRequestSchema)` to create a new message.
+ */
+export declare const UpdateRequestSchema: GenMessage<UpdateRequest>;
 
 /**
  * DeleteRequest defines the parameters to remove an object.
@@ -882,6 +953,19 @@ export declare const ResourceService: GenService<{
   apply: {
     methodKind: "unary";
     input: typeof ApplyRequestSchema;
+    output: typeof ResourceSchema;
+  },
+  /**
+   * Update performs a full replacement (PUT) of an existing resource using
+   * the provided manifest. The caller is responsible for supplying any
+   * server-required fields (such as metadata.resourceVersion) inside the
+   * manifest.
+   *
+   * @generated from rpc otterscale.resource.v1.ResourceService.Update
+   */
+  update: {
+    methodKind: "unary";
+    input: typeof UpdateRequestSchema;
     output: typeof ResourceSchema;
   },
   /**

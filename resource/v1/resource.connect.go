@@ -49,6 +49,8 @@ const (
 	ResourceServiceCreateProcedure = "/otterscale.resource.v1.ResourceService/Create"
 	// ResourceServiceApplyProcedure is the fully-qualified name of the ResourceService's Apply RPC.
 	ResourceServiceApplyProcedure = "/otterscale.resource.v1.ResourceService/Apply"
+	// ResourceServiceUpdateProcedure is the fully-qualified name of the ResourceService's Update RPC.
+	ResourceServiceUpdateProcedure = "/otterscale.resource.v1.ResourceService/Update"
 	// ResourceServiceDeleteProcedure is the fully-qualified name of the ResourceService's Delete RPC.
 	ResourceServiceDeleteProcedure = "/otterscale.resource.v1.ResourceService/Delete"
 	// ResourceServiceWatchProcedure is the fully-qualified name of the ResourceService's Watch RPC.
@@ -76,6 +78,11 @@ type ResourceServiceClient interface {
 	// Apply performs a Server-Side Apply (SSA) to update or create a resource.
 	// This is the recommended way to perform partial updates.
 	Apply(context.Context, *ApplyRequest) (*Resource, error)
+	// Update performs a full replacement (PUT) of an existing resource using
+	// the provided manifest. The caller is responsible for supplying any
+	// server-required fields (such as metadata.resourceVersion) inside the
+	// manifest.
+	Update(context.Context, *UpdateRequest) (*Resource, error)
 	// Delete removes a resource from the cluster by its name.
 	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	// Watch initiates a server-side stream to monitor resource changes in real-time.
@@ -135,6 +142,12 @@ func NewResourceServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			connect.WithSchema(resourceServiceMethods.ByName("Apply")),
 			connect.WithClientOptions(opts...),
 		),
+		update: connect.NewClient[UpdateRequest, Resource](
+			httpClient,
+			baseURL+ResourceServiceUpdateProcedure,
+			connect.WithSchema(resourceServiceMethods.ByName("Update")),
+			connect.WithClientOptions(opts...),
+		),
 		delete: connect.NewClient[DeleteRequest, emptypb.Empty](
 			httpClient,
 			baseURL+ResourceServiceDeleteProcedure,
@@ -159,6 +172,7 @@ type resourceServiceClient struct {
 	describe  *connect.Client[DescribeRequest, DescribeResponse]
 	create    *connect.Client[CreateRequest, Resource]
 	apply     *connect.Client[ApplyRequest, Resource]
+	update    *connect.Client[UpdateRequest, Resource]
 	delete    *connect.Client[DeleteRequest, emptypb.Empty]
 	watch     *connect.Client[WatchRequest, WatchEvent]
 }
@@ -226,6 +240,15 @@ func (c *resourceServiceClient) Apply(ctx context.Context, req *ApplyRequest) (*
 	return nil, err
 }
 
+// Update calls otterscale.resource.v1.ResourceService.Update.
+func (c *resourceServiceClient) Update(ctx context.Context, req *UpdateRequest) (*Resource, error) {
+	response, err := c.update.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // Delete calls otterscale.resource.v1.ResourceService.Delete.
 func (c *resourceServiceClient) Delete(ctx context.Context, req *DeleteRequest) (*emptypb.Empty, error) {
 	response, err := c.delete.CallUnary(ctx, connect.NewRequest(req))
@@ -262,6 +285,11 @@ type ResourceServiceHandler interface {
 	// Apply performs a Server-Side Apply (SSA) to update or create a resource.
 	// This is the recommended way to perform partial updates.
 	Apply(context.Context, *ApplyRequest) (*Resource, error)
+	// Update performs a full replacement (PUT) of an existing resource using
+	// the provided manifest. The caller is responsible for supplying any
+	// server-required fields (such as metadata.resourceVersion) inside the
+	// manifest.
+	Update(context.Context, *UpdateRequest) (*Resource, error)
 	// Delete removes a resource from the cluster by its name.
 	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	// Watch initiates a server-side stream to monitor resource changes in real-time.
@@ -317,6 +345,12 @@ func NewResourceServiceHandler(svc ResourceServiceHandler, opts ...connect.Handl
 		connect.WithSchema(resourceServiceMethods.ByName("Apply")),
 		connect.WithHandlerOptions(opts...),
 	)
+	resourceServiceUpdateHandler := connect.NewUnaryHandlerSimple(
+		ResourceServiceUpdateProcedure,
+		svc.Update,
+		connect.WithSchema(resourceServiceMethods.ByName("Update")),
+		connect.WithHandlerOptions(opts...),
+	)
 	resourceServiceDeleteHandler := connect.NewUnaryHandlerSimple(
 		ResourceServiceDeleteProcedure,
 		svc.Delete,
@@ -345,6 +379,8 @@ func NewResourceServiceHandler(svc ResourceServiceHandler, opts ...connect.Handl
 			resourceServiceCreateHandler.ServeHTTP(w, r)
 		case ResourceServiceApplyProcedure:
 			resourceServiceApplyHandler.ServeHTTP(w, r)
+		case ResourceServiceUpdateProcedure:
+			resourceServiceUpdateHandler.ServeHTTP(w, r)
 		case ResourceServiceDeleteProcedure:
 			resourceServiceDeleteHandler.ServeHTTP(w, r)
 		case ResourceServiceWatchProcedure:
@@ -384,6 +420,10 @@ func (UnimplementedResourceServiceHandler) Create(context.Context, *CreateReques
 
 func (UnimplementedResourceServiceHandler) Apply(context.Context, *ApplyRequest) (*Resource, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.resource.v1.ResourceService.Apply is not implemented"))
+}
+
+func (UnimplementedResourceServiceHandler) Update(context.Context, *UpdateRequest) (*Resource, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.resource.v1.ResourceService.Update is not implemented"))
 }
 
 func (UnimplementedResourceServiceHandler) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
