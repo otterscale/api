@@ -2104,7 +2104,7 @@ type CreateRequest_builder struct {
 	Resource *string
 	// The namespace of the resource.
 	Namespace *string
-	// The full manifest of the object to be created in YAML format.
+	// The manifest (YAML or JSON) describing the object to be created.
 	Manifest []byte
 }
 
@@ -2437,7 +2437,8 @@ type ApplyRequest_builder struct {
 	Namespace *string
 	// The name of the resource.
 	Name *string
-	// A partial or YAML manifest in JSON format to be merged by the API server.
+	// A partial or complete manifest (YAML or JSON) to be merged by the
+	// API server via Server-Side Apply.
 	Manifest []byte
 	// If true, conflicts are resolved in favour of the caller's field manager.
 	Force *bool
@@ -2761,7 +2762,7 @@ type UpdateRequest_builder struct {
 	Namespace *string
 	// The name of the resource.
 	Name *string
-	// The full YAML manifest, in JSON form, that will replace the stored object.
+	// The complete manifest (YAML or JSON) that will replace the stored object.
 	// Server-required fields such as metadata.resourceVersion must be included.
 	Manifest []byte
 	// Identifies the entity submitting the update (e.g., "otterscale-web-ui").

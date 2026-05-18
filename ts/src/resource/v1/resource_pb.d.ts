@@ -492,7 +492,7 @@ export declare type CreateRequest = Message<"otterscale.resource.v1.CreateReques
   namespace: string;
 
   /**
-   * The full manifest of the object to be created in YAML format.
+   * The manifest (YAML or JSON) describing the object to be created.
    *
    * @generated from field: bytes manifest = 6;
    */
@@ -554,7 +554,8 @@ export declare type ApplyRequest = Message<"otterscale.resource.v1.ApplyRequest"
   name: string;
 
   /**
-   * A partial or YAML manifest in JSON format to be merged by the API server.
+   * A partial or complete manifest (YAML or JSON) to be merged by the
+   * API server via Server-Side Apply.
    *
    * @generated from field: bytes manifest = 7;
    */
@@ -630,7 +631,7 @@ export declare type UpdateRequest = Message<"otterscale.resource.v1.UpdateReques
   name: string;
 
   /**
-   * The full YAML manifest, in JSON form, that will replace the stored object.
+   * The complete manifest (YAML or JSON) that will replace the stored object.
    * Server-required fields such as metadata.resourceVersion must be included.
    *
    * @generated from field: bytes manifest = 7;

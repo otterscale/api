@@ -1848,7 +1848,9 @@ components:
           type: string
           title: manifest
           format: byte
-          description: A partial or YAML manifest in JSON format to be merged by the API server.
+          description: |-
+            A partial or complete manifest (YAML or JSON) to be merged by the
+             API server via Server-Side Apply.
         force:
           type: boolean
           title: force
@@ -1887,7 +1889,7 @@ components:
           type: string
           title: manifest
           format: byte
-          description: The full manifest of the object to be created in YAML format.
+          description: The manifest (YAML or JSON) describing the object to be created.
       title: CreateRequest
       additionalProperties: false
       description: CreateRequest defines the parameters for creating a new object.
@@ -2179,7 +2181,7 @@ components:
           title: manifest
           format: byte
           description: |-
-            The full YAML manifest, in JSON form, that will replace the stored object.
+            The complete manifest (YAML or JSON) that will replace the stored object.
              Server-required fields such as metadata.resourceVersion must be included.
         fieldManager:
           type: string
