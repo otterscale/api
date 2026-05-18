@@ -272,7 +272,7 @@ message CreateRequest {
   // The namespace of the resource.
   string namespace = 5;
 
-  // The full manifest of the object to be created in YAML format.
+  // The manifest (YAML or JSON) describing the object to be created.
   bytes manifest = 6;
 }
 
@@ -300,7 +300,8 @@ message ApplyRequest {
   // The name of the resource.
   string name = 6;
 
-  // A partial or YAML manifest in JSON format to be merged by the API server.
+  // A partial or complete manifest (YAML or JSON) to be merged by the
+  // API server via Server-Side Apply.
   bytes manifest = 7;
 
   // If true, conflicts are resolved in favour of the caller's field manager.
@@ -334,7 +335,7 @@ message UpdateRequest {
   // The name of the resource.
   string name = 6;
 
-  // The full YAML manifest, in JSON form, that will replace the stored object.
+  // The complete manifest (YAML or JSON) that will replace the stored object.
   // Server-required fields such as metadata.resourceVersion must be included.
   bytes manifest = 7;
 
