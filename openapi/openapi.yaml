@@ -481,6 +481,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.resource.v1.SchemaResponse'
+  /otterscale.resource.v1.ResourceService/Update:
+    post:
+      tags:
+        - ResourceService
+      summary: Update
+      description: |-
+        Update performs a full replacement (PUT) of an existing resource using
+         the provided manifest. The caller is responsible for supplying any
+         server-required fields (such as metadata.resourceVersion) inside the
+         manifest.
+      operationId: ResourceService_Update
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otterscale.resource.v1.UpdateRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/otterscale.resource.v1.Resource'
   /otterscale.resource.v1.ResourceService/Watch:
     post:
       tags:
@@ -2107,6 +2147,47 @@ components:
       title: SchemaResponse
       additionalProperties: false
       description: SchemaResponse contains the JSON Schema for a Kubernetes resource type.
+    otterscale.resource.v1.UpdateRequest:
+      type: object
+      properties:
+        cluster:
+          type: string
+          title: cluster
+          description: The target Kubernetes cluster identifier.
+        group:
+          type: string
+          title: group
+          description: Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+        version:
+          type: string
+          title: version
+          description: Kubernetes API Version (e.g., "v1").
+        resource:
+          type: string
+          title: resource
+          description: Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+        namespace:
+          type: string
+          title: namespace
+          description: The namespace of the resource.
+        name:
+          type: string
+          title: name
+          description: The name of the resource.
+        manifest:
+          type: string
+          title: manifest
+          format: byte
+          description: |-
+            The full YAML manifest, in JSON form, that will replace the stored object.
+             Server-required fields such as metadata.resourceVersion must be included.
+        fieldManager:
+          type: string
+          title: field_manager
+          description: Identifies the entity submitting the update (e.g., "otterscale-web-ui").
+      title: UpdateRequest
+      additionalProperties: false
+      description: UpdateRequest defines the parameters for a full-replacement update (PUT).
     otterscale.resource.v1.WatchEvent:
       type: object
       properties:

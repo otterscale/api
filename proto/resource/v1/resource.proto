@@ -51,6 +51,14 @@ service ResourceService {
     option (otterscale.api.feature) = {name: "resource-enabled"};
   }
 
+  // Update performs a full replacement (PUT) of an existing resource using
+  // the provided manifest. The caller is responsible for supplying any
+  // server-required fields (such as metadata.resourceVersion) inside the
+  // manifest.
+  rpc Update(UpdateRequest) returns (Resource) {
+    option (otterscale.api.feature) = {name: "resource-enabled"};
+  }
+
   // Delete removes a resource from the cluster by its name.
   rpc Delete(DeleteRequest) returns (google.protobuf.Empty) {
     option (otterscale.api.feature) = {name: "resource-enabled"};
@@ -300,6 +308,38 @@ message ApplyRequest {
 
   // Identifies the entity managing the fields (e.g., "otterscale-web-ui"). Required for SSA.
   string field_manager = 9;
+}
+
+// ---------------------------------------------------------------------------
+// Update
+// ---------------------------------------------------------------------------
+
+// UpdateRequest defines the parameters for a full-replacement update (PUT).
+message UpdateRequest {
+  // The target Kubernetes cluster identifier.
+  string cluster = 1;
+
+  // Kubernetes API Group (e.g., "apps" for Deployments, "" for core resources like Pods).
+  string group = 2;
+
+  // Kubernetes API Version (e.g., "v1").
+  string version = 3;
+
+  // Kubernetes API Resource name in plural (e.g., "pods", "deployments").
+  string resource = 4;
+
+  // The namespace of the resource.
+  string namespace = 5;
+
+  // The name of the resource.
+  string name = 6;
+
+  // The full YAML manifest, in JSON form, that will replace the stored object.
+  // Server-required fields such as metadata.resourceVersion must be included.
+  bytes manifest = 7;
+
+  // Identifies the entity submitting the update (e.g., "otterscale-web-ui").
+  string field_manager = 8;
 }
 
 // ---------------------------------------------------------------------------
