@@ -119,6 +119,11 @@ type WorkspaceSpec struct {
 	// NetworkIsolation defines the ingress traffic rules for the workspace.
 	// +optional
 	NetworkIsolation NetworkIsolationSpec `json:"networkIsolation,omitzero"`
+
+	// LicenseInjection indicates whether the underlying namespace should be
+	// labeled with "license.operator/inject=true"
+	// +optional
+	LicenseInjection bool `json:"licenseInjection,omitempty"`
 }
 
 // ResourceReference is a lightweight reference to a Kubernetes resource managed by the operator.
