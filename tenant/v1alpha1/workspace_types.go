@@ -121,7 +121,7 @@ type WorkspaceSpec struct {
 	NetworkIsolation NetworkIsolationSpec `json:"networkIsolation,omitzero"`
 
 	// LicenseInjection indicates whether the underlying namespace should be
-	// labeled with "license.operator/inject=true"
+	// labeled with "license.phison.com/inject=true"
 	// +optional
 	LicenseInjection bool `json:"licenseInjection,omitempty"`
 }

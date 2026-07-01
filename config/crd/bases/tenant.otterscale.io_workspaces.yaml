@@ -56,7 +56,7 @@ spec:
               licenseInjection:
                 description: |-
                   LicenseInjection indicates whether the underlying namespace should be
-                  labeled with "license.operator/inject=true"
+                  labeled with "license.phison.com/inject=true"
                 type: boolean
               limitRange:
                 description: LimitRange defines the default resource limits and requests
