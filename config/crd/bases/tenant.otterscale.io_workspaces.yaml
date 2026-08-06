@@ -228,10 +228,16 @@ spec:
                 description: |-
                   RancherProjectID is the full Rancher Project identifier copied from
                   the managed cluster configuration, in "<cluster-id>:<project-id>" form.
-                maxLength: 507
-                pattern: ^[a-z0-9]([-a-z0-9.]*[a-z0-9])?:[a-z0-9]([-a-z0-9.]*[a-z0-9])?$
+                maxLength: 317
+                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?:[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                 type: string
                 x-kubernetes-validations:
+                - message: rancherProjectID cluster ID must not exceed 63 characters
+                  rule: self.split(':').size() == 2 && self.split(':')[0].size() <=
+                    63
+                - message: rancherProjectID project name must not exceed 253 characters
+                  rule: self.split(':').size() == 2 && self.split(':')[1].size() <=
+                    253
                 - message: rancherProjectID is immutable
                   rule: self == oldSelf
               resourceQuota:
