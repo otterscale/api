@@ -224,6 +224,16 @@ spec:
                     is enabled
                   rule: '!has(self.allowedNamespaces) || size(self.allowedNamespaces)
                     == 0 || self.enabled'
+              rancherProjectID:
+                description: |-
+                  RancherProjectID is the full Rancher Project identifier copied from
+                  the managed cluster configuration, in "<cluster-id>:<project-id>" form.
+                maxLength: 507
+                pattern: ^[a-z0-9]([-a-z0-9.]*[a-z0-9])?:[a-z0-9]([-a-z0-9.]*[a-z0-9])?$
+                type: string
+                x-kubernetes-validations:
+                - message: rancherProjectID is immutable
+                  rule: self == oldSelf
               resourceQuota:
                 description: ResourceQuota defines the compute resource constraints
                   (CPU, Memory, etc.) applied to the underlying namespace.

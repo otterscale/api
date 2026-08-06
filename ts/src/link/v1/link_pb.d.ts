@@ -27,6 +27,13 @@ export declare type Link = Message<"otterscale.link.v1.Link"> & {
    * @generated from field: string agent_version = 2;
    */
   agentVersion: string;
+
+  /**
+   * The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+   *
+   * @generated from field: string rancher_project_id = 3;
+   */
+  rancherProjectId: string;
 };
 
 /**
@@ -34,6 +41,69 @@ export declare type Link = Message<"otterscale.link.v1.Link"> & {
  * Use `create(LinkSchema)` to create a new message.
  */
 export declare const LinkSchema: GenMessage<Link>;
+
+/**
+ * RancherProject identifies a Rancher Project available for cluster
+ * registration.
+ *
+ * @generated from message otterscale.link.v1.RancherProject
+ */
+export declare type RancherProject = Message<"otterscale.link.v1.RancherProject"> & {
+  /**
+   * The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+   *
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * The human-readable Rancher Project name.
+   *
+   * @generated from field: string display_name = 2;
+   */
+  displayName: string;
+};
+
+/**
+ * Describes the message otterscale.link.v1.RancherProject.
+ * Use `create(RancherProjectSchema)` to create a new message.
+ */
+export declare const RancherProjectSchema: GenMessage<RancherProject>;
+
+/**
+ * ListRancherProjectsRequest is an empty request message for listing Rancher
+ * Projects.
+ *
+ * @generated from message otterscale.link.v1.ListRancherProjectsRequest
+ */
+export declare type ListRancherProjectsRequest = Message<"otterscale.link.v1.ListRancherProjectsRequest"> & {
+};
+
+/**
+ * Describes the message otterscale.link.v1.ListRancherProjectsRequest.
+ * Use `create(ListRancherProjectsRequestSchema)` to create a new message.
+ */
+export declare const ListRancherProjectsRequestSchema: GenMessage<ListRancherProjectsRequest>;
+
+/**
+ * ListRancherProjectsResponse contains the available Rancher Projects.
+ *
+ * @generated from message otterscale.link.v1.ListRancherProjectsResponse
+ */
+export declare type ListRancherProjectsResponse = Message<"otterscale.link.v1.ListRancherProjectsResponse"> & {
+  /**
+   * The available Rancher Projects.
+   *
+   * @generated from field: repeated otterscale.link.v1.RancherProject projects = 1;
+   */
+  projects: RancherProject[];
+};
+
+/**
+ * Describes the message otterscale.link.v1.ListRancherProjectsResponse.
+ * Use `create(ListRancherProjectsResponseSchema)` to create a new message.
+ */
+export declare const ListRancherProjectsResponseSchema: GenMessage<ListRancherProjectsResponse>;
 
 /**
  * ListLinksRequest is an empty request message for listing links.
@@ -104,6 +174,13 @@ export declare type RegisterRequest = Message<"otterscale.link.v1.RegisterReques
    * @generated from field: string agent_version = 4;
    */
   agentVersion: string;
+
+  /**
+   * The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+   *
+   * @generated from field: string rancher_project_id = 5;
+   */
+  rancherProjectId: string;
 };
 
 /**
@@ -178,6 +255,13 @@ export declare type GetAgentManifestRequest = Message<"otterscale.link.v1.GetAge
    * @generated from field: repeated string extra_users = 2;
    */
   extraUsers: string[];
+
+  /**
+   * The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+   *
+   * @generated from field: string rancher_project_id = 3;
+   */
+  rancherProjectId: string;
 };
 
 /**
@@ -259,6 +343,17 @@ export declare const LinkService: GenService<{
     methodKind: "unary";
     input: typeof GetAgentManifestRequestSchema;
     output: typeof GetAgentManifestResponseSchema;
+  },
+  /**
+   * ListRancherProjects returns Rancher Projects available for cluster
+   * registration.
+   *
+   * @generated from rpc otterscale.link.v1.LinkService.ListRancherProjects
+   */
+  listRancherProjects: {
+    methodKind: "unary";
+    input: typeof ListRancherProjectsRequestSchema;
+    output: typeof ListRancherProjectsResponseSchema;
   },
 }>;
 
