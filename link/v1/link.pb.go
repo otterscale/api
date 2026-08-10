@@ -22,13 +22,14 @@ const (
 )
 
 type Link struct {
-	state                   protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
-	xxx_hidden_AgentVersion *string                `protobuf:"bytes,2,opt,name=agent_version,json=agentVersion"`
-	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
-	XXX_presence            [1]uint32
-	unknownFields           protoimpl.UnknownFields
-	sizeCache               protoimpl.SizeCache
+	state                       protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster          *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_AgentVersion     *string                `protobuf:"bytes,2,opt,name=agent_version,json=agentVersion"`
+	xxx_hidden_RancherProjectId *string                `protobuf:"bytes,3,opt,name=rancher_project_id,json=rancherProjectId"`
+	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
+	XXX_presence                [1]uint32
+	unknownFields               protoimpl.UnknownFields
+	sizeCache                   protoimpl.SizeCache
 }
 
 func (x *Link) Reset() {
@@ -76,14 +77,29 @@ func (x *Link) GetAgentVersion() string {
 	return ""
 }
 
+func (x *Link) GetRancherProjectId() string {
+	if x != nil {
+		if x.xxx_hidden_RancherProjectId != nil {
+			return *x.xxx_hidden_RancherProjectId
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *Link) SetCluster(v string) {
 	x.xxx_hidden_Cluster = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
 }
 
 func (x *Link) SetAgentVersion(v string) {
 	x.xxx_hidden_AgentVersion = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *Link) SetRancherProjectId(v string) {
+	x.xxx_hidden_RancherProjectId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
 }
 
 func (x *Link) HasCluster() bool {
@@ -100,6 +116,13 @@ func (x *Link) HasAgentVersion() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
 }
 
+func (x *Link) HasRancherProjectId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
 func (x *Link) ClearCluster() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_Cluster = nil
@@ -110,6 +133,11 @@ func (x *Link) ClearAgentVersion() {
 	x.xxx_hidden_AgentVersion = nil
 }
 
+func (x *Link) ClearRancherProjectId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_RancherProjectId = nil
+}
+
 type Link_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -117,6 +145,8 @@ type Link_builder struct {
 	Cluster *string
 	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
 	AgentVersion *string
+	// The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+	RancherProjectId *string
 }
 
 func (b0 Link_builder) Build() *Link {
@@ -124,13 +154,238 @@ func (b0 Link_builder) Build() *Link {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Cluster != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
 		x.xxx_hidden_Cluster = b.Cluster
 	}
 	if b.AgentVersion != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
 		x.xxx_hidden_AgentVersion = b.AgentVersion
 	}
+	if b.RancherProjectId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_RancherProjectId = b.RancherProjectId
+	}
+	return m0
+}
+
+// RancherProject identifies a Rancher Project available for cluster
+// registration.
+type RancherProject struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Id          *string                `protobuf:"bytes,1,opt,name=id"`
+	xxx_hidden_DisplayName *string                `protobuf:"bytes,2,opt,name=display_name,json=displayName"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *RancherProject) Reset() {
+	*x = RancherProject{}
+	mi := &file_link_v1_link_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RancherProject) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RancherProject) ProtoMessage() {}
+
+func (x *RancherProject) ProtoReflect() protoreflect.Message {
+	mi := &file_link_v1_link_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *RancherProject) GetId() string {
+	if x != nil {
+		if x.xxx_hidden_Id != nil {
+			return *x.xxx_hidden_Id
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *RancherProject) GetDisplayName() string {
+	if x != nil {
+		if x.xxx_hidden_DisplayName != nil {
+			return *x.xxx_hidden_DisplayName
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *RancherProject) SetId(v string) {
+	x.xxx_hidden_Id = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *RancherProject) SetDisplayName(v string) {
+	x.xxx_hidden_DisplayName = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *RancherProject) HasId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *RancherProject) HasDisplayName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *RancherProject) ClearId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Id = nil
+}
+
+func (x *RancherProject) ClearDisplayName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_DisplayName = nil
+}
+
+type RancherProject_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+	Id *string
+	// The human-readable Rancher Project name.
+	DisplayName *string
+}
+
+func (b0 RancherProject_builder) Build() *RancherProject {
+	m0 := &RancherProject{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Id != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Id = b.Id
+	}
+	if b.DisplayName != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_DisplayName = b.DisplayName
+	}
+	return m0
+}
+
+// ListRancherProjectsRequest is an empty request message for listing Rancher
+// Projects.
+type ListRancherProjectsRequest struct {
+	state         protoimpl.MessageState `protogen:"opaque.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListRancherProjectsRequest) Reset() {
+	*x = ListRancherProjectsRequest{}
+	mi := &file_link_v1_link_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListRancherProjectsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRancherProjectsRequest) ProtoMessage() {}
+
+func (x *ListRancherProjectsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_link_v1_link_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+type ListRancherProjectsRequest_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+}
+
+func (b0 ListRancherProjectsRequest_builder) Build() *ListRancherProjectsRequest {
+	m0 := &ListRancherProjectsRequest{}
+	b, x := &b0, m0
+	_, _ = b, x
+	return m0
+}
+
+// ListRancherProjectsResponse contains the available Rancher Projects.
+type ListRancherProjectsResponse struct {
+	state               protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Projects *[]*RancherProject     `protobuf:"bytes,1,rep,name=projects"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *ListRancherProjectsResponse) Reset() {
+	*x = ListRancherProjectsResponse{}
+	mi := &file_link_v1_link_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListRancherProjectsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListRancherProjectsResponse) ProtoMessage() {}
+
+func (x *ListRancherProjectsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_link_v1_link_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *ListRancherProjectsResponse) GetProjects() []*RancherProject {
+	if x != nil {
+		if x.xxx_hidden_Projects != nil {
+			return *x.xxx_hidden_Projects
+		}
+	}
+	return nil
+}
+
+func (x *ListRancherProjectsResponse) SetProjects(v []*RancherProject) {
+	x.xxx_hidden_Projects = &v
+}
+
+type ListRancherProjectsResponse_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// The available Rancher Projects.
+	Projects []*RancherProject
+}
+
+func (b0 ListRancherProjectsResponse_builder) Build() *ListRancherProjectsResponse {
+	m0 := &ListRancherProjectsResponse{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Projects = &b.Projects
 	return m0
 }
 
@@ -143,7 +398,7 @@ type ListLinksRequest struct {
 
 func (x *ListLinksRequest) Reset() {
 	*x = ListLinksRequest{}
-	mi := &file_link_v1_link_proto_msgTypes[1]
+	mi := &file_link_v1_link_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -155,7 +410,7 @@ func (x *ListLinksRequest) String() string {
 func (*ListLinksRequest) ProtoMessage() {}
 
 func (x *ListLinksRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[1]
+	mi := &file_link_v1_link_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -188,7 +443,7 @@ type ListLinksResponse struct {
 
 func (x *ListLinksResponse) Reset() {
 	*x = ListLinksResponse{}
-	mi := &file_link_v1_link_proto_msgTypes[2]
+	mi := &file_link_v1_link_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -200,7 +455,7 @@ func (x *ListLinksResponse) String() string {
 func (*ListLinksResponse) ProtoMessage() {}
 
 func (x *ListLinksResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[2]
+	mi := &file_link_v1_link_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -242,20 +497,21 @@ func (b0 ListLinksResponse_builder) Build() *ListLinksResponse {
 // RegisterRequest contains the agent's cluster identity and a CSR for
 // mTLS certificate issuance.
 type RegisterRequest struct {
-	state                   protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Cluster      *string                `protobuf:"bytes,1,opt,name=cluster"`
-	xxx_hidden_Csr          []byte                 `protobuf:"bytes,2,opt,name=csr"`
-	xxx_hidden_AgentId      *string                `protobuf:"bytes,3,opt,name=agent_id,json=agentId"`
-	xxx_hidden_AgentVersion *string                `protobuf:"bytes,4,opt,name=agent_version,json=agentVersion"`
-	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
-	XXX_presence            [1]uint32
-	unknownFields           protoimpl.UnknownFields
-	sizeCache               protoimpl.SizeCache
+	state                       protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster          *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_Csr              []byte                 `protobuf:"bytes,2,opt,name=csr"`
+	xxx_hidden_AgentId          *string                `protobuf:"bytes,3,opt,name=agent_id,json=agentId"`
+	xxx_hidden_AgentVersion     *string                `protobuf:"bytes,4,opt,name=agent_version,json=agentVersion"`
+	xxx_hidden_RancherProjectId *string                `protobuf:"bytes,5,opt,name=rancher_project_id,json=rancherProjectId"`
+	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
+	XXX_presence                [1]uint32
+	unknownFields               protoimpl.UnknownFields
+	sizeCache                   protoimpl.SizeCache
 }
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
-	mi := &file_link_v1_link_proto_msgTypes[3]
+	mi := &file_link_v1_link_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -267,7 +523,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[3]
+	mi := &file_link_v1_link_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -315,9 +571,19 @@ func (x *RegisterRequest) GetAgentVersion() string {
 	return ""
 }
 
+func (x *RegisterRequest) GetRancherProjectId() string {
+	if x != nil {
+		if x.xxx_hidden_RancherProjectId != nil {
+			return *x.xxx_hidden_RancherProjectId
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *RegisterRequest) SetCluster(v string) {
 	x.xxx_hidden_Cluster = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 5)
 }
 
 func (x *RegisterRequest) SetCsr(v []byte) {
@@ -325,17 +591,22 @@ func (x *RegisterRequest) SetCsr(v []byte) {
 		v = []byte{}
 	}
 	x.xxx_hidden_Csr = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 5)
 }
 
 func (x *RegisterRequest) SetAgentId(v string) {
 	x.xxx_hidden_AgentId = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 5)
 }
 
 func (x *RegisterRequest) SetAgentVersion(v string) {
 	x.xxx_hidden_AgentVersion = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 5)
+}
+
+func (x *RegisterRequest) SetRancherProjectId(v string) {
+	x.xxx_hidden_RancherProjectId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 5)
 }
 
 func (x *RegisterRequest) HasCluster() bool {
@@ -366,6 +637,13 @@ func (x *RegisterRequest) HasAgentVersion() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
 }
 
+func (x *RegisterRequest) HasRancherProjectId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
 func (x *RegisterRequest) ClearCluster() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_Cluster = nil
@@ -386,6 +664,11 @@ func (x *RegisterRequest) ClearAgentVersion() {
 	x.xxx_hidden_AgentVersion = nil
 }
 
+func (x *RegisterRequest) ClearRancherProjectId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_RancherProjectId = nil
+}
+
 type RegisterRequest_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -398,6 +681,8 @@ type RegisterRequest_builder struct {
 	AgentId *string
 	// The version of the agent binary (e.g. "v1.2.3"), set at build time.
 	AgentVersion *string
+	// The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+	RancherProjectId *string
 }
 
 func (b0 RegisterRequest_builder) Build() *RegisterRequest {
@@ -405,20 +690,24 @@ func (b0 RegisterRequest_builder) Build() *RegisterRequest {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Cluster != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 5)
 		x.xxx_hidden_Cluster = b.Cluster
 	}
 	if b.Csr != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 5)
 		x.xxx_hidden_Csr = b.Csr
 	}
 	if b.AgentId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 5)
 		x.xxx_hidden_AgentId = b.AgentId
 	}
 	if b.AgentVersion != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 5)
 		x.xxx_hidden_AgentVersion = b.AgentVersion
+	}
+	if b.RancherProjectId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 5)
+		x.xxx_hidden_RancherProjectId = b.RancherProjectId
 	}
 	return m0
 }
@@ -439,7 +728,7 @@ type RegisterResponse struct {
 
 func (x *RegisterResponse) Reset() {
 	*x = RegisterResponse{}
-	mi := &file_link_v1_link_proto_msgTypes[4]
+	mi := &file_link_v1_link_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -451,7 +740,7 @@ func (x *RegisterResponse) String() string {
 func (*RegisterResponse) ProtoMessage() {}
 
 func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[4]
+	mi := &file_link_v1_link_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -611,18 +900,19 @@ func (b0 RegisterResponse_builder) Build() *RegisterResponse {
 // GetAgentManifestRequest identifies the target cluster for which
 // the agent installation manifest should be generated.
 type GetAgentManifestRequest struct {
-	state                  protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
-	xxx_hidden_ExtraUsers  []string               `protobuf:"bytes,2,rep,name=extra_users,json=extraUsers"`
-	XXX_raceDetectHookData protoimpl.RaceDetectHookData
-	XXX_presence           [1]uint32
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
+	state                       protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Cluster          *string                `protobuf:"bytes,1,opt,name=cluster"`
+	xxx_hidden_ExtraUsers       []string               `protobuf:"bytes,2,rep,name=extra_users,json=extraUsers"`
+	xxx_hidden_RancherProjectId *string                `protobuf:"bytes,3,opt,name=rancher_project_id,json=rancherProjectId"`
+	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
+	XXX_presence                [1]uint32
+	unknownFields               protoimpl.UnknownFields
+	sizeCache                   protoimpl.SizeCache
 }
 
 func (x *GetAgentManifestRequest) Reset() {
 	*x = GetAgentManifestRequest{}
-	mi := &file_link_v1_link_proto_msgTypes[5]
+	mi := &file_link_v1_link_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -634,7 +924,7 @@ func (x *GetAgentManifestRequest) String() string {
 func (*GetAgentManifestRequest) ProtoMessage() {}
 
 func (x *GetAgentManifestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[5]
+	mi := &file_link_v1_link_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -662,13 +952,28 @@ func (x *GetAgentManifestRequest) GetExtraUsers() []string {
 	return nil
 }
 
+func (x *GetAgentManifestRequest) GetRancherProjectId() string {
+	if x != nil {
+		if x.xxx_hidden_RancherProjectId != nil {
+			return *x.xxx_hidden_RancherProjectId
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *GetAgentManifestRequest) SetCluster(v string) {
 	x.xxx_hidden_Cluster = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
 }
 
 func (x *GetAgentManifestRequest) SetExtraUsers(v []string) {
 	x.xxx_hidden_ExtraUsers = v
+}
+
+func (x *GetAgentManifestRequest) SetRancherProjectId(v string) {
+	x.xxx_hidden_RancherProjectId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
 }
 
 func (x *GetAgentManifestRequest) HasCluster() bool {
@@ -678,9 +983,21 @@ func (x *GetAgentManifestRequest) HasCluster() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
 }
 
+func (x *GetAgentManifestRequest) HasRancherProjectId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
 func (x *GetAgentManifestRequest) ClearCluster() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_Cluster = nil
+}
+
+func (x *GetAgentManifestRequest) ClearRancherProjectId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_RancherProjectId = nil
 }
 
 type GetAgentManifestRequest_builder struct {
@@ -692,6 +1009,8 @@ type GetAgentManifestRequest_builder struct {
 	// otterscale-cluster-admin ClusterRoleBinding, in addition to the
 	// authenticated caller.
 	ExtraUsers []string
+	// The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
+	RancherProjectId *string
 }
 
 func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
@@ -699,10 +1018,14 @@ func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Cluster != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
 		x.xxx_hidden_Cluster = b.Cluster
 	}
 	x.xxx_hidden_ExtraUsers = b.ExtraUsers
+	if b.RancherProjectId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_RancherProjectId = b.RancherProjectId
+	}
 	return m0
 }
 
@@ -720,7 +1043,7 @@ type GetAgentManifestResponse struct {
 
 func (x *GetAgentManifestResponse) Reset() {
 	*x = GetAgentManifestResponse{}
-	mi := &file_link_v1_link_proto_msgTypes[6]
+	mi := &file_link_v1_link_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -732,7 +1055,7 @@ func (x *GetAgentManifestResponse) String() string {
 func (*GetAgentManifestResponse) ProtoMessage() {}
 
 func (x *GetAgentManifestResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[6]
+	mi := &file_link_v1_link_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -827,61 +1150,78 @@ var File_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_link_v1_link_proto_rawDesc = "" +
 	"\n" +
-	"\x12link/v1/link.proto\x12\x12otterscale.link.v1\x1a\rfeature.proto\"E\n" +
+	"\x12link/v1/link.proto\x12\x12otterscale.link.v1\x1a\rfeature.proto\"s\n" +
 	"\x04Link\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12#\n" +
-	"\ragent_version\x18\x02 \x01(\tR\fagentVersion\"\x12\n" +
+	"\ragent_version\x18\x02 \x01(\tR\fagentVersion\x12,\n" +
+	"\x12rancher_project_id\x18\x03 \x01(\tR\x10rancherProjectId\"C\n" +
+	"\x0eRancherProject\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
+	"\fdisplay_name\x18\x02 \x01(\tR\vdisplayName\"\x1c\n" +
+	"\x1aListRancherProjectsRequest\"]\n" +
+	"\x1bListRancherProjectsResponse\x12>\n" +
+	"\bprojects\x18\x01 \x03(\v2\".otterscale.link.v1.RancherProjectR\bprojects\"\x12\n" +
 	"\x10ListLinksRequest\"C\n" +
 	"\x11ListLinksResponse\x12.\n" +
-	"\x05links\x18\x01 \x03(\v2\x18.otterscale.link.v1.LinkR\x05links\"}\n" +
+	"\x05links\x18\x01 \x03(\v2\x18.otterscale.link.v1.LinkR\x05links\"\xab\x01\n" +
 	"\x0fRegisterRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x10\n" +
 	"\x03csr\x18\x02 \x01(\fR\x03csr\x12\x19\n" +
 	"\bagent_id\x18\x03 \x01(\tR\aagentId\x12#\n" +
-	"\ragent_version\x18\x04 \x01(\tR\fagentVersion\"\x9e\x01\n" +
+	"\ragent_version\x18\x04 \x01(\tR\fagentVersion\x12,\n" +
+	"\x12rancher_project_id\x18\x05 \x01(\tR\x10rancherProjectId\"\x9e\x01\n" +
 	"\x10RegisterResponse\x12\x1a\n" +
 	"\bendpoint\x18\x01 \x01(\tR\bendpoint\x12 \n" +
 	"\vcertificate\x18\x02 \x01(\fR\vcertificate\x12%\n" +
 	"\x0eca_certificate\x18\x03 \x01(\fR\rcaCertificate\x12%\n" +
-	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion\"T\n" +
+	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion\"\x82\x01\n" +
 	"\x17GetAgentManifestRequest\x12\x18\n" +
 	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1f\n" +
 	"\vextra_users\x18\x02 \x03(\tR\n" +
-	"extraUsers\"H\n" +
+	"extraUsers\x12,\n" +
+	"\x12rancher_project_id\x18\x03 \x01(\tR\x10rancherProjectId\"H\n" +
 	"\x18GetAgentManifestResponse\x12\x1a\n" +
 	"\bmanifest\x18\x01 \x01(\tR\bmanifest\x12\x10\n" +
-	"\x03url\x18\x02 \x01(\tR\x03url2\xf0\x02\n" +
+	"\x03url\x18\x02 \x01(\tR\x03url2\xfe\x03\n" +
 	"\vLinkService\x12m\n" +
 	"\tListLinks\x12$.otterscale.link.v1.ListLinksRequest\x1a%.otterscale.link.v1.ListLinksResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
 	"\flink-enabled\x12j\n" +
 	"\bRegister\x12#.otterscale.link.v1.RegisterRequest\x1a$.otterscale.link.v1.RegisterResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
 	"\flink-enabled\x12\x85\x01\n" +
 	"\x10GetAgentManifest\x12+.otterscale.link.v1.GetAgentManifestRequest\x1a,.otterscale.link.v1.GetAgentManifestResponse\"\x16\x8a\xdf\xd5\x1d\x0e\n" +
-	"\flink-enabled\x90\x02\x01B*Z(github.com/otterscale/api/link/v1;linkv1b\beditionsp\xe8\a"
+	"\flink-enabled\x90\x02\x01\x12\x8b\x01\n" +
+	"\x13ListRancherProjects\x12..otterscale.link.v1.ListRancherProjectsRequest\x1a/.otterscale.link.v1.ListRancherProjectsResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
+	"\flink-enabledB*Z(github.com/otterscale/api/link/v1;linkv1b\beditionsp\xe8\a"
 
-var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_link_v1_link_proto_goTypes = []any{
-	(*Link)(nil),                     // 0: otterscale.link.v1.Link
-	(*ListLinksRequest)(nil),         // 1: otterscale.link.v1.ListLinksRequest
-	(*ListLinksResponse)(nil),        // 2: otterscale.link.v1.ListLinksResponse
-	(*RegisterRequest)(nil),          // 3: otterscale.link.v1.RegisterRequest
-	(*RegisterResponse)(nil),         // 4: otterscale.link.v1.RegisterResponse
-	(*GetAgentManifestRequest)(nil),  // 5: otterscale.link.v1.GetAgentManifestRequest
-	(*GetAgentManifestResponse)(nil), // 6: otterscale.link.v1.GetAgentManifestResponse
+	(*Link)(nil),                        // 0: otterscale.link.v1.Link
+	(*RancherProject)(nil),              // 1: otterscale.link.v1.RancherProject
+	(*ListRancherProjectsRequest)(nil),  // 2: otterscale.link.v1.ListRancherProjectsRequest
+	(*ListRancherProjectsResponse)(nil), // 3: otterscale.link.v1.ListRancherProjectsResponse
+	(*ListLinksRequest)(nil),            // 4: otterscale.link.v1.ListLinksRequest
+	(*ListLinksResponse)(nil),           // 5: otterscale.link.v1.ListLinksResponse
+	(*RegisterRequest)(nil),             // 6: otterscale.link.v1.RegisterRequest
+	(*RegisterResponse)(nil),            // 7: otterscale.link.v1.RegisterResponse
+	(*GetAgentManifestRequest)(nil),     // 8: otterscale.link.v1.GetAgentManifestRequest
+	(*GetAgentManifestResponse)(nil),    // 9: otterscale.link.v1.GetAgentManifestResponse
 }
 var file_link_v1_link_proto_depIdxs = []int32{
-	0, // 0: otterscale.link.v1.ListLinksResponse.links:type_name -> otterscale.link.v1.Link
-	1, // 1: otterscale.link.v1.LinkService.ListLinks:input_type -> otterscale.link.v1.ListLinksRequest
-	3, // 2: otterscale.link.v1.LinkService.Register:input_type -> otterscale.link.v1.RegisterRequest
-	5, // 3: otterscale.link.v1.LinkService.GetAgentManifest:input_type -> otterscale.link.v1.GetAgentManifestRequest
-	2, // 4: otterscale.link.v1.LinkService.ListLinks:output_type -> otterscale.link.v1.ListLinksResponse
-	4, // 5: otterscale.link.v1.LinkService.Register:output_type -> otterscale.link.v1.RegisterResponse
-	6, // 6: otterscale.link.v1.LinkService.GetAgentManifest:output_type -> otterscale.link.v1.GetAgentManifestResponse
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	1, // 0: otterscale.link.v1.ListRancherProjectsResponse.projects:type_name -> otterscale.link.v1.RancherProject
+	0, // 1: otterscale.link.v1.ListLinksResponse.links:type_name -> otterscale.link.v1.Link
+	4, // 2: otterscale.link.v1.LinkService.ListLinks:input_type -> otterscale.link.v1.ListLinksRequest
+	6, // 3: otterscale.link.v1.LinkService.Register:input_type -> otterscale.link.v1.RegisterRequest
+	8, // 4: otterscale.link.v1.LinkService.GetAgentManifest:input_type -> otterscale.link.v1.GetAgentManifestRequest
+	2, // 5: otterscale.link.v1.LinkService.ListRancherProjects:input_type -> otterscale.link.v1.ListRancherProjectsRequest
+	5, // 6: otterscale.link.v1.LinkService.ListLinks:output_type -> otterscale.link.v1.ListLinksResponse
+	7, // 7: otterscale.link.v1.LinkService.Register:output_type -> otterscale.link.v1.RegisterResponse
+	9, // 8: otterscale.link.v1.LinkService.GetAgentManifest:output_type -> otterscale.link.v1.GetAgentManifestResponse
+	3, // 9: otterscale.link.v1.LinkService.ListRancherProjects:output_type -> otterscale.link.v1.ListRancherProjectsResponse
+	6, // [6:10] is the sub-list for method output_type
+	2, // [2:6] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_link_v1_link_proto_init() }
@@ -895,7 +1235,7 @@ func file_link_v1_link_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_link_v1_link_proto_rawDesc), len(file_link_v1_link_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

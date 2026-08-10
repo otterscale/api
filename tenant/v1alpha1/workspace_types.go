@@ -101,6 +101,16 @@ type WorkspaceSpec struct {
 	// +optional
 	Namespace string `json:"namespace,omitempty"`
 
+	// RancherProjectID is the full Rancher Project identifier copied from
+	// the managed cluster configuration, in "<cluster-id>:<project-id>" form.
+	// +kubebuilder:validation:MaxLength=317
+	// +kubebuilder:validation:Pattern=`^[a-z0-9]([-a-z0-9]*[a-z0-9])?:[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`
+	// +kubebuilder:validation:XValidation:rule="self.split(':').size() == 2 && self.split(':')[0].size() <= 63",message="rancherProjectID cluster ID must not exceed 63 characters"
+	// +kubebuilder:validation:XValidation:rule="self.split(':').size() == 2 && self.split(':')[1].size() <= 253",message="rancherProjectID project name must not exceed 253 characters"
+	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="rancherProjectID is immutable"
+	// +optional
+	RancherProjectID string `json:"rancherProjectID,omitempty"`
+
 	// Members is the list of members granted access to this workspace.
 	// +listType=atomic
 	// +kubebuilder:validation:MinItems=1

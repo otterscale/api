@@ -39,6 +39,9 @@ const (
 	// LinkServiceGetAgentManifestProcedure is the fully-qualified name of the LinkService's
 	// GetAgentManifest RPC.
 	LinkServiceGetAgentManifestProcedure = "/otterscale.link.v1.LinkService/GetAgentManifest"
+	// LinkServiceListRancherProjectsProcedure is the fully-qualified name of the LinkService's
+	// ListRancherProjects RPC.
+	LinkServiceListRancherProjectsProcedure = "/otterscale.link.v1.LinkService/ListRancherProjects"
 )
 
 // LinkServiceClient is a client for the otterscale.link.v1.LinkService service.
@@ -56,6 +59,9 @@ type LinkServiceClient interface {
 	// includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
 	// caller to cluster-admin), and a Deployment running the agent.
 	GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error)
+	// ListRancherProjects returns Rancher Projects available for cluster
+	// registration.
+	ListRancherProjects(context.Context, *ListRancherProjectsRequest) (*ListRancherProjectsResponse, error)
 }
 
 // NewLinkServiceClient constructs a client for the otterscale.link.v1.LinkService service. By
@@ -88,14 +94,21 @@ func NewLinkServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
+		listRancherProjects: connect.NewClient[ListRancherProjectsRequest, ListRancherProjectsResponse](
+			httpClient,
+			baseURL+LinkServiceListRancherProjectsProcedure,
+			connect.WithSchema(linkServiceMethods.ByName("ListRancherProjects")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // linkServiceClient implements LinkServiceClient.
 type linkServiceClient struct {
-	listLinks        *connect.Client[ListLinksRequest, ListLinksResponse]
-	register         *connect.Client[RegisterRequest, RegisterResponse]
-	getAgentManifest *connect.Client[GetAgentManifestRequest, GetAgentManifestResponse]
+	listLinks           *connect.Client[ListLinksRequest, ListLinksResponse]
+	register            *connect.Client[RegisterRequest, RegisterResponse]
+	getAgentManifest    *connect.Client[GetAgentManifestRequest, GetAgentManifestResponse]
+	listRancherProjects *connect.Client[ListRancherProjectsRequest, ListRancherProjectsResponse]
 }
 
 // ListLinks calls otterscale.link.v1.LinkService.ListLinks.
@@ -125,6 +138,15 @@ func (c *linkServiceClient) GetAgentManifest(ctx context.Context, req *GetAgentM
 	return nil, err
 }
 
+// ListRancherProjects calls otterscale.link.v1.LinkService.ListRancherProjects.
+func (c *linkServiceClient) ListRancherProjects(ctx context.Context, req *ListRancherProjectsRequest) (*ListRancherProjectsResponse, error) {
+	response, err := c.listRancherProjects.CallUnary(ctx, connect.NewRequest(req))
+	if response != nil {
+		return response.Msg, err
+	}
+	return nil, err
+}
+
 // LinkServiceHandler is an implementation of the otterscale.link.v1.LinkService service.
 type LinkServiceHandler interface {
 	// ListLinks returns all cluster identifiers that the current agent
@@ -140,6 +162,9 @@ type LinkServiceHandler interface {
 	// includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
 	// caller to cluster-admin), and a Deployment running the agent.
 	GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error)
+	// ListRancherProjects returns Rancher Projects available for cluster
+	// registration.
+	ListRancherProjects(context.Context, *ListRancherProjectsRequest) (*ListRancherProjectsResponse, error)
 }
 
 // NewLinkServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -168,6 +193,12 @@ func NewLinkServiceHandler(svc LinkServiceHandler, opts ...connect.HandlerOption
 		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
+	linkServiceListRancherProjectsHandler := connect.NewUnaryHandlerSimple(
+		LinkServiceListRancherProjectsProcedure,
+		svc.ListRancherProjects,
+		connect.WithSchema(linkServiceMethods.ByName("ListRancherProjects")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/otterscale.link.v1.LinkService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case LinkServiceListLinksProcedure:
@@ -176,6 +207,8 @@ func NewLinkServiceHandler(svc LinkServiceHandler, opts ...connect.HandlerOption
 			linkServiceRegisterHandler.ServeHTTP(w, r)
 		case LinkServiceGetAgentManifestProcedure:
 			linkServiceGetAgentManifestHandler.ServeHTTP(w, r)
+		case LinkServiceListRancherProjectsProcedure:
+			linkServiceListRancherProjectsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -195,4 +228,8 @@ func (UnimplementedLinkServiceHandler) Register(context.Context, *RegisterReques
 
 func (UnimplementedLinkServiceHandler) GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.link.v1.LinkService.GetAgentManifest is not implemented"))
+}
+
+func (UnimplementedLinkServiceHandler) ListRancherProjects(context.Context, *ListRancherProjectsRequest) (*ListRancherProjectsResponse, error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.link.v1.LinkService.ListRancherProjects is not implemented"))
 }
