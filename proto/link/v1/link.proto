@@ -31,12 +31,6 @@ service LinkService {
     option idempotency_level = NO_SIDE_EFFECTS;
     option (otterscale.api.feature) = {name: "link-enabled"};
   }
-
-  // ListRancherProjects returns Rancher Projects available for cluster
-  // registration.
-  rpc ListRancherProjects(ListRancherProjectsRequest) returns (ListRancherProjectsResponse) {
-    option (otterscale.api.feature) = {name: "link-enabled"};
-  }
 }
 
 message Link {
@@ -45,29 +39,6 @@ message Link {
 
   // The version of the agent binary (e.g. "v1.2.3"), set at build time.
   string agent_version = 2;
-
-  // The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
-  string rancher_project_id = 3;
-}
-
-// RancherProject identifies a Rancher Project available for cluster
-// registration.
-message RancherProject {
-  // The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
-  string id = 1;
-
-  // The human-readable Rancher Project name.
-  string display_name = 2;
-}
-
-// ListRancherProjectsRequest is an empty request message for listing Rancher
-// Projects.
-message ListRancherProjectsRequest {}
-
-// ListRancherProjectsResponse contains the available Rancher Projects.
-message ListRancherProjectsResponse {
-  // The available Rancher Projects.
-  repeated RancherProject projects = 1;
 }
 
 // ListLinksRequest is an empty request message for listing links.
@@ -94,9 +65,6 @@ message RegisterRequest {
 
   // The version of the agent binary (e.g. "v1.2.3"), set at build time.
   string agent_version = 4;
-
-  // The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
-  string rancher_project_id = 5;
 }
 
 // RegisterResponse contains a CA-signed certificate and the CA
@@ -127,9 +95,6 @@ message GetAgentManifestRequest {
   // otterscale-cluster-admin ClusterRoleBinding, in addition to the
   // authenticated caller.
   repeated string extra_users = 2;
-
-  // The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
-  string rancher_project_id = 3;
 }
 
 // GetAgentManifestResponse contains the multi-document YAML manifest
