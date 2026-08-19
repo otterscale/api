@@ -146,44 +146,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/otterscale.link.v1.ListLinksResponse'
-  /otterscale.link.v1.LinkService/ListRancherProjects:
-    post:
-      tags:
-        - LinkService
-      summary: ListRancherProjects
-      description: |-
-        ListRancherProjects returns Rancher Projects available for cluster
-         registration.
-      operationId: LinkService_ListRancherProjects
-      parameters:
-        - name: Connect-Protocol-Version
-          in: header
-          required: true
-          schema:
-            $ref: '#/components/schemas/connect-protocol-version'
-        - name: Connect-Timeout-Ms
-          in: header
-          schema:
-            $ref: '#/components/schemas/connect-timeout-header'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/otterscale.link.v1.ListRancherProjectsRequest'
-        required: true
-      responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/otterscale.link.v1.ListRancherProjectsResponse'
   /otterscale.link.v1.LinkService/Register:
     post:
       tags:
@@ -1706,10 +1668,6 @@ components:
             Additional user identities to be granted cluster-admin via the
              otterscale-cluster-admin ClusterRoleBinding, in addition to the
              authenticated caller.
-        rancherProjectId:
-          type: string
-          title: rancher_project_id
-          description: The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
       title: GetAgentManifestRequest
       additionalProperties: false
       description: |-
@@ -1746,10 +1704,6 @@ components:
           type: string
           title: agent_version
           description: The version of the agent binary (e.g. "v1.2.3"), set at build time.
-        rancherProjectId:
-          type: string
-          title: rancher_project_id
-          description: The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
       title: Link
       additionalProperties: false
     otterscale.link.v1.ListLinksRequest:
@@ -1769,41 +1723,6 @@ components:
       title: ListLinksResponse
       additionalProperties: false
       description: ListLinksResponse contains the list of links the agent is registered to.
-    otterscale.link.v1.ListRancherProjectsRequest:
-      type: object
-      title: ListRancherProjectsRequest
-      additionalProperties: false
-      description: |-
-        ListRancherProjectsRequest is an empty request message for listing Rancher
-         Projects.
-    otterscale.link.v1.ListRancherProjectsResponse:
-      type: object
-      properties:
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/otterscale.link.v1.RancherProject'
-          title: projects
-          description: The available Rancher Projects.
-      title: ListRancherProjectsResponse
-      additionalProperties: false
-      description: ListRancherProjectsResponse contains the available Rancher Projects.
-    otterscale.link.v1.RancherProject:
-      type: object
-      properties:
-        id:
-          type: string
-          title: id
-          description: The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
-        displayName:
-          type: string
-          title: display_name
-          description: The human-readable Rancher Project name.
-      title: RancherProject
-      additionalProperties: false
-      description: |-
-        RancherProject identifies a Rancher Project available for cluster
-         registration.
     otterscale.link.v1.RegisterRequest:
       type: object
       properties:
@@ -1826,10 +1745,6 @@ components:
           type: string
           title: agent_version
           description: The version of the agent binary (e.g. "v1.2.3"), set at build time.
-        rancherProjectId:
-          type: string
-          title: rancher_project_id
-          description: The full Rancher Project identifier in "<cluster-id>:<project-name>" form.
       title: RegisterRequest
       additionalProperties: false
       description: |-
