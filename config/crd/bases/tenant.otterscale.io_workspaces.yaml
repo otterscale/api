@@ -53,11 +53,6 @@ spec:
           spec:
             description: Spec defines the desired behavior of the Workspace.
             properties:
-              licenseInjection:
-                description: |-
-                  LicenseInjection indicates whether the underlying namespace should be
-                  labeled with "license.phison.com/inject=true"
-                type: boolean
               limitRange:
                 description: LimitRange defines the default resource limits and requests
                   for pods in the workspace.
