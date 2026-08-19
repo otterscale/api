@@ -22,9 +22,10 @@ This repository is the single source of truth for the interfaces every other Ott
 
 ### Custom Resource Definitions
 
-| Group                           | Kind        | Scope   | Purpose                                                     |
-| ------------------------------- | ----------- | ------- | ----------------------------------------------------------- |
-| `tenant.otterscale.io/v1alpha1` | `Workspace` | Cluster | Namespace isolation with RBAC, quotas, and network policies |
+| Group                            | Kind        | Scope      | Purpose                                                     |
+| -------------------------------- | ----------- | ---------- | ----------------------------------------------------------- |
+| `tenant.otterscale.io/v1alpha1`  | `Workspace` | Cluster    | Namespace isolation with RBAC, quotas, and network policies |
+| `console.otterscale.io/v1alpha1` | `Terminal`  | Namespaced | A user's interactive kubectl session Pod                    |
 
 ## Generated Artifacts
 
