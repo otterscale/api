@@ -608,221 +608,6 @@ func (b0 RegisterResponse_builder) Build() *RegisterResponse {
 	return m0
 }
 
-// GetAgentManifestRequest identifies the target cluster for which
-// the agent installation manifest should be generated.
-type GetAgentManifestRequest struct {
-	state                  protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Cluster     *string                `protobuf:"bytes,1,opt,name=cluster"`
-	xxx_hidden_ExtraUsers  []string               `protobuf:"bytes,2,rep,name=extra_users,json=extraUsers"`
-	XXX_raceDetectHookData protoimpl.RaceDetectHookData
-	XXX_presence           [1]uint32
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
-}
-
-func (x *GetAgentManifestRequest) Reset() {
-	*x = GetAgentManifestRequest{}
-	mi := &file_link_v1_link_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAgentManifestRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAgentManifestRequest) ProtoMessage() {}
-
-func (x *GetAgentManifestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-func (x *GetAgentManifestRequest) GetCluster() string {
-	if x != nil {
-		if x.xxx_hidden_Cluster != nil {
-			return *x.xxx_hidden_Cluster
-		}
-		return ""
-	}
-	return ""
-}
-
-func (x *GetAgentManifestRequest) GetExtraUsers() []string {
-	if x != nil {
-		return x.xxx_hidden_ExtraUsers
-	}
-	return nil
-}
-
-func (x *GetAgentManifestRequest) SetCluster(v string) {
-	x.xxx_hidden_Cluster = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
-}
-
-func (x *GetAgentManifestRequest) SetExtraUsers(v []string) {
-	x.xxx_hidden_ExtraUsers = v
-}
-
-func (x *GetAgentManifestRequest) HasCluster() bool {
-	if x == nil {
-		return false
-	}
-	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
-}
-
-func (x *GetAgentManifestRequest) ClearCluster() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
-	x.xxx_hidden_Cluster = nil
-}
-
-type GetAgentManifestRequest_builder struct {
-	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
-
-	// The cluster name the agent will register under.
-	Cluster *string
-	// Additional user identities to be granted cluster-admin via the
-	// otterscale-cluster-admin ClusterRoleBinding, in addition to the
-	// authenticated caller.
-	ExtraUsers []string
-}
-
-func (b0 GetAgentManifestRequest_builder) Build() *GetAgentManifestRequest {
-	m0 := &GetAgentManifestRequest{}
-	b, x := &b0, m0
-	_, _ = b, x
-	if b.Cluster != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
-		x.xxx_hidden_Cluster = b.Cluster
-	}
-	x.xxx_hidden_ExtraUsers = b.ExtraUsers
-	return m0
-}
-
-// GetAgentManifestResponse contains the multi-document YAML manifest
-// that can be applied via kubectl to install the agent.
-type GetAgentManifestResponse struct {
-	state                  protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Manifest    *string                `protobuf:"bytes,1,opt,name=manifest"`
-	xxx_hidden_Url         *string                `protobuf:"bytes,2,opt,name=url"`
-	XXX_raceDetectHookData protoimpl.RaceDetectHookData
-	XXX_presence           [1]uint32
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
-}
-
-func (x *GetAgentManifestResponse) Reset() {
-	*x = GetAgentManifestResponse{}
-	mi := &file_link_v1_link_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAgentManifestResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAgentManifestResponse) ProtoMessage() {}
-
-func (x *GetAgentManifestResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_link_v1_link_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-func (x *GetAgentManifestResponse) GetManifest() string {
-	if x != nil {
-		if x.xxx_hidden_Manifest != nil {
-			return *x.xxx_hidden_Manifest
-		}
-		return ""
-	}
-	return ""
-}
-
-func (x *GetAgentManifestResponse) GetUrl() string {
-	if x != nil {
-		if x.xxx_hidden_Url != nil {
-			return *x.xxx_hidden_Url
-		}
-		return ""
-	}
-	return ""
-}
-
-func (x *GetAgentManifestResponse) SetManifest(v string) {
-	x.xxx_hidden_Manifest = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
-}
-
-func (x *GetAgentManifestResponse) SetUrl(v string) {
-	x.xxx_hidden_Url = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
-}
-
-func (x *GetAgentManifestResponse) HasManifest() bool {
-	if x == nil {
-		return false
-	}
-	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
-}
-
-func (x *GetAgentManifestResponse) HasUrl() bool {
-	if x == nil {
-		return false
-	}
-	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
-}
-
-func (x *GetAgentManifestResponse) ClearManifest() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
-	x.xxx_hidden_Manifest = nil
-}
-
-func (x *GetAgentManifestResponse) ClearUrl() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
-	x.xxx_hidden_Url = nil
-}
-
-type GetAgentManifestResponse_builder struct {
-	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
-
-	// Multi-document YAML containing Namespace, ServiceAccount,
-	// ClusterRoleBinding, and Deployment resources.
-	Manifest *string
-	// URL with an embedded HMAC token that serves the manifest as raw
-	// YAML. Users can run `kubectl apply -f <url>` directly.
-	Url *string
-}
-
-func (b0 GetAgentManifestResponse_builder) Build() *GetAgentManifestResponse {
-	m0 := &GetAgentManifestResponse{}
-	b, x := &b0, m0
-	_, _ = b, x
-	if b.Manifest != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
-		x.xxx_hidden_Manifest = b.Manifest
-	}
-	if b.Url != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
-		x.xxx_hidden_Url = b.Url
-	}
-	return m0
-}
-
 var File_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_link_v1_link_proto_rawDesc = "" +
@@ -843,42 +628,29 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\bendpoint\x18\x01 \x01(\tR\bendpoint\x12 \n" +
 	"\vcertificate\x18\x02 \x01(\fR\vcertificate\x12%\n" +
 	"\x0eca_certificate\x18\x03 \x01(\fR\rcaCertificate\x12%\n" +
-	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion\"T\n" +
-	"\x17GetAgentManifestRequest\x12\x18\n" +
-	"\acluster\x18\x01 \x01(\tR\acluster\x12\x1f\n" +
-	"\vextra_users\x18\x02 \x03(\tR\n" +
-	"extraUsers\"H\n" +
-	"\x18GetAgentManifestResponse\x12\x1a\n" +
-	"\bmanifest\x18\x01 \x01(\tR\bmanifest\x12\x10\n" +
-	"\x03url\x18\x02 \x01(\tR\x03url2\xf0\x02\n" +
+	"\x0eserver_version\x18\x04 \x01(\tR\rserverVersion2\xe8\x01\n" +
 	"\vLinkService\x12m\n" +
 	"\tListLinks\x12$.otterscale.link.v1.ListLinksRequest\x1a%.otterscale.link.v1.ListLinksResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
 	"\flink-enabled\x12j\n" +
 	"\bRegister\x12#.otterscale.link.v1.RegisterRequest\x1a$.otterscale.link.v1.RegisterResponse\"\x13\x8a\xdf\xd5\x1d\x0e\n" +
-	"\flink-enabled\x12\x85\x01\n" +
-	"\x10GetAgentManifest\x12+.otterscale.link.v1.GetAgentManifestRequest\x1a,.otterscale.link.v1.GetAgentManifestResponse\"\x16\x8a\xdf\xd5\x1d\x0e\n" +
-	"\flink-enabled\x90\x02\x01B*Z(github.com/otterscale/api/link/v1;linkv1b\beditionsp\xe8\a"
+	"\flink-enabledB*Z(github.com/otterscale/api/link/v1;linkv1b\beditionsp\xe8\a"
 
-var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_link_v1_link_proto_goTypes = []any{
-	(*Link)(nil),                     // 0: otterscale.link.v1.Link
-	(*ListLinksRequest)(nil),         // 1: otterscale.link.v1.ListLinksRequest
-	(*ListLinksResponse)(nil),        // 2: otterscale.link.v1.ListLinksResponse
-	(*RegisterRequest)(nil),          // 3: otterscale.link.v1.RegisterRequest
-	(*RegisterResponse)(nil),         // 4: otterscale.link.v1.RegisterResponse
-	(*GetAgentManifestRequest)(nil),  // 5: otterscale.link.v1.GetAgentManifestRequest
-	(*GetAgentManifestResponse)(nil), // 6: otterscale.link.v1.GetAgentManifestResponse
+	(*Link)(nil),              // 0: otterscale.link.v1.Link
+	(*ListLinksRequest)(nil),  // 1: otterscale.link.v1.ListLinksRequest
+	(*ListLinksResponse)(nil), // 2: otterscale.link.v1.ListLinksResponse
+	(*RegisterRequest)(nil),   // 3: otterscale.link.v1.RegisterRequest
+	(*RegisterResponse)(nil),  // 4: otterscale.link.v1.RegisterResponse
 }
 var file_link_v1_link_proto_depIdxs = []int32{
 	0, // 0: otterscale.link.v1.ListLinksResponse.links:type_name -> otterscale.link.v1.Link
 	1, // 1: otterscale.link.v1.LinkService.ListLinks:input_type -> otterscale.link.v1.ListLinksRequest
 	3, // 2: otterscale.link.v1.LinkService.Register:input_type -> otterscale.link.v1.RegisterRequest
-	5, // 3: otterscale.link.v1.LinkService.GetAgentManifest:input_type -> otterscale.link.v1.GetAgentManifestRequest
-	2, // 4: otterscale.link.v1.LinkService.ListLinks:output_type -> otterscale.link.v1.ListLinksResponse
-	4, // 5: otterscale.link.v1.LinkService.Register:output_type -> otterscale.link.v1.RegisterResponse
-	6, // 6: otterscale.link.v1.LinkService.GetAgentManifest:output_type -> otterscale.link.v1.GetAgentManifestResponse
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
+	2, // 3: otterscale.link.v1.LinkService.ListLinks:output_type -> otterscale.link.v1.ListLinksResponse
+	4, // 4: otterscale.link.v1.LinkService.Register:output_type -> otterscale.link.v1.RegisterResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -895,7 +667,7 @@ func file_link_v1_link_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_link_v1_link_proto_rawDesc), len(file_link_v1_link_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
