@@ -157,66 +157,6 @@ export declare type RegisterResponse = Message<"otterscale.link.v1.RegisterRespo
 export declare const RegisterResponseSchema: GenMessage<RegisterResponse>;
 
 /**
- * GetAgentManifestRequest identifies the target cluster for which
- * the agent installation manifest should be generated.
- *
- * @generated from message otterscale.link.v1.GetAgentManifestRequest
- */
-export declare type GetAgentManifestRequest = Message<"otterscale.link.v1.GetAgentManifestRequest"> & {
-  /**
-   * The cluster name the agent will register under.
-   *
-   * @generated from field: string cluster = 1;
-   */
-  cluster: string;
-
-  /**
-   * Additional user identities to be granted cluster-admin via the
-   * otterscale-cluster-admin ClusterRoleBinding, in addition to the
-   * authenticated caller.
-   *
-   * @generated from field: repeated string extra_users = 2;
-   */
-  extraUsers: string[];
-};
-
-/**
- * Describes the message otterscale.link.v1.GetAgentManifestRequest.
- * Use `create(GetAgentManifestRequestSchema)` to create a new message.
- */
-export declare const GetAgentManifestRequestSchema: GenMessage<GetAgentManifestRequest>;
-
-/**
- * GetAgentManifestResponse contains the multi-document YAML manifest
- * that can be applied via kubectl to install the agent.
- *
- * @generated from message otterscale.link.v1.GetAgentManifestResponse
- */
-export declare type GetAgentManifestResponse = Message<"otterscale.link.v1.GetAgentManifestResponse"> & {
-  /**
-   * Multi-document YAML containing Namespace, ServiceAccount,
-   * ClusterRoleBinding, and Deployment resources.
-   *
-   * @generated from field: string manifest = 1;
-   */
-  manifest: string;
-
-  /**
-   * URL with an embedded HMAC token that serves the manifest as raw
-   * YAML. Users can run `kubectl apply -f <url>` directly.
-   *
-   * @generated from field: string url = 2;
-   */
-  url: string;
-};
-
-/**
- * Describes the message otterscale.link.v1.GetAgentManifestResponse.
- * Use `create(GetAgentManifestResponseSchema)` to create a new message.
- */
-export declare const GetAgentManifestResponseSchema: GenMessage<GetAgentManifestResponse>;
-
-/**
  * LinkService manages the lifecycle of agent-to-server tunnel connections,
  * including registration and health checking.
  *
@@ -246,19 +186,6 @@ export declare const LinkService: GenService<{
     methodKind: "unary";
     input: typeof RegisterRequestSchema;
     output: typeof RegisterResponseSchema;
-  },
-  /**
-   * GetAgentManifest returns a multi-document YAML manifest for installing
-   * the otterscale agent on a target Kubernetes cluster. The manifest
-   * includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
-   * caller to cluster-admin), and a Deployment running the agent.
-   *
-   * @generated from rpc otterscale.link.v1.LinkService.GetAgentManifest
-   */
-  getAgentManifest: {
-    methodKind: "unary";
-    input: typeof GetAgentManifestRequestSchema;
-    output: typeof GetAgentManifestResponseSchema;
   },
 }>;
 

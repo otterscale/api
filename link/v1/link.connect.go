@@ -36,9 +36,6 @@ const (
 	LinkServiceListLinksProcedure = "/otterscale.link.v1.LinkService/ListLinks"
 	// LinkServiceRegisterProcedure is the fully-qualified name of the LinkService's Register RPC.
 	LinkServiceRegisterProcedure = "/otterscale.link.v1.LinkService/Register"
-	// LinkServiceGetAgentManifestProcedure is the fully-qualified name of the LinkService's
-	// GetAgentManifest RPC.
-	LinkServiceGetAgentManifestProcedure = "/otterscale.link.v1.LinkService/GetAgentManifest"
 )
 
 // LinkServiceClient is a client for the otterscale.link.v1.LinkService service.
@@ -51,11 +48,6 @@ type LinkServiceClient interface {
 	// The agent sends its cluster identity and tunnel port; the server responds
 	// with its fingerprint so the agent can verify the tunnel connection.
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	// GetAgentManifest returns a multi-document YAML manifest for installing
-	// the otterscale agent on a target Kubernetes cluster. The manifest
-	// includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
-	// caller to cluster-admin), and a Deployment running the agent.
-	GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error)
 }
 
 // NewLinkServiceClient constructs a client for the otterscale.link.v1.LinkService service. By
@@ -81,21 +73,13 @@ func NewLinkServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(linkServiceMethods.ByName("Register")),
 			connect.WithClientOptions(opts...),
 		),
-		getAgentManifest: connect.NewClient[GetAgentManifestRequest, GetAgentManifestResponse](
-			httpClient,
-			baseURL+LinkServiceGetAgentManifestProcedure,
-			connect.WithSchema(linkServiceMethods.ByName("GetAgentManifest")),
-			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
-			connect.WithClientOptions(opts...),
-		),
 	}
 }
 
 // linkServiceClient implements LinkServiceClient.
 type linkServiceClient struct {
-	listLinks        *connect.Client[ListLinksRequest, ListLinksResponse]
-	register         *connect.Client[RegisterRequest, RegisterResponse]
-	getAgentManifest *connect.Client[GetAgentManifestRequest, GetAgentManifestResponse]
+	listLinks *connect.Client[ListLinksRequest, ListLinksResponse]
+	register  *connect.Client[RegisterRequest, RegisterResponse]
 }
 
 // ListLinks calls otterscale.link.v1.LinkService.ListLinks.
@@ -116,15 +100,6 @@ func (c *linkServiceClient) Register(ctx context.Context, req *RegisterRequest) 
 	return nil, err
 }
 
-// GetAgentManifest calls otterscale.link.v1.LinkService.GetAgentManifest.
-func (c *linkServiceClient) GetAgentManifest(ctx context.Context, req *GetAgentManifestRequest) (*GetAgentManifestResponse, error) {
-	response, err := c.getAgentManifest.CallUnary(ctx, connect.NewRequest(req))
-	if response != nil {
-		return response.Msg, err
-	}
-	return nil, err
-}
-
 // LinkServiceHandler is an implementation of the otterscale.link.v1.LinkService service.
 type LinkServiceHandler interface {
 	// ListLinks returns all cluster identifiers that the current agent
@@ -135,11 +110,6 @@ type LinkServiceHandler interface {
 	// The agent sends its cluster identity and tunnel port; the server responds
 	// with its fingerprint so the agent can verify the tunnel connection.
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	// GetAgentManifest returns a multi-document YAML manifest for installing
-	// the otterscale agent on a target Kubernetes cluster. The manifest
-	// includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
-	// caller to cluster-admin), and a Deployment running the agent.
-	GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error)
 }
 
 // NewLinkServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -161,21 +131,12 @@ func NewLinkServiceHandler(svc LinkServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(linkServiceMethods.ByName("Register")),
 		connect.WithHandlerOptions(opts...),
 	)
-	linkServiceGetAgentManifestHandler := connect.NewUnaryHandlerSimple(
-		LinkServiceGetAgentManifestProcedure,
-		svc.GetAgentManifest,
-		connect.WithSchema(linkServiceMethods.ByName("GetAgentManifest")),
-		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
-		connect.WithHandlerOptions(opts...),
-	)
 	return "/otterscale.link.v1.LinkService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case LinkServiceListLinksProcedure:
 			linkServiceListLinksHandler.ServeHTTP(w, r)
 		case LinkServiceRegisterProcedure:
 			linkServiceRegisterHandler.ServeHTTP(w, r)
-		case LinkServiceGetAgentManifestProcedure:
-			linkServiceGetAgentManifestHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -191,8 +152,4 @@ func (UnimplementedLinkServiceHandler) ListLinks(context.Context, *ListLinksRequ
 
 func (UnimplementedLinkServiceHandler) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.link.v1.LinkService.Register is not implemented"))
-}
-
-func (UnimplementedLinkServiceHandler) GetAgentManifest(context.Context, *GetAgentManifestRequest) (*GetAgentManifestResponse, error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("otterscale.link.v1.LinkService.GetAgentManifest is not implemented"))
 }

@@ -22,15 +22,6 @@ service LinkService {
   rpc Register(RegisterRequest) returns (RegisterResponse) {
     option (otterscale.api.feature) = {name: "link-enabled"};
   }
-
-  // GetAgentManifest returns a multi-document YAML manifest for installing
-  // the otterscale agent on a target Kubernetes cluster. The manifest
-  // includes a Namespace, ServiceAccount, ClusterRoleBinding (binding the
-  // caller to cluster-admin), and a Deployment running the agent.
-  rpc GetAgentManifest(GetAgentManifestRequest) returns (GetAgentManifestResponse) {
-    option idempotency_level = NO_SIDE_EFFECTS;
-    option (otterscale.api.feature) = {name: "link-enabled"};
-  }
 }
 
 message Link {
@@ -83,28 +74,4 @@ message RegisterResponse {
   // Agents compare this against their own version to decide whether a
   // self-update is needed.
   string server_version = 4;
-}
-
-// GetAgentManifestRequest identifies the target cluster for which
-// the agent installation manifest should be generated.
-message GetAgentManifestRequest {
-  // The cluster name the agent will register under.
-  string cluster = 1;
-
-  // Additional user identities to be granted cluster-admin via the
-  // otterscale-cluster-admin ClusterRoleBinding, in addition to the
-  // authenticated caller.
-  repeated string extra_users = 2;
-}
-
-// GetAgentManifestResponse contains the multi-document YAML manifest
-// that can be applied via kubectl to install the agent.
-message GetAgentManifestResponse {
-  // Multi-document YAML containing Namespace, ServiceAccount,
-  // ClusterRoleBinding, and Deployment resources.
-  string manifest = 1;
-
-  // URL with an embedded HMAC token that serves the manifest as raw
-  // YAML. Users can run `kubectl apply -f <url>` directly.
-  string url = 2;
 }
